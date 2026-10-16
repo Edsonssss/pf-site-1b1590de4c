@@ -1,0 +1,6844 @@
+{
+ "SBER": [
+  {
+   "reestr": "2026-07-20",
+   "status": "ready",
+   "dividend": {
+    "value": 37.64,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 13.49
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-07-17"
+  },
+  {
+   "reestr": "2025-07-18",
+   "status": "ready",
+   "dividend": {
+    "value": 34.84,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 10.83
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-07-17"
+  },
+  {
+   "reestr": "2024-07-11",
+   "status": "ready",
+   "dividend": {
+    "value": 33.3,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 10.44
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2024-07-10"
+  },
+  {
+   "reestr": "2023-05-11",
+   "status": "ready",
+   "dividend": {
+    "value": 25,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 10.46
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2023-05-10"
+  },
+  {
+   "reestr": "2021-05-12",
+   "status": "ready",
+   "dividend": {
+    "value": 18.7,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.84
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-05-11"
+  },
+  {
+   "reestr": "2020-10-05",
+   "status": "ready",
+   "dividend": {
+    "value": 18.7,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 8.17
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-10-02"
+  },
+  {
+   "reestr": "2019-06-13",
+   "status": "ready",
+   "dividend": {
+    "value": 16,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.78
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-06-12"
+  },
+  {
+   "reestr": "2018-06-26",
+   "status": "ready",
+   "dividend": {
+    "value": 12,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.6
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-06-25"
+  },
+  {
+   "reestr": "2017-06-14",
+   "status": "ready",
+   "dividend": {
+    "value": 6,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-06-13"
+  },
+  {
+   "reestr": "2016-06-14",
+   "status": "ready",
+   "dividend": {
+    "value": 1.97,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.48
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2016-06-13"
+  },
+  {
+   "reestr": "2015-06-15",
+   "status": "ready",
+   "dividend": {
+    "value": 0.45,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.62
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2015-06-12"
+  },
+  {
+   "reestr": "2014-06-17",
+   "status": "ready",
+   "dividend": {
+    "value": 3.2,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.6
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2014-06-16"
+  },
+  {
+   "reestr": "2013-04-11",
+   "status": "ready",
+   "dividend": {
+    "value": 2.57,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.5
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2013-04-10"
+  },
+  {
+   "reestr": "2012-04-12",
+   "status": "ready",
+   "dividend": {
+    "value": 2.08,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.18
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2012-04-11"
+  },
+  {
+   "reestr": "2011-04-15",
+   "status": "ready",
+   "dividend": {
+    "value": 0.92,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.87
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2011-04-14"
+  },
+  {
+   "reestr": "2010-04-16",
+   "status": "ready",
+   "dividend": {
+    "value": 0.08,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.09
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2010-04-15"
+  },
+  {
+   "reestr": "2009-05-08",
+   "status": "ready",
+   "dividend": {
+    "value": 0.48,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.63
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2009-05-07"
+  },
+  {
+   "reestr": "2008-05-08",
+   "status": "ready",
+   "dividend": {
+    "value": 0.51,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.64
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2008-05-07"
+  }
+ ],
+ "YDEX": [
+  {
+   "reestr": "2026-09-21",
+   "status": "ready",
+   "dividend": {
+    "value": 110,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.97
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-09-18"
+  },
+  {
+   "reestr": "2026-04-27",
+   "status": "ready",
+   "dividend": {
+    "value": 110,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.53
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-04-24"
+  },
+  {
+   "reestr": "2025-09-29",
+   "status": "ready",
+   "dividend": {
+    "value": 80,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.96
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-09-26"
+  },
+  {
+   "reestr": "2025-04-28",
+   "status": "ready",
+   "dividend": {
+    "value": 80,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.86
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-04-25"
+  },
+  {
+   "reestr": "2024-09-20",
+   "status": "ready",
+   "dividend": {
+    "value": 80,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.98
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2024-09-19"
+  }
+ ],
+ "T": [
+  {
+   "reestr": "2026-10-12",
+   "status": "ready",
+   "dividend": {
+    "value": 4.7,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.74
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-10-09"
+  },
+  {
+   "reestr": "2026-08-10",
+   "status": "ready",
+   "dividend": {
+    "value": 4.6,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.65
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-08-07"
+  },
+  {
+   "reestr": "2026-05-25",
+   "status": "ready",
+   "dividend": {
+    "value": 4.5,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.44
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-05-22"
+  },
+  {
+   "reestr": "2026-01-08",
+   "status": "ready",
+   "dividend": {
+    "value": 3.6,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.1
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-01-06"
+  },
+  {
+   "reestr": "2025-10-06",
+   "status": "ready",
+   "dividend": {
+    "value": 3.5,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.16
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-10-03"
+  },
+  {
+   "reestr": "2025-07-17",
+   "status": "ready",
+   "dividend": {
+    "value": 3.3,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-07-16"
+  },
+  {
+   "reestr": "2025-05-16",
+   "status": "ready",
+   "dividend": {
+    "value": 3.2,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.01
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-05-15"
+  },
+  {
+   "reestr": "2024-11-25",
+   "status": "ready",
+   "dividend": {
+    "value": 9.25,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.66
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2024-11-22"
+  },
+  {
+   "reestr": "2021-03-26",
+   "status": "ready",
+   "dividend": {
+    "value": 0.024,
+    "currency": "USD"
+   },
+   "yield": {
+    "value": 0.43
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-03-25"
+  },
+  {
+   "reestr": "2020-11-27",
+   "status": "ready",
+   "dividend": {
+    "value": 0.025,
+    "currency": "USD"
+   },
+   "yield": {
+    "value": 0.82
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-11-26"
+  },
+  {
+   "reestr": "2020-08-21",
+   "status": "ready",
+   "dividend": {
+    "value": 0.02,
+    "currency": "USD"
+   },
+   "yield": {
+    "value": 0.8
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-08-20"
+  },
+  {
+   "reestr": "2020-05-29",
+   "status": "ready",
+   "dividend": {
+    "value": 0.014,
+    "currency": "USD"
+   },
+   "yield": {
+    "value": 0.79
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-05-28"
+  },
+  {
+   "reestr": "2020-03-27",
+   "status": "ready",
+   "dividend": {
+    "value": 0.021,
+    "currency": "USD"
+   },
+   "yield": {
+    "value": 1.69
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-03-26"
+  },
+  {
+   "reestr": "2019-05-24",
+   "status": "ready",
+   "dividend": {
+    "value": 0.017,
+    "currency": "USD"
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-05-23"
+  },
+  {
+   "reestr": "2019-03-22",
+   "status": "ready",
+   "dividend": {
+    "value": 0.032,
+    "currency": "USD"
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-03-21"
+  },
+  {
+   "reestr": "2018-12-07",
+   "status": "ready",
+   "dividend": {
+    "value": 0.028,
+    "currency": "USD"
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-12-06"
+  },
+  {
+   "reestr": "2018-09-14",
+   "status": "ready",
+   "dividend": {
+    "value": 0.024,
+    "currency": "USD"
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-09-13"
+  },
+  {
+   "reestr": "2018-06-15",
+   "status": "ready",
+   "dividend": {
+    "value": 0.024,
+    "currency": "USD"
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-06-14"
+  },
+  {
+   "reestr": "2018-04-03",
+   "status": "ready",
+   "dividend": {
+    "value": 0.031,
+    "currency": "USD"
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-04-02"
+  },
+  {
+   "reestr": "2017-12-01",
+   "status": "ready",
+   "dividend": {
+    "value": 0.022,
+    "currency": "USD"
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-11-30"
+  },
+  {
+   "reestr": "2017-12-01",
+   "status": "ready",
+   "dividend": {
+    "value": 0.018,
+    "currency": "USD"
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-11-30"
+  },
+  {
+   "reestr": "2017-09-08",
+   "status": "ready",
+   "dividend": {
+    "value": 0.02,
+    "currency": "USD"
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-09-07"
+  },
+  {
+   "reestr": "2017-06-16",
+   "status": "ready",
+   "dividend": {
+    "value": 0.017,
+    "currency": "USD"
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-06-15"
+  },
+  {
+   "reestr": "2016-12-16",
+   "status": "ready",
+   "dividend": {
+    "value": 0.021,
+    "currency": "USD"
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2016-12-15"
+  },
+  {
+   "reestr": "2016-06-03",
+   "status": "ready",
+   "dividend": {
+    "value": 0.017,
+    "currency": "USD"
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2016-06-02"
+  },
+  {
+   "reestr": "2014-12-12",
+   "status": "ready",
+   "dividend": {
+    "value": 0.0303,
+    "currency": "USD"
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2014-12-11"
+  }
+ ],
+ "X5": [
+  {
+   "reestr": "2026-07-07",
+   "status": "ready",
+   "dividend": {
+    "value": 245,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 11.03
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-07-06"
+  },
+  {
+   "reestr": "2026-01-06",
+   "status": "ready",
+   "dividend": {
+    "value": 368,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 12.22
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-01-05"
+  },
+  {
+   "reestr": "2025-07-09",
+   "status": "ready",
+   "dividend": {
+    "value": 648,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 19.18
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-07-08"
+  }
+ ],
+ "GAZP": [
+  {
+   "reestr": "2022-10-11",
+   "status": "ready",
+   "dividend": {
+    "value": 51.03,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 25.34
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2022-10-10"
+  },
+  {
+   "reestr": "2021-07-15",
+   "status": "ready",
+   "dividend": {
+    "value": 12.55,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.26
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-07-14"
+  },
+  {
+   "reestr": "2020-07-16",
+   "status": "ready",
+   "dividend": {
+    "value": 15.24,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.83
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-07-15"
+  },
+  {
+   "reestr": "2019-07-18",
+   "status": "ready",
+   "dividend": {
+    "value": 16.61,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.98
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-07-17"
+  },
+  {
+   "reestr": "2018-07-19",
+   "status": "ready",
+   "dividend": {
+    "value": 8.04,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.53
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-07-18"
+  },
+  {
+   "reestr": "2017-07-20",
+   "status": "ready",
+   "dividend": {
+    "value": 8.0397,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.46
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-07-19"
+  },
+  {
+   "reestr": "2016-07-20",
+   "status": "ready",
+   "dividend": {
+    "value": 7.89,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.41
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2016-07-19"
+  },
+  {
+   "reestr": "2015-07-16",
+   "status": "ready",
+   "dividend": {
+    "value": 7.2,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.91
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2015-07-15"
+  },
+  {
+   "reestr": "2014-07-17",
+   "status": "ready",
+   "dividend": {
+    "value": 7.2,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.91
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2014-07-16"
+  },
+  {
+   "reestr": "2013-05-13",
+   "status": "ready",
+   "dividend": {
+    "value": 5.99,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.54
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2013-05-10"
+  },
+  {
+   "reestr": "2012-05-10",
+   "status": "ready",
+   "dividend": {
+    "value": 8.97,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.44
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2012-05-09"
+  },
+  {
+   "reestr": "2011-05-12",
+   "status": "ready",
+   "dividend": {
+    "value": 3.85,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.8
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2011-05-11"
+  },
+  {
+   "reestr": "2010-05-07",
+   "status": "ready",
+   "dividend": {
+    "value": 2.39,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.46
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2010-05-06"
+  },
+  {
+   "reestr": "2009-05-08",
+   "status": "ready",
+   "dividend": {
+    "value": 0.36,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.21
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2009-05-07"
+  },
+  {
+   "reestr": "2008-05-08",
+   "status": "ready",
+   "dividend": {
+    "value": 2.66,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.84
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2008-05-07"
+  },
+  {
+   "reestr": "2007-05-11",
+   "status": "ready",
+   "dividend": {
+    "value": 2.54,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.01
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2007-05-10"
+  },
+  {
+   "reestr": "2006-05-12",
+   "status": "ready",
+   "dividend": {
+    "value": 1.5,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.45
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2006-05-11"
+  }
+ ],
+ "LKOH": [
+  {
+   "reestr": "2026-05-04",
+   "status": "ready",
+   "dividend": {
+    "value": 278,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.12
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-04-30"
+  },
+  {
+   "reestr": "2026-01-12",
+   "status": "ready",
+   "dividend": {
+    "value": 397,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.81
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-01-09"
+  },
+  {
+   "reestr": "2025-06-03",
+   "status": "ready",
+   "dividend": {
+    "value": 541,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 8.03
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-06-02"
+  },
+  {
+   "reestr": "2024-12-17",
+   "status": "ready",
+   "dividend": {
+    "value": 514,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.55
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2024-12-16"
+  },
+  {
+   "reestr": "2024-05-07",
+   "status": "ready",
+   "dividend": {
+    "value": 498,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.15
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2024-05-06"
+  },
+  {
+   "reestr": "2023-12-17",
+   "status": "ready",
+   "dividend": {
+    "value": 447,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.35
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2023-12-14"
+  },
+  {
+   "reestr": "2023-06-05",
+   "status": "ready",
+   "dividend": {
+    "value": 438,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.75
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2023-06-02"
+  },
+  {
+   "reestr": "2022-12-21",
+   "status": "ready",
+   "dividend": {
+    "value": 537,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 11.66
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2022-12-20"
+  },
+  {
+   "reestr": "2022-12-21",
+   "status": "ready",
+   "dividend": {
+    "value": 256,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.56
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2022-12-20"
+  },
+  {
+   "reestr": "2021-12-21",
+   "status": "ready",
+   "dividend": {
+    "value": 340,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.13
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-12-20"
+  },
+  {
+   "reestr": "2021-07-05",
+   "status": "ready",
+   "dividend": {
+    "value": 213,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.04
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-07-02"
+  },
+  {
+   "reestr": "2020-12-18",
+   "status": "ready",
+   "dividend": {
+    "value": 46,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.89
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-12-17"
+  },
+  {
+   "reestr": "2020-07-10",
+   "status": "ready",
+   "dividend": {
+    "value": 350,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.45
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-07-09"
+  },
+  {
+   "reestr": "2019-12-20",
+   "status": "ready",
+   "dividend": {
+    "value": 192,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.07
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-12-19"
+  },
+  {
+   "reestr": "2019-07-09",
+   "status": "ready",
+   "dividend": {
+    "value": 155,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.84
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-07-08"
+  },
+  {
+   "reestr": "2018-12-21",
+   "status": "ready",
+   "dividend": {
+    "value": 95,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.93
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-12-20"
+  },
+  {
+   "reestr": "2018-07-11",
+   "status": "ready",
+   "dividend": {
+    "value": 130,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.92
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-07-10"
+  },
+  {
+   "reestr": "2017-12-22",
+   "status": "ready",
+   "dividend": {
+    "value": 85,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.52
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-12-21"
+  },
+  {
+   "reestr": "2017-07-10",
+   "status": "ready",
+   "dividend": {
+    "value": 120,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.02
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-07-07"
+  },
+  {
+   "reestr": "2016-12-23",
+   "status": "ready",
+   "dividend": {
+    "value": 75,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.18
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2016-12-22"
+  },
+  {
+   "reestr": "2016-07-12",
+   "status": "ready",
+   "dividend": {
+    "value": 112,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.02
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2016-07-11"
+  },
+  {
+   "reestr": "2015-12-24",
+   "status": "ready",
+   "dividend": {
+    "value": 65,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.79
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2015-12-23"
+  },
+  {
+   "reestr": "2015-07-14",
+   "status": "ready",
+   "dividend": {
+    "value": 94,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.81
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2015-07-13"
+  },
+  {
+   "reestr": "2014-12-26",
+   "status": "ready",
+   "dividend": {
+    "value": 60,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.68
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2014-12-25"
+  },
+  {
+   "reestr": "2014-07-15",
+   "status": "ready",
+   "dividend": {
+    "value": 60,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.85
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2014-07-14"
+  },
+  {
+   "reestr": "2013-08-15",
+   "status": "ready",
+   "dividend": {
+    "value": 50,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.57
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2013-08-14"
+  }
+ ],
+ "MOEX": [
+  {
+   "reestr": "2026-07-09",
+   "status": "ready",
+   "dividend": {
+    "value": 19.57,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 12.25
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-07-08"
+  },
+  {
+   "reestr": "2025-07-10",
+   "status": "ready",
+   "dividend": {
+    "value": 26.11,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 13.44
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-07-09"
+  },
+  {
+   "reestr": "2024-06-14",
+   "status": "ready",
+   "dividend": {
+    "value": 17.35,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.91
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2024-06-13"
+  },
+  {
+   "reestr": "2023-06-16",
+   "status": "ready",
+   "dividend": {
+    "value": 4.84,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.79
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2023-06-15"
+  },
+  {
+   "reestr": "2021-05-14",
+   "status": "ready",
+   "dividend": {
+    "value": 9.45,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.99
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-05-13"
+  },
+  {
+   "reestr": "2020-05-15",
+   "status": "ready",
+   "dividend": {
+    "value": 7.93,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.23
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-05-14"
+  },
+  {
+   "reestr": "2019-05-14",
+   "status": "ready",
+   "dividend": {
+    "value": 7.7,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 8.4
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-05-13"
+  },
+  {
+   "reestr": "2018-05-15",
+   "status": "ready",
+   "dividend": {
+    "value": 5.47,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.44
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-05-14"
+  },
+  {
+   "reestr": "2017-09-29",
+   "status": "ready",
+   "dividend": {
+    "value": 2.49,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.13
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-09-28"
+  },
+  {
+   "reestr": "2017-05-16",
+   "status": "ready",
+   "dividend": {
+    "value": 7.68,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.66
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-05-15"
+  },
+  {
+   "reestr": "2016-05-16",
+   "status": "ready",
+   "dividend": {
+    "value": 7.11,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.64
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2016-05-13"
+  },
+  {
+   "reestr": "2015-05-12",
+   "status": "ready",
+   "dividend": {
+    "value": 3.87,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.27
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2015-05-11"
+  },
+  {
+   "reestr": "2014-07-11",
+   "status": "ready",
+   "dividend": {
+    "value": 2.38,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.65
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2014-07-10"
+  },
+  {
+   "reestr": "2013-05-20",
+   "status": "ready",
+   "dividend": {
+    "value": 1.22,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.44
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2013-05-17"
+  }
+ ],
+ "TRNFP": [
+  {
+   "reestr": "2026-07-20",
+   "status": "ready",
+   "dividend": {
+    "value": 204.17,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 17.63
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-07-17"
+  },
+  {
+   "reestr": "2025-07-17",
+   "status": "ready",
+   "dividend": {
+    "value": 198.25,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 13.88
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-07-16"
+  },
+  {
+   "reestr": "2024-07-18",
+   "status": "ready",
+   "dividend": {
+    "value": 177.2,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 12.4
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2024-07-17"
+  },
+  {
+   "reestr": "2023-07-20",
+   "status": "ready",
+   "dividend": {
+    "value": 166.652,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 11.87
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2023-07-19"
+  },
+  {
+   "reestr": "2022-07-20",
+   "status": "ready",
+   "dividend": {
+    "value": 104.9736,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 8.5
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2022-07-19"
+  },
+  {
+   "reestr": "2021-07-19",
+   "status": "ready",
+   "dividend": {
+    "value": 92.2428,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.2
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-07-16"
+  },
+  {
+   "reestr": "2020-10-20",
+   "status": "ready",
+   "dividend": {
+    "value": 116.122,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 8.04
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-10-19"
+  },
+  {
+   "reestr": "2019-07-20",
+   "status": "ready",
+   "dividend": {
+    "value": 107.0595,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.48
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-07-18"
+  },
+  {
+   "reestr": "2018-07-10",
+   "status": "ready",
+   "dividend": {
+    "value": 43.0881,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.55
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-07-09"
+  },
+  {
+   "reestr": "2018-07-10",
+   "status": "ready",
+   "dividend": {
+    "value": 32.6946,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.94
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-07-09"
+  },
+  {
+   "reestr": "2017-09-19",
+   "status": "ready",
+   "dividend": {
+    "value": 38.7549,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.16
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-09-18"
+  },
+  {
+   "reestr": "2017-07-20",
+   "status": "ready",
+   "dividend": {
+    "value": 42.9648,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.43
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-07-19"
+  }
+ ],
+ "OZON": [
+  {
+   "reestr": "2026-05-26",
+   "status": "ready",
+   "dividend": {
+    "value": 70,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.69
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-05-25"
+  },
+  {
+   "reestr": "2025-12-22",
+   "status": "ready",
+   "dividend": {
+    "value": 143.55,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.39
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-12-19"
+  }
+ ],
+ "GMKN": [
+  {
+   "reestr": "2026-10-12",
+   "status": "ready",
+   "dividend": {
+    "value": 1.85,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.57
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-10-09"
+  },
+  {
+   "reestr": "2023-12-26",
+   "status": "ready",
+   "dividend": {
+    "value": 9.1533,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.34
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2023-12-25"
+  },
+  {
+   "reestr": "2022-06-14",
+   "status": "ready",
+   "dividend": {
+    "value": 11.6622,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.98
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2022-06-13"
+  },
+  {
+   "reestr": "2022-01-14",
+   "status": "ready",
+   "dividend": {
+    "value": 15.2317,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.33
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2022-01-13"
+  },
+  {
+   "reestr": "2021-06-01",
+   "status": "ready",
+   "dividend": {
+    "value": 10.2122,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.75
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-05-31"
+  },
+  {
+   "reestr": "2020-12-24",
+   "status": "ready",
+   "dividend": {
+    "value": 6.2335,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.62
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-12-23"
+  },
+  {
+   "reestr": "2020-05-25",
+   "status": "ready",
+   "dividend": {
+    "value": 5.572,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.47
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-05-22"
+  },
+  {
+   "reestr": "2019-12-27",
+   "status": "ready",
+   "dividend": {
+    "value": 6.0409,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.04
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-12-26"
+  },
+  {
+   "reestr": "2019-10-07",
+   "status": "ready",
+   "dividend": {
+    "value": 8.8393,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.32
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-10-04"
+  },
+  {
+   "reestr": "2019-06-21",
+   "status": "ready",
+   "dividend": {
+    "value": 7.9252,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.33
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-06-20"
+  },
+  {
+   "reestr": "2018-10-01",
+   "status": "ready",
+   "dividend": {
+    "value": 7.7602,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.56
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-09-28"
+  },
+  {
+   "reestr": "2018-07-17",
+   "status": "ready",
+   "dividend": {
+    "value": 6.0798,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.33
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-07-16"
+  },
+  {
+   "reestr": "2017-10-19",
+   "status": "ready",
+   "dividend": {
+    "value": 2.242,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.09
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-10-18"
+  },
+  {
+   "reestr": "2017-06-23",
+   "status": "ready",
+   "dividend": {
+    "value": 4.461,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.38
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-06-22"
+  },
+  {
+   "reestr": "2016-12-28",
+   "status": "ready",
+   "dividend": {
+    "value": 4.4425,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.35
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2016-12-27"
+  },
+  {
+   "reestr": "2016-06-21",
+   "status": "ready",
+   "dividend": {
+    "value": 2.3014,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.72
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2016-06-20"
+  },
+  {
+   "reestr": "2015-12-30",
+   "status": "ready",
+   "dividend": {
+    "value": 3.2195,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.44
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2015-12-29"
+  },
+  {
+   "reestr": "2015-09-25",
+   "status": "ready",
+   "dividend": {
+    "value": 3.0507,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.99
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2015-09-24"
+  },
+  {
+   "reestr": "2015-05-25",
+   "status": "ready",
+   "dividend": {
+    "value": 6.7004,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.56
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2015-05-22"
+  },
+  {
+   "reestr": "2014-12-22",
+   "status": "ready",
+   "dividend": {
+    "value": 7.6234,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 8.29
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2014-12-19"
+  },
+  {
+   "reestr": "2014-06-17",
+   "status": "ready",
+   "dividend": {
+    "value": 2.4848,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.58
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2014-06-16"
+  },
+  {
+   "reestr": "2013-11-01",
+   "status": "ready",
+   "dividend": {
+    "value": 2.207,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.39
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2013-10-31"
+  },
+  {
+   "reestr": "2013-04-30",
+   "status": "ready",
+   "dividend": {
+    "value": 4.0083,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.66
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2013-04-29"
+  },
+  {
+   "reestr": "2012-05-24",
+   "status": "ready",
+   "dividend": {
+    "value": 1.96,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.92
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2012-05-23"
+  },
+  {
+   "reestr": "2011-05-16",
+   "status": "ready",
+   "dividend": {
+    "value": 1.8,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.47
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2011-05-13"
+  },
+  {
+   "reestr": "2010-05-21",
+   "status": "ready",
+   "dividend": {
+    "value": 2.1,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.16
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2010-05-20"
+  },
+  {
+   "reestr": "2008-05-26",
+   "status": "ready",
+   "dividend": {
+    "value": 1.12,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.56
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2008-05-23"
+  },
+  {
+   "reestr": "2007-11-13",
+   "status": "ready",
+   "dividend": {
+    "value": 1.08,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.42
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2007-11-12"
+  },
+  {
+   "reestr": "2007-05-15",
+   "status": "ready",
+   "dividend": {
+    "value": 1.2,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.42
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2007-05-14"
+  }
+ ],
+ "MSRS": [
+  {
+   "reestr": "2026-07-03",
+   "status": "ready",
+   "dividend": {
+    "value": 0.1865,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 10.67
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-07-02"
+  },
+  {
+   "reestr": "2025-07-08",
+   "status": "ready",
+   "dividend": {
+    "value": 0.15054,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 11.13
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-07-07"
+  },
+  {
+   "reestr": "2024-07-05",
+   "status": "ready",
+   "dividend": {
+    "value": 0.14282,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 10.99
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2024-07-04"
+  },
+  {
+   "reestr": "2023-06-30",
+   "status": "ready",
+   "dividend": {
+    "value": 0.0121,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.03
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2023-06-29"
+  },
+  {
+   "reestr": "2023-01-08",
+   "status": "ready",
+   "dividend": {
+    "value": 0.0849,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 8.48
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2023-01-05"
+  },
+  {
+   "reestr": "2022-07-03",
+   "status": "ready",
+   "dividend": {
+    "value": 0.095,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 9.1
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2022-06-30"
+  },
+  {
+   "reestr": "2021-06-01",
+   "status": "ready",
+   "dividend": {
+    "value": 0.0493,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.95
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-05-31"
+  },
+  {
+   "reestr": "2020-06-09",
+   "status": "ready",
+   "dividend": {
+    "value": 0.02546,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.22
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-06-08"
+  },
+  {
+   "reestr": "2020-01-14",
+   "status": "ready",
+   "dividend": {
+    "value": 0.04237,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.36
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-01-13"
+  },
+  {
+   "reestr": "2019-06-25",
+   "status": "ready",
+   "dividend": {
+    "value": 0.059,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.46
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-06-24"
+  }
+ ],
+ "SIBN": [
+  {
+   "reestr": "2026-10-13",
+   "status": "ready",
+   "dividend": {
+    "value": 42.51,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.29
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-10-12"
+  },
+  {
+   "reestr": "2026-07-06",
+   "status": "ready",
+   "dividend": {
+    "value": 28.11,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.37
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-07-03"
+  },
+  {
+   "reestr": "2025-10-13",
+   "status": "ready",
+   "dividend": {
+    "value": 17.3,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.45
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-10-10"
+  },
+  {
+   "reestr": "2025-07-08",
+   "status": "ready",
+   "dividend": {
+    "value": 27.21,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.1
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-07-07"
+  },
+  {
+   "reestr": "2024-10-14",
+   "status": "ready",
+   "dividend": {
+    "value": 51.96,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.41
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2024-10-11"
+  },
+  {
+   "reestr": "2024-07-08",
+   "status": "ready",
+   "dividend": {
+    "value": 19.49,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.84
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2024-07-05"
+  },
+  {
+   "reestr": "2023-12-27",
+   "status": "ready",
+   "dividend": {
+    "value": 82.94,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 9.12
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2023-12-26"
+  },
+  {
+   "reestr": "2023-07-10",
+   "status": "ready",
+   "dividend": {
+    "value": 12.16,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.33
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2023-07-07"
+  },
+  {
+   "reestr": "2022-12-30",
+   "status": "ready",
+   "dividend": {
+    "value": 69.78,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 13.55
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2022-12-29"
+  },
+  {
+   "reestr": "2022-07-08",
+   "status": "ready",
+   "dividend": {
+    "value": 16,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.03
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2022-07-07"
+  },
+  {
+   "reestr": "2021-12-28",
+   "status": "ready",
+   "dividend": {
+    "value": 40,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.12
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-12-27"
+  },
+  {
+   "reestr": "2021-06-25",
+   "status": "ready",
+   "dividend": {
+    "value": 10,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.3
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-06-24"
+  },
+  {
+   "reestr": "2020-12-29",
+   "status": "ready",
+   "dividend": {
+    "value": 5,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.57
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-12-28"
+  },
+  {
+   "reestr": "2020-06-26",
+   "status": "ready",
+   "dividend": {
+    "value": 19.82,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.6
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-06-25"
+  },
+  {
+   "reestr": "2019-10-18",
+   "status": "ready",
+   "dividend": {
+    "value": 18.14,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.24
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-10-17"
+  },
+  {
+   "reestr": "2019-07-01",
+   "status": "ready",
+   "dividend": {
+    "value": 7.95,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.97
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-06-28"
+  },
+  {
+   "reestr": "2018-12-28",
+   "status": "ready",
+   "dividend": {
+    "value": 22.05,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.13
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-12-27"
+  },
+  {
+   "reestr": "2018-06-26",
+   "status": "ready",
+   "dividend": {
+    "value": 5,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.6
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-06-25"
+  },
+  {
+   "reestr": "2017-06-26",
+   "status": "ready",
+   "dividend": {
+    "value": 10.68,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.55
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-06-23"
+  }
+ ],
+ "PHOR": [
+  {
+   "reestr": "2025-10-01",
+   "status": "ready",
+   "dividend": {
+    "value": 273,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.76
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-09-30"
+  },
+  {
+   "reestr": "2025-06-09",
+   "status": "ready",
+   "dividend": {
+    "value": 87,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.33
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-06-06"
+  },
+  {
+   "reestr": "2024-12-22",
+   "status": "ready",
+   "dividend": {
+    "value": 126,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.17
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2024-12-19"
+  },
+  {
+   "reestr": "2024-09-20",
+   "status": "ready",
+   "dividend": {
+    "value": 117,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.23
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2024-09-19"
+  },
+  {
+   "reestr": "2024-07-11",
+   "status": "ready",
+   "dividend": {
+    "value": 294,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.99
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2024-07-10"
+  },
+  {
+   "reestr": "2024-07-11",
+   "status": "ready",
+   "dividend": {
+    "value": 15,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.25
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2024-07-10"
+  },
+  {
+   "reestr": "2023-12-25",
+   "status": "ready",
+   "dividend": {
+    "value": 291,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.25
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2023-12-22"
+  },
+  {
+   "reestr": "2023-07-11",
+   "status": "ready",
+   "dividend": {
+    "value": 264,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.57
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2023-07-10"
+  },
+  {
+   "reestr": "2023-04-04",
+   "status": "ready",
+   "dividend": {
+    "value": 465,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.24
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2023-04-03"
+  },
+  {
+   "reestr": "2022-12-19",
+   "status": "ready",
+   "dividend": {
+    "value": 318,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.04
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2022-12-16"
+  },
+  {
+   "reestr": "2022-10-03",
+   "status": "ready",
+   "dividend": {
+    "value": 780,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 11
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2022-09-30"
+  },
+  {
+   "reestr": "2021-12-20",
+   "status": "ready",
+   "dividend": {
+    "value": 234,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.96
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-12-17"
+  },
+  {
+   "reestr": "2021-09-24",
+   "status": "ready",
+   "dividend": {
+    "value": 156,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.04
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-09-23"
+  },
+  {
+   "reestr": "2021-07-05",
+   "status": "ready",
+   "dividend": {
+    "value": 105,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.16
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-07-02"
+  },
+  {
+   "reestr": "2021-06-07",
+   "status": "ready",
+   "dividend": {
+    "value": 63,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.34
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-06-04"
+  },
+  {
+   "reestr": "2020-12-25",
+   "status": "ready",
+   "dividend": {
+    "value": 123,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.78
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-12-24"
+  },
+  {
+   "reestr": "2020-10-15",
+   "status": "ready",
+   "dividend": {
+    "value": 33,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.16
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-10-14"
+  },
+  {
+   "reestr": "2020-07-06",
+   "status": "ready",
+   "dividend": {
+    "value": 78,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.97
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-07-03"
+  },
+  {
+   "reestr": "2020-06-02",
+   "status": "ready",
+   "dividend": {
+    "value": 18,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.65
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-06-01"
+  },
+  {
+   "reestr": "2020-02-04",
+   "status": "ready",
+   "dividend": {
+    "value": 48,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.94
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-02-03"
+  },
+  {
+   "reestr": "2019-10-15",
+   "status": "ready",
+   "dividend": {
+    "value": 54,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.16
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-10-14"
+  },
+  {
+   "reestr": "2019-07-10",
+   "status": "ready",
+   "dividend": {
+    "value": 72,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.88
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-07-09"
+  },
+  {
+   "reestr": "2019-06-10",
+   "status": "ready",
+   "dividend": {
+    "value": 51,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.08
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-06-07"
+  },
+  {
+   "reestr": "2019-02-04",
+   "status": "ready",
+   "dividend": {
+    "value": 72,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.79
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-02-01"
+  },
+  {
+   "reestr": "2018-10-12",
+   "status": "ready",
+   "dividend": {
+    "value": 45,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.81
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-10-11"
+  },
+  {
+   "reestr": "2018-07-23",
+   "status": "ready",
+   "dividend": {
+    "value": 24,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.03
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-07-20"
+  },
+  {
+   "reestr": "2018-06-13",
+   "status": "ready",
+   "dividend": {
+    "value": 15,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.65
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-06-12"
+  },
+  {
+   "reestr": "2018-03-12",
+   "status": "ready",
+   "dividend": {
+    "value": 21,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.84
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-03-09"
+  },
+  {
+   "reestr": "2017-10-13",
+   "status": "ready",
+   "dividend": {
+    "value": 24,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.01
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-10-12"
+  },
+  {
+   "reestr": "2017-07-17",
+   "status": "ready",
+   "dividend": {
+    "value": 21,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.89
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-07-14"
+  },
+  {
+   "reestr": "2017-06-13",
+   "status": "ready",
+   "dividend": {
+    "value": 30,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.33
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-06-12"
+  },
+  {
+   "reestr": "2017-01-27",
+   "status": "ready",
+   "dividend": {
+    "value": 39,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.38
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-01-26"
+  }
+ ],
+ "BANEP": [
+  {
+   "reestr": "2026-07-13",
+   "status": "ready",
+   "dividend": {
+    "value": 69.29,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.97
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-07-10"
+  },
+  {
+   "reestr": "2025-07-14",
+   "status": "ready",
+   "dividend": {
+    "value": 147.31,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 13.11
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-07-11"
+  },
+  {
+   "reestr": "2024-07-12",
+   "status": "ready",
+   "dividend": {
+    "value": 249.69,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 14.17
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2024-07-11"
+  },
+  {
+   "reestr": "2023-07-07",
+   "status": "ready",
+   "dividend": {
+    "value": 199.89,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 12.85
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2023-07-06"
+  },
+  {
+   "reestr": "2022-07-11",
+   "status": "ready",
+   "dividend": {
+    "value": 117.29,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 13.8
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2022-07-08"
+  },
+  {
+   "reestr": "2021-07-14",
+   "status": "ready",
+   "dividend": {
+    "value": 0.1,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.01
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-07-13"
+  },
+  {
+   "reestr": "2020-07-06",
+   "status": "ready",
+   "dividend": {
+    "value": 107.81,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.38
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-07-03"
+  },
+  {
+   "reestr": "2019-06-24",
+   "status": "ready",
+   "dividend": {
+    "value": 158.95,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 8.91
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-06-21"
+  },
+  {
+   "reestr": "2018-07-09",
+   "status": "ready",
+   "dividend": {
+    "value": 158.95,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 9.04
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-07-06"
+  },
+  {
+   "reestr": "2017-12-12",
+   "status": "ready",
+   "dividend": {
+    "value": 148.31,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 9.6
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-12-11"
+  },
+  {
+   "reestr": "2017-07-12",
+   "status": "ready",
+   "dividend": {
+    "value": 0.1,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.01
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-07-11"
+  },
+  {
+   "reestr": "2016-07-15",
+   "status": "ready",
+   "dividend": {
+    "value": 164,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 8.08
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2016-07-14"
+  },
+  {
+   "reestr": "2015-07-17",
+   "status": "ready",
+   "dividend": {
+    "value": 113,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 8.25
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2015-07-16"
+  },
+  {
+   "reestr": "2014-06-23",
+   "status": "ready",
+   "dividend": {
+    "value": 211,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 11.53
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2014-06-20"
+  },
+  {
+   "reestr": "2013-11-05",
+   "status": "ready",
+   "dividend": {
+    "value": 199,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 15.51
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2013-11-04"
+  },
+  {
+   "reestr": "2013-05-15",
+   "status": "ready",
+   "dividend": {
+    "value": 24,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.36
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2013-05-14"
+  },
+  {
+   "reestr": "2012-05-15",
+   "status": "ready",
+   "dividend": {
+    "value": 99,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 8.4
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2012-05-14"
+  }
+ ],
+ "MTSS": [
+  {
+   "reestr": "2026-07-09",
+   "status": "ready",
+   "dividend": {
+    "value": 35,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 16.91
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-07-08"
+  },
+  {
+   "reestr": "2025-07-07",
+   "status": "ready",
+   "dividend": {
+    "value": 35,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 15.21
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-07-04"
+  },
+  {
+   "reestr": "2024-07-16",
+   "status": "ready",
+   "dividend": {
+    "value": 35,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 12.89
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2024-07-15"
+  },
+  {
+   "reestr": "2023-06-29",
+   "status": "ready",
+   "dividend": {
+    "value": 34.29,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 9.91
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2023-06-28"
+  },
+  {
+   "reestr": "2022-07-12",
+   "status": "ready",
+   "dividend": {
+    "value": 33.85,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 12.31
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2022-07-11"
+  },
+  {
+   "reestr": "2021-10-12",
+   "status": "ready",
+   "dividend": {
+    "value": 10.55,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.21
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-10-11"
+  },
+  {
+   "reestr": "2021-07-08",
+   "status": "ready",
+   "dividend": {
+    "value": 26.51,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.58
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-07-07"
+  },
+  {
+   "reestr": "2020-10-12",
+   "status": "ready",
+   "dividend": {
+    "value": 8.93,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.67
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-10-09"
+  },
+  {
+   "reestr": "2020-07-09",
+   "status": "ready",
+   "dividend": {
+    "value": 20.57,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.08
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-07-08"
+  },
+  {
+   "reestr": "2020-01-10",
+   "status": "ready",
+   "dividend": {
+    "value": 13.25,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.04
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-01-09"
+  },
+  {
+   "reestr": "2019-10-14",
+   "status": "ready",
+   "dividend": {
+    "value": 8.68,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.18
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-10-11"
+  },
+  {
+   "reestr": "2019-07-09",
+   "status": "ready",
+   "dividend": {
+    "value": 19.98,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.01
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-07-08"
+  },
+  {
+   "reestr": "2018-10-09",
+   "status": "ready",
+   "dividend": {
+    "value": 2.6,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.95
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-10-08"
+  },
+  {
+   "reestr": "2018-07-09",
+   "status": "ready",
+   "dividend": {
+    "value": 23.4,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 8.13
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-07-06"
+  },
+  {
+   "reestr": "2017-10-13",
+   "status": "ready",
+   "dividend": {
+    "value": 10.4,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.56
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-10-12"
+  },
+  {
+   "reestr": "2017-07-10",
+   "status": "ready",
+   "dividend": {
+    "value": 15.6,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.57
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-07-07"
+  },
+  {
+   "reestr": "2016-10-14",
+   "status": "ready",
+   "dividend": {
+    "value": 11.99,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.16
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2016-10-13"
+  },
+  {
+   "reestr": "2016-07-05",
+   "status": "ready",
+   "dividend": {
+    "value": 14.01,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.72
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2016-07-04"
+  },
+  {
+   "reestr": "2015-10-14",
+   "status": "ready",
+   "dividend": {
+    "value": 5.61,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.61
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2015-10-13"
+  },
+  {
+   "reestr": "2015-07-07",
+   "status": "ready",
+   "dividend": {
+    "value": 19.56,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 8.02
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2015-07-06"
+  },
+  {
+   "reestr": "2014-10-14",
+   "status": "ready",
+   "dividend": {
+    "value": 6.2,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.74
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2014-10-13"
+  },
+  {
+   "reestr": "2014-07-07",
+   "status": "ready",
+   "dividend": {
+    "value": 18.6,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.74
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2014-07-04"
+  },
+  {
+   "reestr": "2013-08-14",
+   "status": "ready",
+   "dividend": {
+    "value": 5.22,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.78
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2013-08-13"
+  },
+  {
+   "reestr": "2013-05-08",
+   "status": "ready",
+   "dividend": {
+    "value": 14.6,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.26
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2013-05-07"
+  },
+  {
+   "reestr": "2012-05-10",
+   "status": "ready",
+   "dividend": {
+    "value": 14.71,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.3
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2012-05-09"
+  },
+  {
+   "reestr": "2011-05-10",
+   "status": "ready",
+   "dividend": {
+    "value": 14.54,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.75
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2011-05-09"
+  },
+  {
+   "reestr": "2010-05-07",
+   "status": "ready",
+   "dividend": {
+    "value": 15.4,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.88
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2010-05-06"
+  },
+  {
+   "reestr": "2009-05-08",
+   "status": "ready",
+   "dividend": {
+    "value": 20.15,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 11.48
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2009-05-07"
+  },
+  {
+   "reestr": "2008-05-08",
+   "status": "ready",
+   "dividend": {
+    "value": 14.84,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.13
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2008-05-07"
+  },
+  {
+   "reestr": "2007-05-14",
+   "status": "ready",
+   "dividend": {
+    "value": 9.67,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.05
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2007-05-11"
+  },
+  {
+   "reestr": "2006-05-06",
+   "status": "ready",
+   "dividend": {
+    "value": 7.6,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.22
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2006-05-04"
+  },
+  {
+   "reestr": "2005-05-03",
+   "status": "ready",
+   "dividend": {
+    "value": 5.752,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.11
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2005-05-02"
+  },
+  {
+   "reestr": "2004-05-10",
+   "status": "ready",
+   "dividend": {
+    "value": 3.2022,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.95
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2004-05-07"
+  }
+ ],
+ "FESH": [],
+ "MRKU": [
+  {
+   "reestr": "2026-07-01",
+   "status": "ready",
+   "dividend": {
+    "value": 0.0612,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 11.05
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-06-30"
+  },
+  {
+   "reestr": "2025-07-07",
+   "status": "ready",
+   "dividend": {
+    "value": 0.03741,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 9.74
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-07-04"
+  },
+  {
+   "reestr": "2024-06-14",
+   "status": "ready",
+   "dividend": {
+    "value": 0.05441,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 8.8
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2024-06-13"
+  },
+  {
+   "reestr": "2024-06-14",
+   "status": "ready",
+   "dividend": {
+    "value": 0.03836,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.2
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2024-06-13"
+  },
+  {
+   "reestr": "2023-06-23",
+   "status": "ready",
+   "dividend": {
+    "value": 0.00504,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.66
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2023-06-22"
+  },
+  {
+   "reestr": "2023-01-08",
+   "status": "ready",
+   "dividend": {
+    "value": 0.01893,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 9.92
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2023-01-05"
+  },
+  {
+   "reestr": "2022-10-14",
+   "status": "ready",
+   "dividend": {
+    "value": 0.0249,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 12.47
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2022-10-13"
+  },
+  {
+   "reestr": "2020-06-09",
+   "status": "ready",
+   "dividend": {
+    "value": 0.0073,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.31
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-06-08"
+  },
+  {
+   "reestr": "2020-01-14",
+   "status": "ready",
+   "dividend": {
+    "value": 0.0032,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.88
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-01-13"
+  },
+  {
+   "reestr": "2019-06-03",
+   "status": "ready",
+   "dividend": {
+    "value": 0.003,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.68
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-05-31"
+  }
+ ],
+ "NLMK": [
+  {
+   "reestr": "2024-05-27",
+   "status": "ready",
+   "dividend": {
+    "value": 25.43,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 9.96
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2024-05-24"
+  },
+  {
+   "reestr": "2021-12-07",
+   "status": "ready",
+   "dividend": {
+    "value": 13.33,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.07
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-12-06"
+  },
+  {
+   "reestr": "2021-09-07",
+   "status": "ready",
+   "dividend": {
+    "value": 13.62,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.53
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-09-06"
+  },
+  {
+   "reestr": "2021-06-23",
+   "status": "ready",
+   "dividend": {
+    "value": 7.71,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.99
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-06-22"
+  },
+  {
+   "reestr": "2021-05-11",
+   "status": "ready",
+   "dividend": {
+    "value": 7.25,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.64
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-05-10"
+  },
+  {
+   "reestr": "2020-12-29",
+   "status": "ready",
+   "dividend": {
+    "value": 6.43,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.87
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-12-28"
+  },
+  {
+   "reestr": "2020-10-12",
+   "status": "ready",
+   "dividend": {
+    "value": 4.75,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.72
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-10-09"
+  },
+  {
+   "reestr": "2020-07-13",
+   "status": "ready",
+   "dividend": {
+    "value": 3.21,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.29
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-07-10"
+  },
+  {
+   "reestr": "2020-06-09",
+   "status": "ready",
+   "dividend": {
+    "value": 3.12,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.2
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-06-08"
+  },
+  {
+   "reestr": "2020-01-09",
+   "status": "ready",
+   "dividend": {
+    "value": 3.22,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.27
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-01-08"
+  },
+  {
+   "reestr": "2019-10-10",
+   "status": "ready",
+   "dividend": {
+    "value": 3.68,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.8
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-10-09"
+  },
+  {
+   "reestr": "2019-06-19",
+   "status": "ready",
+   "dividend": {
+    "value": 7.34,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.03
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-06-18"
+  },
+  {
+   "reestr": "2019-05-06",
+   "status": "ready",
+   "dividend": {
+    "value": 5.8,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.31
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-05-03"
+  },
+  {
+   "reestr": "2019-01-09",
+   "status": "ready",
+   "dividend": {
+    "value": 6.04,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.88
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-01-08"
+  },
+  {
+   "reestr": "2018-10-12",
+   "status": "ready",
+   "dividend": {
+    "value": 5.24,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.97
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-10-11"
+  },
+  {
+   "reestr": "2018-06-20",
+   "status": "ready",
+   "dividend": {
+    "value": 5.73,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.42
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-06-19"
+  },
+  {
+   "reestr": "2018-06-20",
+   "status": "ready",
+   "dividend": {
+    "value": 3.36,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.01
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-06-19"
+  },
+  {
+   "reestr": "2018-01-09",
+   "status": "ready",
+   "dividend": {
+    "value": 5.13,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.5
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-01-08"
+  },
+  {
+   "reestr": "2017-10-12",
+   "status": "ready",
+   "dividend": {
+    "value": 3.2,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.33
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-10-11"
+  },
+  {
+   "reestr": "2017-06-14",
+   "status": "ready",
+   "dividend": {
+    "value": 3.38,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.1
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-06-13"
+  },
+  {
+   "reestr": "2017-06-14",
+   "status": "ready",
+   "dividend": {
+    "value": 2.35,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.15
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-06-13"
+  },
+  {
+   "reestr": "2017-01-09",
+   "status": "ready",
+   "dividend": {
+    "value": 3.63,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.13
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-01-06"
+  },
+  {
+   "reestr": "2016-10-12",
+   "status": "ready",
+   "dividend": {
+    "value": 1.08,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.23
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2016-10-11"
+  },
+  {
+   "reestr": "2016-06-14",
+   "status": "ready",
+   "dividend": {
+    "value": 2.43,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.13
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2016-06-13"
+  },
+  {
+   "reestr": "2016-06-14",
+   "status": "ready",
+   "dividend": {
+    "value": 1.13,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.45
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2016-06-13"
+  },
+  {
+   "reestr": "2016-01-08",
+   "status": "ready",
+   "dividend": {
+    "value": 1.95,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.21
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2016-01-07"
+  },
+  {
+   "reestr": "2015-10-12",
+   "status": "ready",
+   "dividend": {
+    "value": 0.93,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.28
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2015-10-09"
+  },
+  {
+   "reestr": "2015-06-16",
+   "status": "ready",
+   "dividend": {
+    "value": 1.64,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.25
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2015-06-15"
+  },
+  {
+   "reestr": "2015-06-16",
+   "status": "ready",
+   "dividend": {
+    "value": 1.56,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.14
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2015-06-15"
+  },
+  {
+   "reestr": "2014-10-11",
+   "status": "ready",
+   "dividend": {
+    "value": 0.88,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.61
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2014-10-09"
+  },
+  {
+   "reestr": "2014-06-17",
+   "status": "ready",
+   "dividend": {
+    "value": 0.67,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.39
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2014-06-16"
+  },
+  {
+   "reestr": "2013-04-24",
+   "status": "ready",
+   "dividend": {
+    "value": 0.62,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.22
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2013-04-23"
+  },
+  {
+   "reestr": "2012-04-10",
+   "status": "ready",
+   "dividend": {
+    "value": 2,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.29
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2012-04-09"
+  },
+  {
+   "reestr": "2011-08-15",
+   "status": "ready",
+   "dividend": {
+    "value": 1.4,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.74
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2011-08-12"
+  },
+  {
+   "reestr": "2011-04-16",
+   "status": "ready",
+   "dividend": {
+    "value": 1.82,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.6
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2011-04-14"
+  },
+  {
+   "reestr": "2010-08-25",
+   "status": "ready",
+   "dividend": {
+    "value": 0.62,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.67
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2010-08-24"
+  },
+  {
+   "reestr": "2010-04-16",
+   "status": "ready",
+   "dividend": {
+    "value": 0.22,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.19
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2010-04-15"
+  },
+  {
+   "reestr": "2009-04-17",
+   "status": "ready",
+   "dividend": {
+    "value": 2,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.66
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2009-04-16"
+  },
+  {
+   "reestr": "2008-04-18",
+   "status": "ready",
+   "dividend": {
+    "value": 3,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.63
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2008-04-17"
+  },
+  {
+   "reestr": "2007-08-24",
+   "status": "ready",
+   "dividend": {
+    "value": 1.5,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.96
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2007-08-23"
+  },
+  {
+   "reestr": "2007-04-16",
+   "status": "ready",
+   "dividend": {
+    "value": 1.5,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.92
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2007-04-13"
+  },
+  {
+   "reestr": "2006-08-15",
+   "status": "ready",
+   "dividend": {
+    "value": 1.5,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.58
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2006-08-14"
+  }
+ ],
+ "FEES": [
+  {
+   "reestr": "2021-07-16",
+   "status": "ready",
+   "dividend": {
+    "value": 0.016132865449,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.13
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-07-15"
+  },
+  {
+   "reestr": "2020-05-29",
+   "status": "ready",
+   "dividend": {
+    "value": 0.009494338212,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.94
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-05-28"
+  },
+  {
+   "reestr": "2020-01-13",
+   "status": "ready",
+   "dividend": {
+    "value": 0.00880960765,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.15
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-01-10"
+  },
+  {
+   "reestr": "2019-07-16",
+   "status": "ready",
+   "dividend": {
+    "value": 0.016042926012,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.93
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-07-15"
+  },
+  {
+   "reestr": "2018-07-18",
+   "status": "ready",
+   "dividend": {
+    "value": 0.014815395834,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.84
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-07-17"
+  },
+  {
+   "reestr": "2017-07-19",
+   "status": "ready",
+   "dividend": {
+    "value": 0.0142663525,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 8.07
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-07-18"
+  },
+  {
+   "reestr": "2017-07-19",
+   "status": "ready",
+   "dividend": {
+    "value": 0.001116473,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.63
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-07-18"
+  },
+  {
+   "reestr": "2016-07-11",
+   "status": "ready",
+   "dividend": {
+    "value": 0.0133185,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 8.15
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2016-07-08"
+  },
+  {
+   "reestr": "2015-07-16",
+   "status": "ready",
+   "dividend": {
+    "value": 0.0006647883,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.08
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2015-07-15"
+  },
+  {
+   "reestr": "2014-07-16",
+   "status": "ready",
+   "dividend": {
+    "value": 0.0003426806681,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.59
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2014-07-15"
+  },
+  {
+   "reestr": "2011-05-16",
+   "status": "ready",
+   "dividend": {
+    "value": 0.0020523650155,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.58
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2011-05-13"
+  }
+ ],
+ "PLZL": [
+  {
+   "reestr": "2026-07-13",
+   "status": "ready",
+   "dividend": {
+    "value": 29.05,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.16
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-07-10"
+  },
+  {
+   "reestr": "2026-05-18",
+   "status": "ready",
+   "dividend": {
+    "value": 56.8,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.66
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-05-15"
+  },
+  {
+   "reestr": "2025-12-22",
+   "status": "ready",
+   "dividend": {
+    "value": 36,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.58
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-12-19"
+  },
+  {
+   "reestr": "2025-10-13",
+   "status": "ready",
+   "dividend": {
+    "value": 70.85,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.03
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-10-10"
+  },
+  {
+   "reestr": "2025-04-25",
+   "status": "ready",
+   "dividend": {
+    "value": 73,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.81
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-04-24"
+  },
+  {
+   "reestr": "2024-12-13",
+   "status": "ready",
+   "dividend": {
+    "value": 130.18,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 8.71
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2024-12-12"
+  },
+  {
+   "reestr": "2021-10-11",
+   "status": "ready",
+   "dividend": {
+    "value": 26.748,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.16
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-10-08"
+  },
+  {
+   "reestr": "2021-06-07",
+   "status": "ready",
+   "dividend": {
+    "value": 38.715,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.24
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-06-04"
+  },
+  {
+   "reestr": "2020-10-20",
+   "status": "ready",
+   "dividend": {
+    "value": 24.018,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.14
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-10-19"
+  },
+  {
+   "reestr": "2020-08-28",
+   "status": "ready",
+   "dividend": {
+    "value": 24.475,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.13
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-08-27"
+  },
+  {
+   "reestr": "2019-10-10",
+   "status": "ready",
+   "dividend": {
+    "value": 16.298,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.21
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-10-09"
+  },
+  {
+   "reestr": "2019-05-16",
+   "status": "ready",
+   "dividend": {
+    "value": 14.362,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.29
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-05-15"
+  },
+  {
+   "reestr": "2018-10-18",
+   "status": "ready",
+   "dividend": {
+    "value": 13.111,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.3
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-10-17"
+  },
+  {
+   "reestr": "2018-06-10",
+   "status": "ready",
+   "dividend": {
+    "value": 14.712,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.38
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-06-07"
+  },
+  {
+   "reestr": "2017-09-25",
+   "status": "ready",
+   "dividend": {
+    "value": 10.43,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.23
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-09-22"
+  },
+  {
+   "reestr": "2017-07-17",
+   "status": "ready",
+   "dividend": {
+    "value": 15.241,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.38
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-07-14"
+  },
+  {
+   "reestr": "2012-10-15",
+   "status": "ready",
+   "dividend": {
+    "value": 6.295,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.62
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2012-10-12"
+  },
+  {
+   "reestr": "2011-10-06",
+   "status": "ready",
+   "dividend": {
+    "value": 2.623,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.14
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2011-10-05"
+  },
+  {
+   "reestr": "2011-04-12",
+   "status": "ready",
+   "dividend": {
+    "value": 1.125,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.07
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2011-04-11"
+  },
+  {
+   "reestr": "2010-07-19",
+   "status": "ready",
+   "dividend": {
+    "value": 0.852,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.06
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2010-07-16"
+  },
+  {
+   "reestr": "2010-04-13",
+   "status": "ready",
+   "dividend": {
+    "value": 0.928,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.06
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2010-04-12"
+  },
+  {
+   "reestr": "2008-05-21",
+   "status": "ready",
+   "dividend": {
+    "value": 0.295,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.02
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2008-05-20"
+  },
+  {
+   "reestr": "2007-05-11",
+   "status": "ready",
+   "dividend": {
+    "value": 0.323,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.03
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2007-05-10"
+  }
+ ],
+ "AFLT": [
+  {
+   "reestr": "2026-07-17",
+   "status": "ready",
+   "dividend": {
+    "value": 5.29,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 15.15
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-07-16"
+  },
+  {
+   "reestr": "2025-07-18",
+   "status": "ready",
+   "dividend": {
+    "value": 5.27,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 8.73
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-07-17"
+  },
+  {
+   "reestr": "2019-07-05",
+   "status": "ready",
+   "dividend": {
+    "value": 2.6877,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.57
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-07-04"
+  },
+  {
+   "reestr": "2018-07-06",
+   "status": "ready",
+   "dividend": {
+    "value": 12.8053,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 9.15
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-07-05"
+  },
+  {
+   "reestr": "2017-07-14",
+   "status": "ready",
+   "dividend": {
+    "value": 17.4795,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.77
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-07-13"
+  },
+  {
+   "reestr": "2014-07-08",
+   "status": "ready",
+   "dividend": {
+    "value": 2.4984,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.36
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2014-07-07"
+  },
+  {
+   "reestr": "2013-05-06",
+   "status": "ready",
+   "dividend": {
+    "value": 1.1636,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.18
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2013-05-03"
+  },
+  {
+   "reestr": "2012-05-10",
+   "status": "ready",
+   "dividend": {
+    "value": 1.8081,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.96
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2012-05-09"
+  },
+  {
+   "reestr": "2011-05-11",
+   "status": "ready",
+   "dividend": {
+    "value": 1.0851,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.61
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2011-05-10"
+  },
+  {
+   "reestr": "2010-05-04",
+   "status": "ready",
+   "dividend": {
+    "value": 0.3497,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.56
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2010-05-03"
+  },
+  {
+   "reestr": "2009-05-05",
+   "status": "ready",
+   "dividend": {
+    "value": 0.1818,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.54
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2009-05-04"
+  },
+  {
+   "reestr": "2008-05-05",
+   "status": "ready",
+   "dividend": {
+    "value": 1.367,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.34
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2008-05-02"
+  },
+  {
+   "reestr": "2007-05-07",
+   "status": "ready",
+   "dividend": {
+    "value": 1.287,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.73
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2007-05-04"
+  },
+  {
+   "reestr": "2006-04-29",
+   "status": "ready",
+   "dividend": {
+    "value": 0.820169,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.35
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2006-04-27"
+  },
+  {
+   "reestr": "2005-04-30",
+   "status": "ready",
+   "dividend": {
+    "value": 0.7,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.69
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2005-04-28"
+  },
+  {
+   "reestr": "2004-04-19",
+   "status": "ready",
+   "dividend": {
+    "value": 0.4369,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.5
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2004-04-16"
+  },
+  {
+   "reestr": "2003-03-07",
+   "status": "ready",
+   "dividend": {
+    "value": 0.29,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.54
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2003-03-06"
+  },
+  {
+   "reestr": "2002-04-05",
+   "status": "ready",
+   "dividend": {
+    "value": 0.06,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.5
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2002-04-04"
+  },
+  {
+   "reestr": "2001-03-20",
+   "status": "ready",
+   "dividend": {
+    "value": 0.03,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.35
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2001-03-19"
+  },
+  {
+   "reestr": "2000-04-26",
+   "status": "ready",
+   "dividend": {
+    "value": 0.01,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.19
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2000-04-25"
+  },
+  {
+   "reestr": "1999-04-28",
+   "status": "ready",
+   "dividend": {
+    "value": 0.0082,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.5
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "1999-04-27"
+  }
+ ],
+ "VTBR": [
+  {
+   "reestr": "2026-07-20",
+   "status": "ready",
+   "dividend": {
+    "value": 9.71,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 16.82
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-07-17"
+  },
+  {
+   "reestr": "2025-07-11",
+   "status": "ready",
+   "dividend": {
+    "value": 25.58,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 27.41
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-07-10"
+  },
+  {
+   "reestr": "2021-07-15",
+   "status": "ready",
+   "dividend": {
+    "value": 7,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.89
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-07-14"
+  },
+  {
+   "reestr": "2020-10-05",
+   "status": "ready",
+   "dividend": {
+    "value": 3.865,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.25
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-10-02"
+  },
+  {
+   "reestr": "2019-06-24",
+   "status": "ready",
+   "dividend": {
+    "value": 5.495,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.72
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-06-21"
+  },
+  {
+   "reestr": "2018-06-04",
+   "status": "ready",
+   "dividend": {
+    "value": 17.25,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.92
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-06-01"
+  },
+  {
+   "reestr": "2017-05-10",
+   "status": "ready",
+   "dividend": {
+    "value": 5.85,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.78
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-05-09"
+  }
+ ],
+ "PMSB": [
+  {
+   "reestr": "2026-05-05",
+   "status": "ready",
+   "dividend": {
+    "value": 32,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.65
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2026-05-04"
+  },
+  {
+   "reestr": "2025-12-21",
+   "status": "ready",
+   "dividend": {
+    "value": 26,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.89
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-12-18"
+  },
+  {
+   "reestr": "2025-06-02",
+   "status": "ready",
+   "dividend": {
+    "value": 37,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 11.62
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-05-30"
+  },
+  {
+   "reestr": "2025-01-11",
+   "status": "ready",
+   "dividend": {
+    "value": 20,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.1
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2025-01-09"
+  },
+  {
+   "reestr": "2024-05-26",
+   "status": "ready",
+   "dividend": {
+    "value": 28.4,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 8.95
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2024-05-23"
+  },
+  {
+   "reestr": "2023-05-23",
+   "status": "ready",
+   "dividend": {
+    "value": 15.5,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 9
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2023-05-22"
+  },
+  {
+   "reestr": "2022-05-22",
+   "status": "ready",
+   "dividend": {
+    "value": 14,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 8.83
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2022-05-19"
+  },
+  {
+   "reestr": "2021-06-24",
+   "status": "ready",
+   "dividend": {
+    "value": 12.5,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.35
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-06-23"
+  },
+  {
+   "reestr": "2020-06-17",
+   "status": "ready",
+   "dividend": {
+    "value": 11.710424,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.48
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-06-16"
+  },
+  {
+   "reestr": "2019-06-03",
+   "status": "ready",
+   "dividend": {
+    "value": 10.9,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 10.4
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-05-31"
+  },
+  {
+   "reestr": "2018-05-30",
+   "status": "ready",
+   "dividend": {
+    "value": 8.367593,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 9.73
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-05-29"
+  },
+  {
+   "reestr": "2017-06-08",
+   "status": "ready",
+   "dividend": {
+    "value": 6.975408,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 10.23
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-06-07"
+  },
+  {
+   "reestr": "2016-06-30",
+   "status": "ready",
+   "dividend": {
+    "value": 6.877463,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 12.74
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2016-06-29"
+  },
+  {
+   "reestr": "2015-07-07",
+   "status": "ready",
+   "dividend": {
+    "value": 6.854557,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 13.82
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2015-07-06"
+  },
+  {
+   "reestr": "2014-07-08",
+   "status": "ready",
+   "dividend": {
+    "value": 2.6028,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.03
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2014-07-07"
+  },
+  {
+   "reestr": "2013-11-15",
+   "status": "ready",
+   "dividend": {
+    "value": 4.2048,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.34
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2013-11-14"
+  },
+  {
+   "reestr": "2013-04-30",
+   "status": "ready",
+   "dividend": {
+    "value": 5.1497,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.99
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2013-04-29"
+  },
+  {
+   "reestr": "2012-11-16",
+   "status": "ready",
+   "dividend": {
+    "value": 6.3072,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 9.86
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2012-11-15"
+  },
+  {
+   "reestr": "2012-04-23",
+   "status": "ready",
+   "dividend": {
+    "value": 7.2659,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 11.91
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2012-04-20"
+  },
+  {
+   "reestr": "2011-11-18",
+   "status": "ready",
+   "dividend": {
+    "value": 5.937206,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.34
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2011-11-17"
+  },
+  {
+   "reestr": "2011-04-20",
+   "status": "ready",
+   "dividend": {
+    "value": 3.9587,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.24
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2011-04-19"
+  },
+  {
+   "reestr": "2010-11-20",
+   "status": "ready",
+   "dividend": {
+    "value": 5.886748,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.89
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2010-11-18"
+  },
+  {
+   "reestr": "2010-04-21",
+   "status": "ready",
+   "dividend": {
+    "value": 5.8867,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 14.61
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2010-04-20"
+  },
+  {
+   "reestr": "2009-04-17",
+   "status": "ready",
+   "dividend": {
+    "value": 3.3639,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 21.02
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2009-04-16"
+  },
+  {
+   "reestr": "2008-11-21",
+   "status": "ready",
+   "dividend": {
+    "value": 2.1024,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 13.22
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2008-11-20"
+  },
+  {
+   "reestr": "2008-05-26",
+   "status": "ready",
+   "dividend": {
+    "value": 1.0956,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 3.42
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2008-05-23"
+  },
+  {
+   "reestr": "2007-04-09",
+   "status": "ready",
+   "dividend": {
+    "value": 3.2928,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 18.4
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2007-04-06"
+  }
+ ],
+ "MVID": [
+  {
+   "reestr": "2021-12-16",
+   "status": "ready",
+   "dividend": {
+    "value": 35,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.7
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-12-15"
+  },
+  {
+   "reestr": "2021-05-18",
+   "status": "ready",
+   "dividend": {
+    "value": 38,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.45
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-05-17"
+  },
+  {
+   "reestr": "2020-11-20",
+   "status": "ready",
+   "dividend": {
+    "value": 30,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.07
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-11-19"
+  },
+  {
+   "reestr": "2019-12-16",
+   "status": "ready",
+   "dividend": {
+    "value": 33.37,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 5.56
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-12-13"
+  },
+  {
+   "reestr": "2016-07-01",
+   "status": "ready",
+   "dividend": {
+    "value": 20,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 6.12
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2016-06-30"
+  },
+  {
+   "reestr": "2015-06-29",
+   "status": "ready",
+   "dividend": {
+    "value": 27,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 12.47
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2015-06-26"
+  },
+  {
+   "reestr": "2014-12-16",
+   "status": "ready",
+   "dividend": {
+    "value": 25,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 13.44
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2014-12-15"
+  },
+  {
+   "reestr": "2014-07-04",
+   "status": "ready",
+   "dividend": {
+    "value": 20,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 7.44
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2014-07-03"
+  },
+  {
+   "reestr": "2013-11-01",
+   "status": "ready",
+   "dividend": {
+    "value": 13.8,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.86
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2013-10-31"
+  },
+  {
+   "reestr": "2012-10-23",
+   "status": "ready",
+   "dividend": {
+    "value": 30,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 10.83
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2012-10-22"
+  },
+  {
+   "reestr": "2012-05-16",
+   "status": "ready",
+   "dividend": {
+    "value": 5.8,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 2.66
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2012-05-15"
+  },
+  {
+   "reestr": "2011-05-12",
+   "status": "ready",
+   "dividend": {
+    "value": 3.9,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.54
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2011-05-11"
+  },
+  {
+   "reestr": "2010-05-12",
+   "status": "ready",
+   "dividend": {
+    "value": 2.3,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.48
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2010-05-11"
+  }
+ ],
+ "MTLRP": [
+  {
+   "reestr": "2021-07-13",
+   "status": "ready",
+   "dividend": {
+    "value": 1.17,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 1.01
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2021-07-12"
+  },
+  {
+   "reestr": "2020-07-17",
+   "status": "ready",
+   "dividend": {
+    "value": 3.48,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 4.1
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2020-07-16"
+  },
+  {
+   "reestr": "2019-07-18",
+   "status": "ready",
+   "dividend": {
+    "value": 18.21,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 15.68
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2019-07-17"
+  },
+  {
+   "reestr": "2018-07-18",
+   "status": "ready",
+   "dividend": {
+    "value": 16.66,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 12.27
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2018-07-17"
+  },
+  {
+   "reestr": "2017-07-11",
+   "status": "ready",
+   "dividend": {
+    "value": 10.28,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 8.42
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2017-07-10"
+  },
+  {
+   "reestr": "2016-07-11",
+   "status": "ready",
+   "dividend": {
+    "value": 0.05,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.14
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2016-07-08"
+  },
+  {
+   "reestr": "2015-07-11",
+   "status": "ready",
+   "dividend": {
+    "value": 0.05,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.11
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2015-07-09"
+  },
+  {
+   "reestr": "2014-07-11",
+   "status": "ready",
+   "dividend": {
+    "value": 0.05,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.2
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2014-07-10"
+  },
+  {
+   "reestr": "2013-05-17",
+   "status": "ready",
+   "dividend": {
+    "value": 0.05,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 0.08
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2013-05-16"
+  },
+  {
+   "reestr": "2012-05-22",
+   "status": "ready",
+   "dividend": {
+    "value": 31.28,
+    "currency": "RUB"
+   },
+   "yield": {
+    "value": 16.52
+   },
+   "closePrice": {
+    "value": 0,
+    "currency": "RUB"
+   },
+   "lastBuyDate": "2012-05-21"
+  }
+ ]
+}
