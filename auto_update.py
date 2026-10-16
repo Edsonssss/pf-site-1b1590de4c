@@ -128,12 +128,13 @@ js = json.dumps(d, ensure_ascii=False).replace('</', '<\\/')
 open(p('portfolio_data.js'), 'w', encoding='utf-8').write(
     '// Сгенерировано из portfolio_data.json\nwindow.PORTFOLIO_DATA = ' + js + ';\n')
 
-# ---------- embed в portfolio.html ----------
-h = open(p('portfolio.html'), encoding='utf-8').read()
+# ---------- embed в html-страницу (index.html в репо / portfolio.html локально) ----------
+HTML = 'index.html' if os.path.exists(p('index.html')) else 'portfolio.html'
+h = open(p(HTML), encoding='utf-8').read()
 emb = json.dumps(d, ensure_ascii=False).replace('</', '<\\/')
 h2, n = re.subn(r'(<script id="embedded-data" type="application/json">)[\s\S]*?(</script>)',
                 lambda mo: mo.group(1) + emb + mo.group(2), h, count=1)
-if n == 1: open(p('portfolio.html'), 'w', encoding='utf-8').write(h2)
+if n == 1: open(p(HTML), 'w', encoding='utf-8').write(h2)
 
 print('изменено позиций:', len(changed), '| total:', sm['total_value'], '| дата:', d['meta']['date'])
 
@@ -159,7 +160,7 @@ if key_raw:
                 f'https://www.googleapis.com/drive/v3/files?q={q}&fields=files(id)',
                 headers={'Authorization': 'Bearer ' + AT}), timeout=30, context=CTX).read())
             return r['files'][0]['id'] if r['files'] else None
-        for name, fn in [('portfolio.html', 'portfolio.html'), ('portfolio_data.json', 'portfolio_data.json'), ('portfolio_data.js', 'portfolio_data.js')]:
+        for name, fn in [('portfolio.html', HTML), ('portfolio_data.json', 'portfolio_data.json'), ('portfolio_data.js', 'portfolio_data.js')]:
             fid = find(name)
             if fid:
                 req = urllib.request.Request(f'https://www.googleapis.com/upload/drive/v3/files/{fid}?uploadType=media',
