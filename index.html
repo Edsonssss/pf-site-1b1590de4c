@@ -54,6 +54,26 @@ footer b{color:#374151}
 th[data-key]{cursor:pointer;user-select:none}
 th[data-key]:hover{background:#2c4d85}
 .expandable{cursor:pointer}.expandable:hover{background:#fffbe8}.expandable.expanded{max-width:560px}
+
+.mobile-only{display:none}
+.mcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 10px}
+.mrow{display:flex;justify-content:space-between;gap:8px;align-items:baseline;font-size:13px;margin-bottom:4px;flex-wrap:wrap}
+.mrow:last-child{margin-bottom:0}
+.mrow .dim{color:var(--gray);font-size:12px}
+.mright{margin-left:auto;text-align:right;white-space:nowrap}
+.mname{color:var(--gray);font-size:12px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mnote{font-size:12px;color:var(--gray);border-top:1px dashed var(--line);padding-top:6px;margin-top:6px;cursor:pointer}
+.mtot{background:#DDEBF7}
+@media(max-width:700px){
+ .tblscroll{display:none!important}
+ .mobile-only{display:block}
+ #blocked-panel{display:none}
+ .wrap{padding:12px 8px 32px}
+ .cards{grid-template-columns:repeat(2,1fr);gap:8px}
+ .card{padding:10px 12px}
+ .card .v{font-size:17px}
+ h1{font-size:17px}
+}
 </style></head>
 <body><div class="wrap">
 <header>
@@ -68,10 +88,12 @@ th[data-key]:hover{background:#2c4d85}
 <button class="fbtn" data-rec="hold">🟡 Держать</button>
 <button class="fbtn" data-rec="none">⚪ Без прогноза</button>
 </div>
+<div class="mobile-only" id="stocks-mobile"></div>
 <div class="tblscroll"><table id="stocks-table"><thead><tr><th data-key="n" class="col-opt">№</th><th class="l" data-key="ticker">Тикер</th><th class="l" data-key="name">Название</th><th data-key="qty" class="col-opt">Кол-во</th><th data-key="current_price">Тек. цена, ₽</th><th data-key="prev_close" class="col-opt">Вчера, ₽</th><th data-key="day_change_pct" class="col-opt2">Δ за день</th><th data-key="value">Стоимость, ₽</th><th data-key="share" class="col-opt">Доля в акциях</th><th class="l" data-key="recommendation">Реком.</th><th data-key="target_price" class="col-opt">Цель, ₽</th><th data-key="upside_pct" class="col-opt2">Потенциал</th><th data-key="range" class="col-opt">Диапазон, ₽</th><th data-key="dividend_next" class="col-opt">Дивиденд, ₽</th><th class="l col-opt" data-key="dividend_date">Отсечка</th><th class="l col-opt" data-key="dividend_status">Статус</th><th data-key="div_yield_12m_pct" class="col-opt">Дивдох 12м</th></tr></thead><tbody id="stocks-body"></tbody></table></div></div>
 <div class="panel"><h2>Фонды и кэш</h2>
+<div class="mobile-only" id="funds-mobile"></div>
 <div class="tblscroll"><table id="funds-table"><thead><tr><th class="col-opt">№</th><th class="l">Фонд</th><th class="l col-opt">УК</th><th class="l col-opt">Тип / стратегия</th><th class="col-opt">Паи</th><th>Пай сейчас, ₽</th><th>Стоимость, ₽</th><th class="col-opt">Доля в фондах</th><th class="col-opt">1 мес</th><th class="col-opt">3 мес</th><th class="col-opt">6 мес</th><th>1 год</th><th class="l">Прогноз</th></tr></thead><tbody id="funds-body"></tbody></table></div></div>
-<div class="panel"><h2>Ближайшие утверждённые дивиденды</h2><div class="tblscroll"><table id="div-table"><thead><tr><th class="l">Тикер</th><th>Дивиденд, ₽/акц.</th><th>Отсечка</th><th>Купить до</th><th>Ваших акций</th><th>Начисление, ₽</th></tr></thead><tbody id="div-body"></tbody></table></div></div>
+<div class="panel"><h2>Ближайшие утверждённые дивиденды</h2><div class="mobile-only" id="div-mobile"></div><div class="tblscroll"><table id="div-table"><thead><tr><th class="l">Тикер</th><th>Дивиденд, ₽/акц.</th><th>Отсечка</th><th>Купить до</th><th>Ваших акций</th><th>Начисление, ₽</th></tr></thead><tbody id="div-body"></tbody></table></div></div>
 <div class="panel" id="blocked-panel"><h2>🔒 Заблокированные активы — справочно, вне ликвидного итога</h2><div class="tblscroll"><table id="blocked-table"><thead><tr><th class="l">Актив</th><th class="l">Тикер / ISIN</th><th>Кол-во</th><th class="col-opt">Цена, $</th><th class="col-opt">Стоимость, $</th><th>Стоимость, ₽</th><th class="l">Статус</th><th class="l col-opt">Примечания</th></tr></thead><tbody id="blocked-body"></tbody></table></div></div>
 <div class="panel"><h2>Макро и стратегия Т-Инвестиций</h2><div id="macro" style="font-size:13px;line-height:1.9"></div></div>
 <footer><b>Источники:</b> tbank.ru/invest (сводные прогнозы, 07–08.10.2026); tbank.ru/invest/stocks/&lt;тикер&gt;/dividends/ и smart-lab.ru/dividends (дивиденды, 08.10.2026); investfunds.ru (паи, 06.10.2026); cbr.ru (ставка). Файлы данных: <b>portfolio_data.js</b> (подключается тегом script — работает даже при открытии прямо из файловой системы) и <b>portfolio_data.json</b> (читается через fetch при запуске по HTTP); внутри страницы есть встроенная копия на случай, если оба файла не найдены. После правки JSON запустите <b>rebuild_data_js.py</b>.<br>⚠️ Материал носит информационный характер и не является индивидуальной инвестиционной рекомендацией.</footer>
@@ -124,6 +146,41 @@ function sval(s,k){
   if(k==='range')return s.range_min;
   return s[k];
 }
+const mqMobile=window.matchMedia('(max-width:700px)');
+function mShort(t,n){n=n||90;return t.length>n?t.slice(0,t.lastIndexOf(' ',n))+'…':t;}
+function mNote(t){return '<div class="mnote" data-short="'+esc(mShort(t))+'" data-full="'+esc(t)+'">'+esc(mShort(t))+' ▾</div>';}
+function mStockCard(s){
+  var dch=s.day_change_pct;
+  return '<div class="mcard">'+
+  '<div class="mrow"><b>'+s.ticker+'</b><span class="mname">'+s.name+'</span><span class="mright"><b>'+nf(s.value,0)+' ₽</b> <span class="dim">'+nf(s.value/DATA.summary.stocks_value*100,1)+'%</span></span></div>'+
+  '<div class="mrow"><span>'+pfmt(s.current_price)+' ₽</span><span class="'+(dch==null?'dim':(dch>=0?'pos':'neg'))+'">'+pc(dch)+'</span><span class="mright">'+badge(s.recommendation)+'</span></div>'+
+  '<div class="mrow"><span class="dim">'+(s.target_price?('цель '+pfmtT(s.target_price)+' ₽ · '+pc(s.upside_pct)):'нет прогноза')+((s.dividend_date&&s.dividend_date!=='—')?(' · див: '+String(s.dividend_date).replace(/^ожидается /,'')):'')+'</span></div>'+
+  '</div>';
+}
+function renderStocksMobile(list){
+  var html=list.map(mStockCard).join('');
+  html+='<div class="mcard mtot"><div class="mrow"><b>ИТОГО АКЦИИ ('+list.length+')</b><span class="mright"><b>'+nf(DATA.summary.stocks_value,0)+' ₽</b> <span class="dim">'+nf(DATA.summary.shares_pct.stocks,1)+'% портфеля</span></span></div></div>';
+  $('stocks-mobile').innerHTML=html; $('stocks-body').innerHTML='';
+}
+function renderFundsMobile(){
+  var sm=DATA.summary;
+  var html=DATA.funds.map(function(f){var p=f.performance_pct;
+    return '<div class="mcard"><div class="mrow"><b>'+f.name.replace(/БПИФ |ОПИФ /,'')+'</b><span class="mright"><b>'+nf(f.value,0)+' ₽</b> <span class="dim">'+nf(f.value/sm.funds_value*100,1)+'%</span></span></div>'+
+    '<div class="mrow"><span class="dim">пай '+pfmt(f.current_nav)+' ₽ ('+(f.nav_date||'')+') · 1 год</span> <span class="pos">'+pc(p.y1)+'</span></div>'+
+    mNote(f.forecast)+'</div>';}).join('');
+  html+='<div class="mcard"><div class="mrow"><b>Кэш: Сейв</b><span class="mright"><b>'+nf(sm.cash_value,0)+' ₽</b> <span class="dim">'+nf(sm.shares_pct.cash,1)+'%</span></span></div>'+mNote(DATA.cash.note)+'</div>';
+  html+=(DATA.blocked||[]).map(function(b){return '<div class="mcard"><div class="mrow"><b>🔒 '+b.name+'</b><span class="mright"><b>'+nf(b.value_rub,0)+' ₽</b></span></div><div class="mrow"><span class="dim">'+b.qty+' шт · заблокировано, справочно</span></div></div>';}).join('');
+  html+='<div class="mcard mtot"><div class="mrow"><b>ИТОГО ФОНДЫ</b><span class="mright"><b>'+nf(sm.funds_value,0)+' ₽</b> <span class="dim">'+nf(sm.shares_pct.funds,1)+'%</span></span></div>'+
+  '<div class="mrow"><b>ВЕСЬ ПОРТФЕЛЬ</b><span class="mright"><b>'+nf(sm.total_value,0)+' ₽</b></span></div></div>';
+  $('funds-mobile').innerHTML=html; $('funds-body').innerHTML='';
+}
+function renderDivMobile(){
+  $('div-mobile').innerHTML = DATA.upcoming_dividends.length
+   ? DATA.upcoming_dividends.map(function(u){var rd=u.record_date.split('-').reverse().join('.');var lb=u.last_buy_date.split('-').reverse().join('.');
+       return '<div class="mcard"><div class="mrow"><b>'+u.ticker+'</b><span class="mright"><b>'+nf(u.gross,0)+' ₽</b></span></div><div class="mrow"><span class="dim">'+u.dividend+' ₽/акц · отсечка '+rd+' · купить до '+lb+' · '+u.qty+' шт</span></div></div>';}).join('')
+   : '<div class="mcard"><span class="dim">Ближайших утверждённых отсечек нет</span></div>';
+  $('div-body').innerHTML='';
+}
 function renderStocks(){
   document.querySelectorAll('#stocks-table thead th[data-key]').forEach(el=>{
     const k=el.dataset.key;
@@ -144,6 +201,7 @@ function renderStocks(){
       return sortDir*(x-y);
     });
   }
+  if(mqMobile.matches){renderStocksMobile(list);return;}
   const rows=list.map(s=>{
     const share=s.value/DATA.summary.stocks_value*100;
     const up=s.upside_pct, upc=up==null?'dim':(up>=0?'pos':'neg');
@@ -161,6 +219,7 @@ function renderStocks(){
 }
 function renderFunds(){
   const sm=DATA.summary;
+  if(mqMobile.matches){renderFundsMobile();return;}
   const fr=DATA.funds.map(f=>{
     const share=f.value/sm.funds_value*100,p=f.performance_pct;
     return '<tr><td data-l="№" class="col-opt">'+f.n+'</td><td data-l="Фонд" class="l"><b>'+f.name+'</b></td><td data-l="УК" class="l col-opt">'+f.manager+'</td><td data-l="Тип" class="l name col-opt">'+f.type+'</td>'+
@@ -173,6 +232,7 @@ function renderFunds(){
   '<tr class="grand"><td colspan="6" class="l">ИТОГО ПОРТФЕЛЬ</td><td>'+nf(sm.total_value,0)+' ₽</td><td>100%</td><td colspan="5" class="l">Дивиденды за 12 мес: ≈'+nf(sm.dividends_12m_gross,0)+' ₽ ('+nf(sm.dividends_12m_yield_pct,1)+'% годовых на портфель)</td></tr>';
 }
 function renderDiv(){
+  if(mqMobile.matches){renderDivMobile();return;}
   $('div-body').innerHTML=DATA.upcoming_dividends.map(u=>{
     const d1=u.record_date.split('-').reverse().join('.'),d2=u.last_buy_date.split('-').reverse().join('.');
     return '<tr><td class="l"><b>'+u.ticker+'</b></td><td>'+nf(u.dividend,2)+'</td><td>'+d1+'</td><td>'+d2+'</td><td>'+u.qty+'</td><td><b>'+nf(u.gross,0)+'</b></td></tr>';
@@ -205,11 +265,12 @@ document.addEventListener('DOMContentLoaded',()=>{
       renderStocks();};
   });
   document.addEventListener('click',function(e){
-    var td=(e.target.closest)?e.target.closest('td.expandable'):null;
+    var td=(e.target.closest)?e.target.closest('td.expandable,.mnote'):null;
     if(!td)return;
     var exp=td.classList.toggle('expanded');
     td.textContent=(exp?td.dataset.full:td.dataset.short)+(exp?' ▴':' ▾');
   });
+  var rto=null;window.addEventListener('resize',function(){clearTimeout(rto);rto=setTimeout(render,250);});
   loadData();
 });
 </script>
