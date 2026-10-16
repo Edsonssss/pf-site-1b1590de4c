@@ -119,6 +119,16 @@ rw = total_row(rw, 'ИТОГО CASH', cash['value'], cash['value'] / tot)
 rw = total_row(rw, 'ИТОГО ПОРТФЕЛЬ (ликвидная часть)', tot, 1.0, fill=grand_fill)
 ce = ws.cell(row=rw - 1, column=15, value=(f"Ближайшие дивиденды (утв.): {sum_['upcoming_dividends_gross']:,.0f} ₽".replace(',', ' ') if sum_['upcoming_dividends_gross'] else 'Ближайших утверждённых отсечек нет'))
 ce.font = Font(bold=True, size=9, color='006100'); ce.alignment = Alignment(horizontal='left')
+fam = d.get('family') or {}
+if fam:
+    vals = ['—', 'Cash (жена)', '—', fam['name'], None, None, None, None, fam['value'], None, '—', None, None, None, '—', '—', None, '—', fam.get('note', '')]
+    for i, v in enumerate(vals, 1):
+        cell = ws.cell(row=rw, column=i, value=v); cell.border = border; cell.font = Font(size=10)
+        if i == 9: cell.number_format = '#,##0'
+        if i == 19: cell.alignment = Alignment(wrap_text=True, vertical='top'); cell.font = Font(size=9)
+    rw += 1
+    rw = total_row(rw, 'ВСЕГО СЕМЕЙНЫЙ ПОРТФЕЛЬ (ликвидный)', sum_.get('total_family', round(tot + fam['value'], 2)), None,
+                   extra=f"ваш {tot:,.0f} ₽ + жены {fam['value']:,.0f} ₽".replace(',', ' '), fill=grand_fill)
 if d.get('blocked'):
     ws.merge_cells(start_row=rw, start_column=1, end_row=rw, end_column=NC)
     c = ws.cell(row=rw, column=1, value='ЗАБЛОКИРОВАННЫЕ АКТИВЫ — справочно, вне ликвидного итога')
@@ -170,6 +180,12 @@ r = sec(r, 'ФОНДЫ')
 for f in funds:
     p_ = f['performance_pct']
     r = para(r, f"• {f['name']}: пай {f['current_nav']:,.2f} ₽ ({f.get('nav_date', '—')}); 1 мес {p_['m1']:+}%, 1 год {p_['y1']:+}%. {f['forecast']}".replace(',', ' '))
+fam2 = d.get('family') or {}
+if fam2:
+    r += 1
+    r = sec(r, 'СЕМЕЙНЫЙ БЛОК (вне расчётов основного портфеля)')
+    r = para(r, f"• {fam2['name']}: {fam2['value']:,.0f} ₽. {fam2.get('note', '')}".replace(',', ' '))
+    r = para(r, f"• Семейный итог (ликвидный): {sum_.get('total_family', sum_['total_value'] + fam2['value']):,.0f} ₽ = ваш {sum_['total_value']:,.0f} ₽ + {fam2['value']:,.0f} ₽.".replace(',', ' '))
 if d.get('blocked'):
     r += 1
     r = sec(r, 'ЗАБЛОКИРОВАННЫЕ АКТИВЫ')
