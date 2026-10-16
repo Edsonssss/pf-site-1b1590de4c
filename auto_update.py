@@ -117,6 +117,10 @@ sm['upcoming_dividends_gross'] = round(sum(u['gross'] for u in d['upcoming_divid
 sm['upcoming_dividends_net_13pct'] = round(sm['upcoming_dividends_gross'] * 0.87, 2)
 sm['blocked_value_rub'] = round(sum(b['value_rub'] for b in d.get('blocked', [])), 2)
 sm['total_including_blocked'] = round(sm['total_value'] + sm['blocked_value_rub'], 2)
+fam = d.get('family') or {}
+if fam:
+    sm['family_value'] = fam.get('value', 0)
+    sm['total_family'] = round(sm['total_value'] + sm['family_value'], 2)
 d['meta']['date'] = str(today)
 pd = sorted({s.get('prev_date') for s in d['stocks'] if s.get('prev_date')})[-1]
 d['meta']['sources']['prices'] = (f'MOEX ISS: текущие цены — {today.strftime("%d.%m.%Y")} (интрадей), '
