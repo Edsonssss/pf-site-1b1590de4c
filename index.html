@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="ru"><head><meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Инвест портфель</title><style>
 :root{--blue:#1F3864;--accent:#FFDD2D;--green:#1a7f37;--greenbg:#e6f7e9;--amber:#9C6500;--amberbg:#fff4d6;--red:#c0392b;--gray:#6b7280;--line:#e5e7eb;--bg:#f4f6fa;}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -53,6 +56,8 @@ footer b{color:#374151}
 .fbtn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
 th[data-key]{cursor:pointer;user-select:none}
 th[data-key]:hover{background:#2c4d85}
+h1{cursor:pointer;-webkit-tap-highlight-color:transparent}
+h1:after{content:"  ↻";opacity:.45;font-size:.75em}
 .expandable{cursor:pointer}.expandable:hover{background:#fffbe8}.expandable.expanded{max-width:560px}
 
 .mobile-only{display:none}
@@ -119,13 +124,11 @@ function expCell(text){
   return '<td class="l note expandable" data-l="Прогноз" data-short="'+esc(short)+'" data-full="'+esc(t)+'">'+esc(short)+' ▾</td>';
 }
 function loadData(){
-  if(window.PORTFOLIO_DATA){
-    DATA=window.PORTFOLIO_DATA;
-    render();return;
-  }
-  fetch('portfolio_data.json').then(r=>{if(!r.ok)throw new Error(r.status);return r.json();})
+  fetch('portfolio_data.json?cb='+Date.now()).then(r=>{if(!r.ok)throw new Error(r.status);return r.json();})
    .then(d=>{DATA=d;render();})
-   .catch(()=>{DATA=JSON.parse($('embedded-data').textContent);
+   .catch(()=>{
+     if(window.PORTFOLIO_DATA){DATA=window.PORTFOLIO_DATA;render();return;}
+     DATA=JSON.parse($('embedded-data').textContent);
      render();});
 }
 function render(){var pt=$('page-title');if(pt&&DATA.meta&&DATA.meta.date){pt.textContent='📊 Инвест портфель — на '+DATA.meta.date.split('-').reverse().join('.');}renderCards();renderStocks();renderFunds();renderBlocked();renderDiv();renderMacro();}
@@ -274,6 +277,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     var exp=td.classList.toggle('expanded');
     td.textContent=(exp?td.dataset.full:td.dataset.short)+(exp?' ▴':' ▾');
   });
+  var pth=document.getElementById('page-title');
+  if(pth){pth.addEventListener('click',function(){location.replace(location.pathname+'?r='+Date.now()+(location.hash||''));});}
   var rto=null;window.addEventListener('resize',function(){clearTimeout(rto);rto=setTimeout(render,250);});
   loadData();
 });
