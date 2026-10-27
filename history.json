@@ -630,15 +630,15 @@
   },
   {
    "date": "2026-10-27",
-   "stocks": 626904.96,
+   "stocks": 626790.46,
    "funds": 798643.9,
    "cash": 50000.0,
    "save_wife": 605000.0,
    "blocked_rub": 20384.83,
-   "total": 1475548.86,
-   "total_incl_blocked": 1495933.69,
-   "total_family": 2080548.86,
-   "source": "автообновление"
+   "total": 1475434.36,
+   "total_incl_blocked": 1495819.19,
+   "total_family": 2080434.36,
+   "source": "автообновление GitHub Actions"
   }
  ]
 }
