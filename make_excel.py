@@ -198,6 +198,73 @@ r = sec(r, 'ИСТОЧНИКИ')
 r = para(r, f'• tbank.ru/invest (08.10.2026); MOEX ISS ({DATE}, закрытие {PREV}); investfunds.ru; smart-lab.ru/dividends; cbr.ru. Состав и количества обновляются вручную.')
 r = para(r, '⚠️ Материал информационный, не является индивидуальной инвестиционной рекомендацией.')
 
+# ---------- лист «Остатки по дням» (ежедневный учёт + график) ----------
+hist_path = os.path.join(BASE, 'history.json')
+if os.path.exists(hist_path):
+    from openpyxl.chart import LineChart, Reference
+    from openpyxl.chart.marker import Marker
+    hist = json.load(open(hist_path, encoding='utf-8'))
+    days = hist.get('days', [])
+    ws3 = wb.create_sheet('Остатки по дням', 1)
+    ws3.merge_cells('A1:J1')
+    c = ws3.cell(row=1, column=1, value=f'Учёт ежедневных остатков — Акции, Фонды, Счета, Сэйв жены (обновлено: {hist.get("updated", DATE)})')
+    c.font = Font(bold=True, size=13, color='1F3864'); c.alignment = Alignment(horizontal='center')
+    ws3.merge_cells('A2:J2')
+    c = ws3.cell(row=2, column=1, value=hist.get('note', ''))
+    c.font = Font(italic=True, size=9, color='808080'); c.alignment = Alignment(wrap_text=True, vertical='top')
+    ws3.row_dimensions[2].height = 42
+    HDR3 = ['Дата', 'Акции, ₽', 'Фонды, ₽', 'Счета (кэш), ₽', 'Сэйв жены, ₽', 'ИТОГО портфель, ₽',
+            'Заблокировано, ₽', 'Итого с заблокир., ₽', 'Семейный итог, ₽', 'Примечание / источник']
+    W3 = [12, 14, 14, 15, 14, 17, 15, 17, 16, 66]
+    hr3 = 4
+    for i, (hh, w) in enumerate(zip(HDR3, W3), 1):
+        cell = ws3.cell(row=hr3, column=i, value=hh); cell.fill = hdr_fill; cell.font = hdr_font
+        cell.alignment = Alignment(horizontal='center', vertical='center', wrap_text=True); cell.border = border
+        ws3.column_dimensions[get_column_letter(i)].width = w
+    ws3.row_dimensions[hr3].height = 30
+    ws3.freeze_panes = f'A{hr3 + 1}'
+    for k, dy in enumerate(days):
+        r_ = hr3 + 1 + k
+        dd = dy['date']
+        vals = [f"{dd[8:10]}.{dd[5:7]}.{dd[:4]}", dy.get('stocks'), dy.get('funds'), dy.get('cash'),
+                dy.get('save_wife'), dy.get('total'), dy.get('blocked_rub'),
+                dy.get('total_incl_blocked'), dy.get('total_family'), dy.get('source', '')]
+        for i, v in enumerate(vals, 1):
+            cell = ws3.cell(row=r_, column=i, value=v); cell.border = border; cell.font = Font(size=10)
+            if i == 1: cell.alignment = Alignment(horizontal='center')
+            elif 2 <= i <= 9: cell.number_format = '#,##0'
+            else: cell.alignment = Alignment(wrap_text=True, vertical='top'); cell.font = Font(size=9, color='595959')
+        if k % 2 == 1:
+            for i in range(1, 11): ws3.cell(row=r_, column=i).fill = PatternFill('solid', fgColor='FAFBFD')
+        for i in (6, 9): ws3.cell(row=r_, column=i).font = Font(size=10, bold=True)
+    if days:
+        chart = LineChart()
+        chart.title = 'Динамика ежедневных остатков, ₽'
+        chart.style = 2
+        chart.y_axis.title = '₽'; chart.x_axis.title = 'Дата'
+        chart.y_axis.numFmt = '#,##0'
+        chart.y_axis.delete = False; chart.x_axis.delete = False
+        chart.width = 30; chart.height = 14
+        chart.legend.position = 'b'
+        COLS = {2: ('2563EB', 19050), 3: ('16A34A', 19050), 4: ('F59E0B', 19050),
+                5: ('A855F7', 19050), 6: ('111827', 28575), 9: ('DC2626', 28575)}
+        for col, (clr, wd) in COLS.items():
+            ref = Reference(ws3, min_col=col, min_row=hr3, max_row=hr3 + len(days))
+            chart.add_data(ref, titles_from_data=True)
+        chart.set_categories(Reference(ws3, min_col=1, min_row=hr3 + 1, max_row=hr3 + len(days)))
+        for s_ in chart.series:
+            s_.smooth = False
+            s_.graphicalProperties.line.solidFill = '808080'
+            s_.marker = Marker(symbol='circle', size=5)
+        for (col, (clr, wd)), s_ in zip(sorted(COLS.items()), chart.series):
+            s_.graphicalProperties.line.solidFill = clr
+            s_.graphicalProperties.line.width = wd
+            s_.marker.graphicalProperties.solidFill = clr
+        if len(days) >= 2:
+            dash = chart.series[-1].graphicalProperties.line
+            dash.dashStyle = 'dash'
+        ws3.add_chart(chart, f'A{hr3 + len(days) + 3}')
+
 wb.save(OUT)
 
 # xlsx в Google Drive (если задан ключ)
