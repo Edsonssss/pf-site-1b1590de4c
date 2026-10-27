@@ -213,9 +213,10 @@ if os.path.exists(hist_path):
     c = ws3.cell(row=2, column=1, value=hist.get('note', ''))
     c.font = Font(italic=True, size=9, color='808080'); c.alignment = Alignment(wrap_text=True, vertical='top')
     ws3.row_dimensions[2].height = 42
-    HDR3 = ['Дата', 'Акции, ₽', 'Фонды, ₽', 'Счета (кэш), ₽', 'Сэйв жены, ₽', 'ИТОГО портфель, ₽',
-            'Заблокировано, ₽', 'Итого с заблокир., ₽', 'Семейный итог, ₽', 'Примечание / источник']
-    W3 = [12, 14, 14, 15, 14, 17, 15, 17, 16, 66]
+    HDR3 = ['Дата', 'Сэйв жены, ₽', 'Тинькоф — акции, ₽', 'IH+БКС — фонды, ₽', 'Счета (кэш), ₽',
+            'ИТОГО портфель, ₽', 'Заблокировано, ₽', 'Итого с заблокир., ₽', 'Семейный итог, ₽',
+            'Примечание / источник']
+    W3 = [12, 14, 15, 16, 14, 17, 15, 17, 16, 66]
     hr3 = 4
     for i, (hh, w) in enumerate(zip(HDR3, W3), 1):
         cell = ws3.cell(row=hr3, column=i, value=hh); cell.fill = hdr_fill; cell.font = hdr_font
@@ -226,8 +227,8 @@ if os.path.exists(hist_path):
     for k, dy in enumerate(days):
         r_ = hr3 + 1 + k
         dd = dy['date']
-        vals = [f"{dd[8:10]}.{dd[5:7]}.{dd[:4]}", dy.get('stocks'), dy.get('funds'), dy.get('cash'),
-                dy.get('save_wife'), dy.get('total'), dy.get('blocked_rub'),
+        vals = [f"{dd[8:10]}.{dd[5:7]}.{dd[:4]}", dy.get('save_wife'), dy.get('stocks'), dy.get('funds'),
+                dy.get('cash'), dy.get('total'), dy.get('blocked_rub'),
                 dy.get('total_incl_blocked'), dy.get('total_family'), dy.get('source', '')]
         for i, v in enumerate(vals, 1):
             cell = ws3.cell(row=r_, column=i, value=v); cell.border = border; cell.font = Font(size=10)
@@ -239,23 +240,25 @@ if os.path.exists(hist_path):
         for i in (6, 9): ws3.cell(row=r_, column=i).font = Font(size=10, bold=True)
     if days:
         chart = LineChart()
-        chart.title = 'Динамика ежедневных остатков, ₽'
+        chart.title = 'Динамика остатков: помесячно с 03.2023 (на 1-е число) + ежедневно, ₽'
         chart.style = 2
         chart.y_axis.title = '₽'; chart.x_axis.title = 'Дата'
         chart.y_axis.numFmt = '#,##0'
         chart.y_axis.delete = False; chart.x_axis.delete = False
         chart.width = 30; chart.height = 14
         chart.legend.position = 'b'
-        COLS = {2: ('2563EB', 19050), 3: ('16A34A', 19050), 4: ('F59E0B', 19050),
-                5: ('A855F7', 19050), 6: ('111827', 28575), 9: ('DC2626', 28575)}
+        chart.displayBlanksAs = 'gap'
+        COLS = {2: ('A855F7', 19050), 3: ('2563EB', 19050), 4: ('16A34A', 19050),
+                5: ('F59E0B', 19050), 6: ('111827', 28575), 9: ('DC2626', 28575)}
         for col, (clr, wd) in COLS.items():
             ref = Reference(ws3, min_col=col, min_row=hr3, max_row=hr3 + len(days))
             chart.add_data(ref, titles_from_data=True)
         chart.set_categories(Reference(ws3, min_col=1, min_row=hr3 + 1, max_row=hr3 + len(days)))
+        msize = 5 if len(days) <= 20 else 3
         for s_ in chart.series:
             s_.smooth = False
             s_.graphicalProperties.line.solidFill = '808080'
-            s_.marker = Marker(symbol='circle', size=5)
+            s_.marker = Marker(symbol='circle', size=msize)
         for (col, (clr, wd)), s_ in zip(sorted(COLS.items()), chart.series):
             s_.graphicalProperties.line.solidFill = clr
             s_.graphicalProperties.line.width = wd
