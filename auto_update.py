@@ -125,6 +125,26 @@ d['meta']['date'] = str(today)
 pd = sorted({s.get('prev_date') for s in d['stocks'] if s.get('prev_date')})[-1]
 d['meta']['sources']['prices'] = (f'MOEX ISS: текущие цены — {today.strftime("%d.%m.%Y")} (интрадей), '
                                   f'цены закрытия — {pd[8:10]}.{pd[5:7]}.{pd[:4]}; автообновление GitHub Actions')
+
+# ---------- история ежедневных остатков (history.json) ----------
+hist_path = p('history.json')
+try:
+    hist = json.load(open(hist_path, encoding='utf-8'))
+    if not isinstance(hist.get('days'), list): hist['days'] = []
+except Exception:
+    hist = {'title': 'Учёт ежедневных остатков — акции, фонды, счета, сэйв жены', 'currency': 'RUB', 'days': []}
+rec = {'date': str(today), 'stocks': sm['stocks_value'], 'funds': sm['funds_value'],
+       'cash': sm['cash_value'], 'save_wife': sm.get('family_value', 0),
+       'blocked_rub': sm.get('blocked_value_rub', 0), 'total': sm['total_value'],
+       'total_incl_blocked': sm.get('total_including_blocked', sm['total_value']),
+       'total_family': sm.get('total_family', sm['total_value']),
+       'source': 'автообновление GitHub Actions' if os.environ.get('GITHUB_ACTIONS') else 'автообновление'}
+hist['days'] = sorted([x for x in hist['days'] if x.get('date') != str(today)] + [rec],
+                      key=lambda x: x['date'])
+hist['updated'] = str(today)
+json.dump(hist, open(hist_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+d['history'] = hist['days'][-90:]   # копия последних 90 дней — для офлайн-графика на странице
+
 json.dump(d, open(p('portfolio_data.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 
 # ---------- portfolio_data.js ----------
@@ -164,13 +184,13 @@ if key_raw:
                 f'https://www.googleapis.com/drive/v3/files?q={q}&fields=files(id)',
                 headers={'Authorization': 'Bearer ' + AT}), timeout=30, context=CTX).read())
             return r['files'][0]['id'] if r['files'] else None
-        for name, fn in [('portfolio.html', HTML), ('portfolio_data.json', 'portfolio_data.json'), ('portfolio_data.js', 'portfolio_data.js')]:
+        for name, fn in [('portfolio.html', HTML), ('portfolio_data.json', 'portfolio_data.json'), ('portfolio_data.js', 'portfolio_data.js'), ('history.json', 'history.json')]:
             fid = find(name)
             if fid:
                 req = urllib.request.Request(f'https://www.googleapis.com/upload/drive/v3/files/{fid}?uploadType=media',
                     data=open(p(fn), 'rb').read(), method='PATCH',
                     headers={'Authorization': 'Bearer ' + AT, 'Content-Type': 'application/octet-stream'})
                 urllib.request.urlopen(req, timeout=60, context=CTX)
-        print('Drive: 3 файла обновлены')
+        print('Drive: файлы обновлены')
     except Exception as e:
         print('Drive sync error:', e)
