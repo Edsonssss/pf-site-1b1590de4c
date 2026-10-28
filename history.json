@@ -642,14 +642,14 @@
   },
   {
    "date": "2026-10-28",
-   "stocks": 692719.01,
+   "stocks": 692911.91,
    "funds": 736165.15,
    "cash": 50000.0,
    "save_wife": 605000.0,
    "blocked_rub": 20384.83,
-   "total": 1478884.16,
-   "total_incl_blocked": 1499268.99,
-   "total_family": 2083884.16,
+   "total": 1479077.06,
+   "total_incl_blocked": 1499461.89,
+   "total_family": 2084077.06,
    "source": "автообновление"
   }
  ]
