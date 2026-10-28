@@ -90,16 +90,17 @@ def fund_nav(u):
     return (m.group(1), float(m.group(2).replace(' ', '')), perf) if m else (None, None, None)
 for f in d['funds']:
     u = FUND_URL.get(f['name'])
-    if not u: continue
-    try:
-        dts, nav, perf = fund_nav(u)
-    except Exception:
-        continue
-    if nav and (f['current_nav'] != nav or f.get('nav_date') != dts):
-        f['current_nav'] = nav; f['nav_date'] = dts
-        if perf: f['performance_pct'] = perf
-        f['value'] = round(f['qty'] * nav, 2)
-        changed.append(f['name'][:12])
+    if u:
+        try:
+            dts, nav, perf = fund_nav(u)
+        except Exception:
+            dts = nav = perf = None
+        if nav and (f['current_nav'] != nav or f.get('nav_date') != dts):
+            f['current_nav'] = nav; f['nav_date'] = dts
+            if perf: f['performance_pct'] = perf
+            changed.append(f['name'][:12])
+    # стоимость пересчитываем всегда — qty мог измениться вручную при том же NAV
+    f['value'] = round(f['qty'] * f['current_nav'], 2)
 
 # ---------- итоги ----------
 sm = d['summary']
