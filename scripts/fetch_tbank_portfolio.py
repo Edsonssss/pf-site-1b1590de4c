@@ -259,12 +259,19 @@ if ey is not None:
     print(f"  Доходность портфеля (expectedYield): {ey:+,.2f}")
 
 # ------------------------------------------------- 3. FIGI -> тикер / номинал
+# API отдаёт тип инструмента в НИЖНЕМ регистре (share/bond/etf/currency) —
+# приводим к каноническому виду Share/Bond/Etf/Currency (как на странице).
+TYPE_MAP = {"share": "Share", "bond": "Bond", "etf": "Etf", "currency": "Currency",
+            "future": "Future", "option": "Option", "sp": "Sp"}
 by_type = {}
 for p in pf["positions"]:
     qty = dec(p.get("quantity")) or 0
     if qty == 0:
         continue  # нулевые позиции не нужны
-    by_type.setdefault(p.get("instrumentType"), []).append(p)
+    raw_type = (p.get("instrumentType") or "?").strip()
+    itype = TYPE_MAP.get(raw_type.lower(), raw_type)
+    p["instrumentType"] = itype          # нормализуем и в самой позиции
+    by_type.setdefault(itype, []).append(p)
 
 
 def instrument_by(method, figi):
@@ -297,11 +304,20 @@ for itype, positions in sorted(by_type.items()):
         elif itype == "Currency":
             inst = instrument_by("CurrencyBy", figi)
 
-        # У облигаций currentPrice — % от номинала: приводим к рублям за бумагу + НКД
+        # Цена облигации в GetPortfolio приходит В РУБЛЯХ за бумагу, без НКД
+        # (проверено на живых данных: totalAmountBonds = Σ qty×(цена + НКД);
+        # пример: цена 997,00 ₽ + НКД 14,58 = 1011,58 ₽ × 30 шт = 30 347,40 = totalAmountBonds).
+        # В старых версиях API цена была в % от номинала — обрабатываем и этот формат:
+        # если цена меньше 10% номинала, считаем её процентной записью.
         price_note = ""
-        if itype == "Bond" and cur_price is not None and nominal:
-            price_note = f"{cur_price:g}% ном. {nominal:g}"
-            cur_price = cur_price / 100 * nominal + (nkd or 0)
+        if itype == "Bond" and cur_price is not None:
+            if nominal and abs(cur_price) < nominal / 10:
+                price_note = f"{cur_price:g}% ном. {nominal:g}"
+                cur_price = cur_price / 100 * nominal + (nkd or 0)
+            else:
+                price_note = (f"{cur_price:g} ₽" +
+                              (f" + НКД {nkd:g}" if nkd else ""))
+                cur_price = cur_price + (nkd or 0)  # цена сайта — с НКД, как в приложении Т-Банка
 
         rows.append({
             "figi": figi,
