@@ -15,31 +15,31 @@
   "disclaimer": "Материал носит информационный характер и не является индивидуальной инвестиционной рекомендацией. Прогнозные дивиденды не гарантированы."
  },
  "summary": {
-  "total_value": 1466221.1,
-  "stocks_value": 679264.45,
+  "total_value": 1496577.5,
+  "stocks_value": 709620.85,
   "funds_value": 736956.65,
   "cash_value": 50000,
   "shares_pct": {
-   "stocks": 46.33,
-   "funds": 50.26,
-   "cash": 3.41
+   "stocks": 47.42,
+   "funds": 49.24,
+   "cash": 3.34
   },
   "weighted_upside_pct": 28.3,
   "recommendations": {
    "buy": 14,
    "hold": 10,
    "sell": 0,
-   "no_forecast": 2
+   "no_forecast": 3
   },
   "upcoming_dividends_gross": 0,
   "upcoming_dividends_net_13pct": 0,
   "dividends_12m_gross": 63335.67,
-  "dividends_12m_yield_pct": 4.32,
+  "dividends_12m_yield_pct": 4.23,
   "blocked_value_usd": 243.06,
   "blocked_value_rub": 20384.83,
-  "total_including_blocked": 1486605.93,
+  "total_including_blocked": 1516962.33,
   "family_value": 605000,
-  "total_family": 2071221.1
+  "total_family": 2101577.5
  },
  "macro": {
   "key_rate_pct": 14,
@@ -608,6 +608,27 @@
    "prev_close": 1104.5,
    "day_change_pct": 0.22,
    "prev_date": "2026-11-10"
+  },
+  {
+   "n": 33,
+   "ticker": "RU000A10C5L7",
+   "name": "Селигдар 001Р-04",
+   "qty": 30,
+   "current_price": 1011.88,
+   "value": 30356.4,
+   "recommendation": null,
+   "target_price": null,
+   "upside_pct": null,
+   "range_min": null,
+   "range_max": null,
+   "dividend_next": null,
+   "dividend_date": "",
+   "dividend_status": "нет данных",
+   "div_yield_12m_pct": 0,
+   "note": "добавлено вручную 2026-11-11 (edit.html) · облигация: цена = % номинала + НКД, конвейер её не обновляет",
+   "prev_close": 1011.88,
+   "day_change_pct": 0,
+   "prev_date": "2026-11-11"
   }
  ],
  "funds": [
