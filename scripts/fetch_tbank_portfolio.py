@@ -7,7 +7,13 @@
   1. UsersService/GetAccounts        — список счетов, выбор счёта
   2. OperationsService/GetPortfolio  — позиции: кол-во, средняя цена, текущая цена, НКД
   3. InstrumentsService/*By          — FIGI -> тикер/имя; для облигаций: номинал
-                                       (цена в API — % от номинала, как на бирже)
+                                       (цена в API — % от номинала, как на бирже).
+                                       Запрос: {"id_type": "INSTRUMENT_ID_TYPE_FIGI",
+                                       "id": figi} — поле ТОЛЬКО в snake_case:
+                                       на camelCase idType шлюз отвечает
+                                       HTTP 400 «Missing parameter: 'id_type'»
+                                       (проверено 11.11.2026), значение enum —
+                                       полное имя INSTRUMENT_ID_TYPE_FIGI
   4. Печатает таблицу, сохраняет tbank_portfolio.json
   5. Если рядом лежит portfolio_data.json (JSON сайта) — сверяет количества
 
@@ -194,8 +200,16 @@ def call(method, payload, tries=3):
             if e.code in (500, 502, 503, 504) and attempt < tries:
                 time.sleep(5 * attempt)
                 continue
+            if e.code == 401:
+                sys.exit(f"Ошибка API {method}: HTTP 401: {body}\n"
+                         "(токен неактуален: истёк/отозван/выпущен для песочницы — "
+                         "выпустите новый read-only токен и обновите TB_TOKEN)")
+            if e.code == 400:
+                sys.exit(f"Ошибка API {method}: HTTP 400: {body}\n"
+                         "(это НЕ токен: сервер недоволен ФОРМАТОМ запроса — "
+                         "в message названо проблемное поле)")
             sys.exit(f"Ошибка API {method}: HTTP {e.code}: {body}\n"
-                     f"(40003 = токен неактуален; 80000-х = лимиты)")
+                     "(429 = лимиты API; 5xx = сбой на стороне Т-Банка)")
         except urllib.error.URLError as e:
             if isinstance(getattr(e, "reason", None), ssl.SSLError):
                 sys.exit(
@@ -305,13 +319,30 @@ for p in pf["positions"]:
     by_type.setdefault(itype, []).append(p)
 
 
+LOOKUP_FAILS = []      # сообщения об ошибках справочника инструментов
+LOOKUP_ATTEMPTS = 0    # сколько запросов к справочнику сделано
+
+
 def instrument_by(method, figi):
-    """InstrumentsService/ShareBy|BondBy|EtfBy|CurrencyBy -> instrument."""
+    """InstrumentsService/ShareBy|BondBy|EtfBy|CurrencyBy -> instrument.
+
+    Поле запроса — id_type в snake_case и полное имя enum'а
+    INSTRUMENT_ID_TYPE_FIGI (живой шлюз отклоняет camelCase idType:
+    HTTP 400 «Missing parameter: 'id_type'», проверено 11.11.2026).
+
+    Сбой справочника НЕ роняет выгрузку: позиция сохранится без тикера,
+    подробности — в итоговом предупреждении. Но если не ответил НИ ОДИН
+    запрос, выгрузка вышла бы с пустыми тикерами (страница её не сверит)
+    — падаем до записи файла.
+    """
+    global LOOKUP_ATTEMPTS
+    LOOKUP_ATTEMPTS += 1
     try:
-        return call(f"InstrumentsService/{method}", {"idType": "FIGI", "id": figi})["instrument"]
-    except SystemExit:
-        raise
-    except Exception:
+        resp = call(f"InstrumentsService/{method}",
+                    {"id_type": "INSTRUMENT_ID_TYPE_FIGI", "id": figi})
+        return resp["instrument"]
+    except SystemExit as e:
+        LOOKUP_FAILS.append(f"{method}/{figi}: {e}")
         return {}
 
 
@@ -370,6 +401,19 @@ for itype, positions in sorted(by_type.items()):
         time.sleep(0.15)  # щадящий темп: ~8 запросов/мин при 30 позициях, лимит 100/мин
 
 rows.sort(key=lambda r: (r["instrumentType"], -(r["value"] or 0)))
+
+# ------------------------------------------- справочник инструментов: итоги
+if LOOKUP_FAILS:
+    print(f"\nВНИМАНИЕ: справочник инструментов не ответил по {len(LOOKUP_FAILS)} "
+          f"из {LOOKUP_ATTEMPTS} запросов — эти позиции сохранены без тикера:")
+    for m in LOOKUP_FAILS[:10]:
+        print(f"  {m[:220]}")
+    if len(LOOKUP_FAILS) > 10:
+        print(f"  ... ещё {len(LOOKUP_FAILS) - 10}")
+    if len(LOOKUP_FAILS) == LOOKUP_ATTEMPTS:
+        sys.exit("Справочник инструментов не ответил ни разу — выгрузка получилась "
+                 "бы с пустыми тикерами (страница не сможет её сверить). "
+                 "Причины — выше; файл НЕ перезаписан.")
 
 # --------------------------------------------------------------- 4. вывод
 print(f"\n{'Тикер':10} {'Тип':9} {'Кол-во':>12} {'Цена':>12} {'Стоимость':>14}  Название")
