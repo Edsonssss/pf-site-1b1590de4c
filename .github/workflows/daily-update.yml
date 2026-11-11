@@ -14,6 +14,12 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install --quiet openpyxl pyjwt cryptography
+      - name: update forecasts (tbank consensus)
+        # Сводные прогнозы Т-Банка (консенсус) — tbank.ru/invest/stocks/<тикер>/.
+        # Обновляет target_price/range/recommendation в portfolio_data.json ДО
+        # пересчёта цен, чтобы upside считался от свежих целей и цен.
+        # Секретов не требует: страницы Т-Банка публичные.
+        run: python fetch_forecasts.py
       - name: update data and site files
         env:
           DRIVE_SA_KEY: ${{ secrets.DRIVE_SA_KEY }}
