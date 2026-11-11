@@ -1,10 +1,21 @@
 # .github/workflows/tbank_sync.yml
 # Ежедневная выгрузка портфеля Т-Банк через T-Invest API.
-# Токен лежит в СЕКРЕТЕ ОКРУЖЕНИЯ (GitHub Environments):
-#   Settings → Environments → New environment «tbank» →
-#   Add environment secret → TB_TOKEN = <read-only токен T-Invest API>
-# Секрет доступен ТОЛЬКО job'ам со строкой environment: tbank —
-# это и есть «зашить токен в environments».
+#
+# Токен лежит в СЕКРЕТАХ РЕПОЗИТОРИЯ (Actions secrets and variables):
+#   Settings → Secrets and variables → Actions → вкладка Secrets →
+#   New repository secret → Name: TB_TOKEN, Secret: <read-only токен>
+# Секреты репозитория доступны всем workflow репозитория — строка
+# environment у job НЕ нужна. (Если когда-нибудь захотите ограничить
+# секрет одним job'ом — перенесите его в окружение и добавьте строку
+# environment: tbank, скрипту и остальным шагам это безразлично.)
+#
+# TLS: у tbank.ru цепочка от корня Минцифры (Russian Trusted Root CA), которого
+# нет в хранилище сертификатов раннеров GitHub — без него шаг выгрузки падал:
+#   SSL: CERTIFICATE_VERIFY_FAILED ... self-signed certificate in certificate chain
+# Корень и Sub CA теперь ВСТРОЕНЫ в сам скрипт (ssl_context() в
+# fetch_tbank_portfolio.py), отпечаток корня сверяется при каждом запуске.
+# Ничего доустанавливать в workflow не нужно. Если Т-Банк сменит цепочку —
+# см. README_edit.md, раздел «Если workflow падает».
 #
 # Скрипт положите в репозиторий: scripts/fetch_tbank_portfolio.py
 # Результат коммитится в корень репозитория как tbank_portfolio.json —
@@ -25,7 +36,6 @@ permissions:
 jobs:
   fetch-portfolio:
     runs-on: ubuntu-latest
-    environment: tbank           # ← из этого окружения берётся TB_TOKEN
     steps:
       - uses: actions/checkout@v4
 
@@ -35,9 +45,10 @@ jobs:
 
       - name: Выгрузить портфель через T-Invest API
         env:
-          TB_TOKEN: ${{ secrets.TB }}
-          # TB_ACCOUNT: '2000123456'   # раскомментируйте и укажите id счёта,
-          #                             # если брокерских счетов несколько
+          TB_TOKEN: ${{ secrets.TB_TOKEN }}   # Repository secrets
+          # TB_ACCOUNT: '2000123456'   # раскомментируйте, если нужен КОНКРЕТНЫЙ
+          #                             # счёт; иначе скрипт сам переберёт
+          #                             # брокерские и возьмёт счёт с позициями
         run: |
           python scripts/fetch_tbank_portfolio.py --out tbank_portfolio.json
 
