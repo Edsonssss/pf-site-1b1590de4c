@@ -13,7 +13,7 @@
 
 Использование:
   export TB_TOKEN="t.xxxxxxxxxxxxxxxxxxxx"     # read-only токен T-Invest API
-  python3 fetch_tbank_portfolio.py             # все счёта -> выбрать
+  python3 fetch_tbank_portfolio.py             # счёт с позициями — автоматически
   python3 fetch_tbank_portfolio.py --account 2000123456 --out tbank_portfolio.json
   python3 fetch_tbank_portfolio.py --site portfolio_data.json   # сверка с сайтом
 
@@ -231,19 +231,50 @@ for a in accounts:
     print(f"  {a['id']}  {a.get('type')}  {a.get('name', '')}  access={a.get('accessLevel')}")
 
 ap = argparse.ArgumentParser()
-ap.add_argument("--account", help="id счёта (иначе первый брокерский)")
+ap.add_argument("--account", help="id счёта (иначе — счёт с ненулевым портфелем)")
 ap.add_argument("--out", default="tbank_portfolio.json")
 ap.add_argument("--site", default="", help="путь к portfolio_data.json сайта для сверки")
 args = ap.parse_args()
 
-acc = args.account or os.environ.get("TB_ACCOUNT")
-if not acc:
-    broker = [a for a in accounts if a.get("type") == "ACCOUNT_TYPE_TINKOFF"]
-    acc = (broker or accounts)[0]["id"]
-    print(f"\nВыбран счёт: {acc} (можно переопределить: --account <id>)\n")
 
-# ------------------------------------------------------------- 2. портфель
-pf = call("OperationsService/GetPortfolio", {"accountId": acc})
+def portfolio_of(account_id):
+    """GetPortfolio счёта."""
+    return call("OperationsService/GetPortfolio", {"accountId": account_id})
+
+
+acc = args.account or os.environ.get("TB_ACCOUNT")
+if acc:
+    pf = portfolio_of(acc)
+else:
+    # Счёт не указан: перебираем брокерские и берём ПЕРВЫЙ С ПОЗИЦИЯМИ.
+    # Раньше брали первый TINKOFF-счёт как есть — если первым попадался
+    # пустой ИИС или второй брокерский, выгрузка выходила пустой
+    # (positions: []), и сверка на странице не находила ни одной совпавшей
+    # позиции. Сперва счёта с полным доступом, потом остальные.
+    broker_types = ("ACCOUNT_TYPE_TINKOFF", "ACCOUNT_TYPE_TINKOFF_IIS")
+    candidates = [a for a in accounts if a.get("type") in broker_types] or list(accounts)
+    candidates.sort(key=lambda a: 0 if a.get("accessLevel") == "ACCOUNT_ACCESS_LEVEL_FULL_ACCESS"
+                    else 1)
+    print(f"\nСчёт не указан — ищу счёт с позициями среди {len(candidates)} "
+          f"(переопределить: --account <id> или env TB_ACCOUNT):")
+    pf = None
+    for a in candidates:
+        p = portfolio_of(a["id"])
+        n = len(p.get("positions") or [])
+        print(f"  {a['id']}  {a.get('name', '')}: позиций {n}")
+        if n and pf is None:
+            acc, pf = a["id"], p
+        time.sleep(0.3)
+    if pf is None:                    # все пустые — честная пустая выгрузка
+        acc = candidates[0]["id"]
+        pf = portfolio_of(acc)
+        print("  Все счёта пусты — использую первый, выгрузка будет без позиций.")
+    else:
+        print(f"Выбран счёт: {acc}\n")
+
+if not (pf.get("positions") or []):
+    print(f"ВНИМАНИЕ: на счёте {acc} 0 позиций "
+          "(если это не ожидалось — проверьте id счёта, --account <id>)")
 
 totals = {}
 for key, label in [("totalAmountShares", "Акции"), ("totalAmountBonds", "Облигации"),
