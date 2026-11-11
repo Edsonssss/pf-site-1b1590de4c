@@ -435,7 +435,11 @@ function isRemoved(key) { return EDITS.removed.includes(key); }
 function renderStocks() {
   const rows = [];
   let unch = 0;
-  for (const s of M.stocks) {
+  // таблица сортируется по НАЗВАНИЮ бумаги (не по тикеру); порядок в массиве
+  // M и в выгружаемом JSON не меняется — сортируется только отображение
+  const sorted = [...M.stocks].sort((a, b) =>
+    String(a.name || '').localeCompare(String(b.name || ''), 'ru'));
+  for (const s of sorted) {
     const key = 'stocks:' + s.ticker, base = BASE.stocks.find(x => x.ticker === s.ticker);
     const addedTag = base ? '' : ' (новая)';
     if (s._deleted) {
@@ -466,11 +470,11 @@ function renderStocks() {
   }
   rows.push(`<tr class="more" data-more="stocks"><td colspan="9" id="exp-stocks"></td></tr>`);
   rows.push(`<tr class="addrow"><td colspan="9">+ Добавить акцию:&nbsp;
-    тикер <input id="add-s-ticker" placeholder="SNGS" style="text-transform:uppercase">
+    тикер/ISIN <input id="add-s-ticker" placeholder="SNGS или RU000…" style="text-transform:uppercase">
     &nbsp;кол-во <input id="add-s-qty" placeholder="100">
     &nbsp;цена, ₽ <input id="add-s-price" placeholder="авто с MOEX">
     &nbsp;<button class="btn sm" id="btn-add-stock">Добавить</button>
-    <span class="lbl"> если цену не найти — введите вручную</span></td></tr>`);
+    <span class="lbl"> акции, фонды и облигации; если цену не найти — введите вручную</span></td></tr>`);
   rows.push(`<tr class="tot"><td colspan="4" class="l" id="st-tot-l"></td>
     <td class="num" id="st-tot-v"></td><td class="num" id="st-tot-share"></td>
     <td colspan="3" class="l" id="st-tot-up"></td></tr>`);
@@ -766,28 +770,73 @@ function bindStatic() {
   });
 }
 
-/* ---------- цена с MOEX ISS (с запасным ручным вводом) ---------- */
+/* ---------- цена с MOEX ISS (с запасным ручным вводом) ----------
+   Опрашиваем не только акции/фонды, но и облигации: их рынок другой
+   (markets/bonds, доски TQCB и TQOB), котировка — в % от номинала.
+   Если бумага не нашлась в основных досках — спрашиваем у ISS, где она
+   торгуется, и идём точно в её основную доску. */
+async function fetchBoard(market, board, t) {
+  const r = await fetch('https://iss.moex.com/iss/engines/stock/markets/' + market +
+    '/boards/' + board + '/securities.json?securities=' + encodeURIComponent(t) + '&iss.meta=off');
+  if (!r.ok) return null;
+  const j = await r.json();
+  const sc = j.securities.columns, rows = j.securities.data || [];
+  const iS = sc.indexOf('SECID');
+  const row = rows.find(x => x[iS] === t);
+  if (!row) return null;
+  const mc = j.marketdata.columns;
+  const mrow = (j.marketdata.data || []).find(x => x[mc.indexOf('SECID')] === t);
+  const gv = (cols, arr, nm) => { const i = cols.indexOf(nm); return i >= 0 ? arr[i] : null; };
+  // приоритет цены: LAST → MARKETPRICE → вчерашнее закрытие
+  let price = mrow ? gv(mc, mrow, 'LAST') : null;
+  if (price == null && mrow) price = gv(mc, mrow, 'MARKETPRICE');
+  if (price == null) price = gv(sc, row, market === 'bonds' ? 'PREVWAPRICE' : 'PREVPRICE');
+  if (price == null) return null;
+  // имя: у акций короткое читабельнее («Сбербанк»), у облигаций полное
+  // (короткое — код вида «Селигдар4Р»)
+  const name = (market === 'bonds'
+    ? (gv(sc, row, 'SECNAME') || gv(sc, row, 'SHORTNAME'))
+    : (gv(sc, row, 'SHORTNAME') || gv(sc, row, 'SECNAME'))) || t;
+  let bond = false;
+  if (market === 'bonds') {
+    // облигации котируются в % от номинала → переводим в ₽ за бумагу:
+    // полная цена = % номинала × номинал + НКД
+    bond = true;
+    const face = gv(sc, row, 'FACEVALUE') || 1000;
+    const nkd  = gv(sc, row, 'ACCRUEDINT') || 0;
+    price = price / 100 * face + nkd;
+  }
+  return { price: r2(Number(price)), name: String(name), bond };
+}
 async function moexPrice(t) {
-  const boards = ['TQBR', 'TQTF'];
-  for (const b of boards) {
+  if (!t) return null;
+  const probes = [
+    ['shares', 'TQBR'],   // акции
+    ['shares', 'TQTF'],   // биржевые фонды
+    ['bonds',  'TQCB'],   // корпоративные облигации
+    ['bonds',  'TQOB']    // ОФЗ
+  ];
+  for (const [m, b] of probes) {
     try {
-      const r = await fetch('https://iss.moex.com/iss/engines/stock/markets/shares/boards/' + b +
-        '/securities.json?securities=' + encodeURIComponent(t) + '&iss.meta=off');
-      if (!r.ok) continue;
-      const j = await r.json();
-      const sc = j.securities.columns, rows = j.securities.data || [];
-      const iS = sc.indexOf('SECID');
-      const row = rows.find(x => x[iS] === t);
-      if (!row) continue;
-      const mc = j.marketdata.columns;
-      const mrow = (j.marketdata.data || []).find(x => x[mc.indexOf('SECID')] === t);
-      let price = mrow ? mrow[mc.indexOf('LAST')] : null;
-      if (price == null) price = row[sc.indexOf('PREVPRICE')];
-      if (price == null) continue;
-      const name = row[sc.indexOf('SHORTNAME')] || row[sc.indexOf('NAME')] || t;
-      return { price: Number(price), name: String(name) };
+      const got = await fetchBoard(m, b, t);
+      if (got) return got;
     } catch (e) { /* сеть/CORS недоступны — пробуем следующую доску */ }
   }
+  try { // универсальный fallback: поиск бумаги по базе MOEX
+    const r = await fetch('https://iss.moex.com/iss/securities.json?q=' +
+      encodeURIComponent(t) + '&iss.meta=off');
+    if (r.ok) {
+      const j = await r.json();
+      const cols = j.securities.columns;
+      const iS = cols.indexOf('secid'), iP = cols.indexOf('primary_boardid'),
+            iG = cols.indexOf('group'), iTr = cols.indexOf('is_traded');
+      const row = (j.securities.data || []).find(x => x[iS] === t);
+      if (row && row[iTr] && row[iP]) {
+        const market = String(row[iG] || '').includes('bonds') ? 'bonds' : 'shares';
+        return await fetchBoard(market, row[iP], t);
+      }
+    }
+  } catch (e) { /* поисковый fallback недоступен */ }
   return null;
 }
 function nextN(d, extraItems) {
@@ -814,10 +863,12 @@ async function addPosition(kind) {
   }
   if (isNaN(price)) {
     toast('Запрашиваю цену с MOEX ISS…');
-    const got = await moexPrice(kind === 'stock' ? code : (nameIn.match(/[A-Z]{3,6}/) || [''])[0]);
+    const got = await moexPrice(kind === 'stock' ? code
+      : (nameIn.toUpperCase().match(/[A-Z0-9]{3,12}/) || [''])[0]);
     if (!got) { toast('Цену получить не удалось — введите её вручную', true); return; }
     price = got.price;
     if (kind === 'stock' && got.name) var niceName = got.name; else if (got.name) var niceName = nameIn;
+    if (got.bond) var bondNote = ' · облигация: цена = % номинала + НКД, конвейер её не обновляет';
   }
   const n = nextN(M, EDITS.added.map(a => a.item));
   const today = new Date().toISOString().slice(0, 10);
@@ -826,7 +877,7 @@ async function addPosition(kind) {
       value: r2(qty * price), recommendation: null, target_price: null, upside_pct: null,
       range_min: null, range_max: null, dividend_next: null, dividend_date: '',
       dividend_status: 'нет данных', div_yield_12m_pct: 0,
-      note: 'добавлено вручную ' + today + ' (edit.html)', prev_close: price,
+      note: 'добавлено вручную ' + today + ' (edit.html)' + (bondNote || ''), prev_close: price,
       day_change_pct: 0, prev_date: BASE.meta.date };
     upsertAdded('stock', code, it);
   } else {
