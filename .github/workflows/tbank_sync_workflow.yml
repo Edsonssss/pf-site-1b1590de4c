@@ -1,0 +1,56 @@
+# .github/workflows/tbank_sync.yml
+# Ежедневная выгрузка портфеля Т-Банк через T-Invest API.
+# Токен лежит в СЕКРЕТЕ ОКРУЖЕНИЯ (GitHub Environments):
+#   Settings → Environments → New environment «tbank» →
+#   Add environment secret → TB_TOKEN = <read-only токен T-Invest API>
+# Секрет доступен ТОЛЬКО job'ам со строкой environment: tbank —
+# это и есть «зашить токен в environments».
+#
+# Скрипт положите в репозиторий: scripts/fetch_tbank_portfolio.py
+# Результат коммитится в корень репозитория как tbank_portfolio.json —
+# на странице правок кнопка «⇄ Сверка с Т-Банком → ⤓ Взять с сайта»
+# подхватит его автоматически. Если коммитить не хотите — удалите
+# последний шаг, файл останется в артефактах сборки.
+
+name: T-Bank portfolio sync
+
+on:
+  schedule:
+    - cron: '20 5 * * *'        # ежедневно 08:20 МСК; только по будням: '20 5 * * 1-5'
+  workflow_dispatch:             # запуск вручную из вкладки Actions
+
+permissions:
+  contents: write                # для коммита tbank_portfolio.json
+
+jobs:
+  fetch-portfolio:
+    runs-on: ubuntu-latest
+    environment: tbank           # ← из этого окружения берётся TB_TOKEN
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Выгрузить портфель через T-Invest API
+        env:
+          TB_TOKEN: ${{ secrets.TB_TOKEN }}
+          # TB_ACCOUNT: '2000123456'   # раскомментируйте и укажите id счёта,
+          #                             # если брокерских счетов несколько
+        run: |
+          python scripts/fetch_tbank_portfolio.py --out tbank_portfolio.json
+
+      - name: Загрузить артефакт (журнал выгрузки)
+        uses: actions/upload-artifact@v4
+        with:
+          name: tbank_portfolio
+          path: tbank_portfolio.json
+
+      - name: Commit tbank_portfolio.json
+        run: |
+          git config user.name  "tbank-sync-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tbank_portfolio.json
+          git diff --cached --quiet || git commit -m "tbank portfolio snapshot $(date -u +%F)"
+          git push
