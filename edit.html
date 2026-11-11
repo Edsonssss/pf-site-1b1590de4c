@@ -4,7 +4,6 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Правка портфеля — edit</title>
-<script src="portfolio_data.js"></script>
 <style>
 :root{--blue:#1F3864;--accent:#FFDD2D;--green:#1a7f37;--greenbg:#e6f7e9;--amber:#9C6500;
 --amberbg:#fff4d6;--red:#c0392b;--redbg:#fdecea;--gray:#6b7280;--line:#e5e7eb;--bg:#f4f6fa;}
@@ -243,15 +242,29 @@ function emptyEdits() {
   return { v: 1, setQty: {}, setBlocked: {}, setCash: null, setFamily: null, added: [], removed: [] };
 }
 
-/* ---------- загрузка данных: portfolio_data.js → fetch → встроенная копия ---------- */
+/* ---------- загрузка данных: JSON (источник истины) → .js → встроенная копия ----------
+   JSON читаем первым: он коммитится вручную и всегда отражает последнее
+   опубликованное состояние. portfolio_data.js — файл, генерируемый конвейером:
+   он может отставать от JSON, если после коммита не запускать workflow.
+   Поэтому по HTTP .js используется только как запасной канал, а на file:// —
+   как основной (fetch там недоступен). */
+function loadJsScript() {
+  return new Promise((res, rej) => {
+    const s = document.createElement('script');
+    s.src = 'portfolio_data.js';
+    s.onload = res; s.onerror = rej;
+    document.head.appendChild(s);
+  });
+}
 async function loadData() {
-  if (window.PORTFOLIO_DATA) {
-    BASE = clone(window.PORTFOLIO_DATA); SRC = 'portfolio_data.js'; return;
-  }
   try {
     const r = await fetch('portfolio_data.json?cb=' + Date.now());
     if (r.ok) { BASE = await r.json(); SRC = 'portfolio_data.json (fetch)'; return; }
-  } catch (e) { /* file:// или файла нет */ }
+  } catch (e) { /* file:// — fetch недоступен, идём в .js */ }
+  try {
+    await loadJsScript();
+    if (window.PORTFOLIO_DATA) { BASE = clone(window.PORTFOLIO_DATA); SRC = 'portfolio_data.js'; return; }
+  } catch (e) { /* и .js нет */ }
   try {
     const t = $('embedded-data').textContent;
     if (t && t.trim() !== 'null') { BASE = JSON.parse(t); SRC = 'встроенная копия'; return; }
