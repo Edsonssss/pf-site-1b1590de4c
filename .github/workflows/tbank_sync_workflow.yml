@@ -35,7 +35,7 @@ jobs:
 
       - name: Выгрузить портфель через T-Invest API
         env:
-          TB_TOKEN: ${{ secrets.TB_TOKEN }}
+          TB_TOKEN: ${{ secrets.TB }}
           # TB_ACCOUNT: '2000123456'   # раскомментируйте и укажите id счёта,
           #                             # если брокерских счетов несколько
         run: |
