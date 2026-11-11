@@ -404,6 +404,38 @@ function loadDraft() {
   } catch (err) { EDITS = emptyEdits(); }
 }
 
+/* ---------- самочистка черновика при загрузке ----------
+   1) черновые позиции с пометкой на удаление убираются совсем
+      (миграция старых черновиков — раньше надгробия жили вечно);
+   2) пометки на удаление позиций, которых уже нет в данных репозитория
+      (JSON выгружен и закоммичен), снимаются сами;
+   3) правки количеств/сумм, совпавшие с данными репозитория, снимаются.
+   Так черновик сам очищается после каждого цикла публикации. */
+function sanitizeDraft() {
+  const before = JSON.stringify(EDITS);
+  EDITS.added   = EDITS.added.filter(a => !EDITS.removed.includes('added:' + a._key));
+  EDITS.removed = EDITS.removed.filter(r => !r.startsWith('added:'));
+  EDITS.removed = EDITS.removed.filter(r => {
+    const c = r.indexOf(':'), kind = r.slice(0, c), id = r.slice(c + 1);
+    if (kind === 'stocks') return BASE.stocks.some(x => x.ticker === id);
+    if (kind === 'funds')  return BASE.funds.some(x => String(x.n) === id);
+    return true;
+  });
+  for (const [k, v] of Object.entries(EDITS.setQty)) {
+    const c = k.indexOf(':'), kind = k.slice(0, c), id = k.slice(c + 1);
+    const b = kind === 'stocks'
+      ? BASE.stocks.find(x => x.ticker === id) : BASE.funds.find(x => String(x.n) === id);
+    if (b && b.qty === v) delete EDITS.setQty[k];
+  }
+  for (const [t, v] of Object.entries(EDITS.setBlocked)) {
+    const b = BASE.blocked.find(x => String(x.ticker).split(' ')[0] === t);
+    if (b && b.qty === v) delete EDITS.setBlocked[t];
+  }
+  if (EDITS.setCash != null && EDITS.setCash === BASE.cash.value) EDITS.setCash = null;
+  if (EDITS.setFamily != null && BASE.family && EDITS.setFamily === BASE.family.value) EDITS.setFamily = null;
+  if (JSON.stringify(EDITS) !== before) save(false);   // чистим только при изменениях
+}
+
 /* ---------- мелкие помощники интерфейса ---------- */
 let toastT = null;
 function toast(msg, isErr) {
@@ -713,10 +745,17 @@ function bindStatic() {
     const del = e.target.dataset && e.target.dataset.del;
     const undo = e.target.dataset && e.target.dataset.undo;
     const trMore = e.target.closest ? e.target.closest('tr.more') : null;
-    if (del && !isRemoved(del)) {
-      if (del.startsWith('added:')) { EDITS.removed.push(del); }
-      else { EDITS.removed.push(del); delete EDITS.setQty[del]; }
-      refresh(); autosave(); toast('Позиция помечена к удалению — можно вернуть');
+    if (del) {
+      if (del.startsWith('added:')) {
+        // черновая позиция удаляется насовсем: держать надгробие незачем —
+        // она никогда не существовала в репозитории
+        EDITS.added = EDITS.added.filter(a => 'added:' + a._key !== del);
+        EDITS.removed = EDITS.removed.filter(x => x !== del);
+        refresh(); autosave(); toast('Черновая позиция удалена совсем');
+      } else if (!isRemoved(del)) {
+        EDITS.removed.push(del); delete EDITS.setQty[del];
+        refresh(); autosave(); toast('Позиция помечена к удалению — можно вернуть');
+      }
     }
     if (undo) {
       EDITS.removed = EDITS.removed.filter(x => x !== undo);
@@ -951,6 +990,7 @@ window.PORTFOLIO_EDIT = {
   });
   BASE_SM = clone(recalcSummary(clone(BASE)));
   loadDraft();
+  sanitizeDraft();   // застрявшие надгробия и устаревшие правки — вон
   M = merged();  // начальное состояние свёртки: без правок — всё развёрнуто
   collapsed.stocks = editCount() > 0 && unchCount('stocks') > 6;
   collapsed.funds  = editCount() > 0 && unchCount('funds') > 6;
