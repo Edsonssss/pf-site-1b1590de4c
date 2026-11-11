@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Пересборка Excel-таблицы из portfolio_data.json (авто-режим GitHub Actions)."""
+"""Пересборка Excel-таблицы из portfolio_data.json (авто-режим GitHub Actions).
+Дата сводных прогнозов берётся из meta.forecasts_date (пишет fetch_forecasts.py)."""
 import json, os, datetime
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
@@ -13,7 +14,9 @@ dt = datetime.date.fromisoformat(d['meta']['date'])
 DATE = dt.strftime('%d.%m.%Y')
 pd_ = sorted({s.get('prev_date') for s in stocks if s.get('prev_date')})[-1]
 PREV = f"{pd_[8:10]}.{pd_[5:7]}.{pd_[:4]}"
-OUT = os.path.join(BASE, 'Портфель_и_прогнозы_ТБанк_08.10.2026.xlsx')
+fdt = d['meta'].get('forecasts_date')
+FDATE = (datetime.date.fromisoformat(fdt).strftime('%d.%m.%Y') if fdt else '—')
+OUT = os.path.join(BASE, 'Портфель_и_прогнозы_ТБанк.xlsx')
 
 wb = openpyxl.Workbook(); ws = wb.active; ws.title = 'Портфель и прогнозы'
 HDR = ['№','Категория','Тикер','Название','Кол-во',f'Текущая цена, ₽ ({DATE})',f'Цена за пред. торг. день, ₽ ({PREV})','Изменение, %','Текущая стоимость, ₽','Доля, % *','Рекомендация Т-Банк','Целевая цена, ₽','Потенциал, %','Диапазон целей, ₽','Ближайший дивиденд, ₽/акц.','Дата отсечки','Див. доходность за 12 мес','Статус дивиденда','Примечания / прогноз']
@@ -37,7 +40,7 @@ ws.merge_cells(start_row=1, start_column=1, end_row=1, end_column=NC)
 c = ws.cell(row=1, column=1, value=f'Инвестиционный портфель — сводные прогнозы Т-Банка (Т-Инвестиции) и дивиденды на {DATE} (автообновление)')
 c.font = Font(bold=True, size=13, color='1F3864'); c.alignment = Alignment(horizontal='center')
 ws.merge_cells(start_row=2, start_column=1, end_row=2, end_column=NC)
-c = ws.cell(row=2, column=1, value=f'Источники: сводный прогноз Т-Банка — на 08.10.2026; цены — MOEX ISS ({DATE}, закрытие {PREV}); паи — investfunds.ru; дивиденды — tbank.ru + smart-lab.ru. * Доли: в строках акций — внутри акции-части, фондов — внутри фондов, в итогах и кэше — в портфеле.')
+c = ws.cell(row=2, column=1, value=f'Источники: сводный прогноз Т-Банка — на {FDATE}; цены — MOEX ISS ({DATE}, закрытие {PREV}); паи — investfunds.ru; дивиденды — tbank.ru + smart-lab.ru. * Доли: в строках акций — внутри акции-части, фондов — внутри фондов, в итогах и кэше — в портфеле.')
 c.font = Font(italic=True, size=9, color='808080'); c.alignment = Alignment(horizontal='center', wrap_text=True)
 ws.row_dimensions[2].height = 30
 hr = 3
@@ -160,8 +163,9 @@ def para(rw_, t_):
     c = ws2.cell(row=rw_, column=2, value=t_); c.font = Font(size=10); c.alignment = Alignment(wrap_text=True, vertical='top')
     ws2.row_dimensions[rw_].height = max(15, 15 * (len(t_) // 110 + 1)); return rw_ + 1
 r = 1
-r = sec(r, f'СВОДКА: ПРОГНОЗЫ Т-БАНКА (08.10.2026), ЦЕНЫ И СОСТАВ НА {DATE} (АВТООБНОВЛЕНИЕ)')
-r = para(r, f"• Рекомендации: ПОКУПАТЬ — {sum_['recommendations']['buy']}; ДЕРЖАТЬ — {sum_['recommendations']['hold']}; ПРОДАВАТЬ — 0; без прогноза — {sum_['recommendations']['no_forecast']} (FEES, PMSB).")
+r = sec(r, f'СВОДКА: ПРОГНОЗЫ Т-БАНКА ({FDATE}), ЦЕНЫ И СОСТАВ НА {DATE} (АВТООБНОВЛЕНИЕ)')
+nf = [s['ticker'] for s in stocks if not s.get('target_price')]
+r = para(r, f"• Рекомендации: ПОКУПАТЬ — {sum_['recommendations']['buy']}; ДЕРЖАТЬ — {sum_['recommendations']['hold']}; ПРОДАВАТЬ — {sum_['recommendations']['sell']}; без прогноза — {sum_['recommendations']['no_forecast']}" + (f" ({', '.join(nf)})." if nf else "."))
 r = para(r, '• Средневзвешенный потенциал роста акций к целевым ценам: +%.1f%% (без учёта дивидендов).' % sum_['weighted_upside_pct'])
 r += 1
 r = sec(r, 'ДИВИДЕНДЫ')
@@ -195,7 +199,7 @@ if d.get('blocked'):
     r = para(r, f"• Итого с учётом заблокированных: {sum_['total_including_blocked']:,.0f} ₽ (ликвидная часть {tot:,.0f} ₽).".replace(',', ' '))
 r += 1
 r = sec(r, 'ИСТОЧНИКИ')
-r = para(r, f'• tbank.ru/invest (08.10.2026); MOEX ISS ({DATE}, закрытие {PREV}); investfunds.ru; smart-lab.ru/dividends; cbr.ru. Состав и количества обновляются вручную.')
+r = para(r, f'• tbank.ru/invest ({FDATE}); MOEX ISS ({DATE}, закрытие {PREV}); investfunds.ru; smart-lab.ru/dividends; cbr.ru. Состав и количества обновляются вручную.')
 r = para(r, '⚠️ Материал информационный, не является индивидуальной инвестиционной рекомендацией.')
 
 # ---------- лист «Остатки по дням» (ежедневный учёт + график) ----------
