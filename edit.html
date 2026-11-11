@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Правка портфеля — edit</title>
+<script src="portfolio_data.js"></script>
+<style>
+:root{--blue:#1F3864;--accent:#FFDD2D;--green:#1a7f37;--greenbg:#e6f7e9;--amber:#9C6500;
+--amberbg:#fff4d6;--red:#c0392b;--redbg:#fdecea;--gray:#6b7280;--line:#e5e7eb;--bg:#f4f6fa;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+background:var(--bg);color:#1f2937;font-size:14px;line-height:1.45}
+.wrap{max-width:1180px;margin:0 auto;padding:16px 14px 40px}
+/* ── шапка ── */
+.hdr{background:var(--blue);color:#fff;border-radius:12px 12px 0 0;padding:13px 18px;
+display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.hdr .ttl{font-size:19px;font-weight:700}
+.chip{display:inline-block;background:rgba(255,255,255,.14);border-radius:20px;padding:3px 11px;
+font-size:12px;margin-left:8px;vertical-align:2px;white-space:nowrap}
+.chip.ok{background:rgba(255,221,45,.9);color:#1F3864;font-weight:600}
+.hdr .r{font-size:12px;opacity:.92}
+/* ── панель инструментов ── */
+.tools{background:#fff;border:1px solid var(--line);border-top:none;padding:10px 18px;
+display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn{border-radius:9px;padding:7px 14px;font-size:13px;font-weight:600;border:1px solid var(--line);
+background:#fff;color:#1f2937;cursor:pointer}
+.btn:hover{background:#f3f6fb}
+.btn.pri{background:var(--blue);color:#fff;border-color:var(--blue)}
+.btn.pri:hover{background:#2a4a80}
+.btn.acc{background:var(--accent);border-color:#e8c900;color:#1F3864}
+.btn.acc:hover{background:#f5d614}
+.btn.sm{padding:4px 10px;font-size:12px}
+.tools .st{margin-left:auto;font-size:12.5px;color:var(--gray);min-width:200px;flex:1;text-align:right}
+.tools .st b{color:#1f2937}
+/* ── плашка-пояснение ── */
+.note{background:var(--amberbg);color:var(--amber);border:1px solid #f1e0b0;border-top:none;
+padding:8px 18px;font-size:12.5px}
+.note b{font-weight:700}
+/* ── карточки сводки ── */
+.cards{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:12px 0}
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 12px}
+.card .t{font-size:11.5px;color:var(--gray)}
+.card .v{font-size:16.5px;font-weight:700;margin-top:2px;white-space:nowrap}
+.card .s{font-size:11px;margin-top:2px;color:var(--gray);white-space:nowrap}
+.up{color:var(--green);font-weight:600}.dn{color:var(--red);font-weight:600}
+/* ── секции ── */
+.sec{background:#fff;border:1px solid var(--line);border-radius:10px;margin-bottom:12px;overflow:hidden}
+.sec>.sh{padding:9px 14px;font-size:14.5px;font-weight:700;border-bottom:1px solid var(--line);
+display:flex;align-items:baseline;gap:10px;background:#fbfcfe;flex-wrap:wrap}
+.sec>.sh .cnt{font-size:12px;color:var(--gray);font-weight:400}
+.sec>.sh .diff{margin-left:auto;font-size:11.5px;font-weight:600}
+.tblscroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{font-size:11px;color:var(--gray);font-weight:600;text-align:right;padding:6px 8px;
+border-bottom:1px solid var(--line);background:#fbfcfe;white-space:nowrap}
+th.l,td.l{text-align:left}
+td{padding:6px 8px;text-align:right;border-bottom:1px solid #f0f2f5;white-space:nowrap}
+tbody tr:hover td{background:#fafcff}
+.num{font-variant-numeric:tabular-nums}
+input.qty{width:84px;text-align:right;font-size:13px;padding:3px 7px;border:1px solid #cfd8e3;
+border-radius:7px;font-family:inherit;font-variant-numeric:tabular-nums;background:#fffef2;border-color:#e3c93f}
+input.qty.bad{border-color:var(--red);background:var(--redbg)}
+tr.edit td{background:#fffbe0}
+tr.edit td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
+.was{display:block;font-size:10.5px;color:var(--gray);font-weight:400}
+.dtag{display:inline-block;font-size:10.5px;font-weight:700;border-radius:6px;padding:1px 7px;margin-left:6px}
+.dtag.up{background:var(--greenbg);color:var(--green)}
+.dtag.dn{background:var(--redbg);color:var(--red)}
+.dtag.new{background:#eef2ff;color:#3b4a8c}
+tr.del td{background:var(--redbg);color:#8c2f24;text-decoration:line-through}
+tr.del td:first-child{box-shadow:inset 3px 0 0 var(--red)}
+tr.del .undo,tr.del .x{text-decoration:none}
+tr.del .was{text-decoration:none}
+tr.unch-hide{display:none}
+.more td{text-align:left;color:var(--gray);font-size:12px;background:#fbfcfe;cursor:pointer;white-space:normal}
+.more td:hover{color:var(--blue)}
+.addrow td{text-align:left;background:#f6f9ff;border-top:1px dashed #c9d8ee;white-space:normal}
+.addrow input{width:110px;padding:3px 7px;border:1px solid #cfd8e3;border-radius:7px;font-size:12.5px;
+font-family:inherit}
+.addrow .lbl{font-size:12px;color:var(--gray)}
+.tot td{background:#f4f7fb;font-weight:700;border-top:1.5px solid #d7e0ec}
+.rec{font-size:11px;font-weight:600;border-radius:6px;padding:2px 8px;white-space:nowrap}
+.b-buy{background:var(--greenbg);color:var(--green)}
+.b-hold{background:var(--amberbg);color:var(--amber)}
+.x{font-size:12px;color:#b91c1c;background:none;border:none;cursor:pointer;font-weight:700;padding:2px 4px}
+.x:hover{color:var(--red)}
+.undo{font-size:11.5px;color:var(--blue);font-weight:600;white-space:nowrap;background:none;border:none;
+cursor:pointer;padding:2px 4px}
+.undo:hover{text-decoration:underline}
+/* ── три карточки групп ── */
+.tri{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px}
+.tcard{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.tcard .h{font-size:13.5px;font-weight:700;display:flex;gap:8px;align-items:baseline}
+.tcard .h .cnt{font-size:11px;color:var(--gray);font-weight:400}
+.tcard .row{display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:8px;flex-wrap:wrap}
+.tcard .nm{font-size:12px;color:var(--gray)}
+.tcard .eq{font-size:12px;color:var(--gray);margin-top:7px;line-height:1.5}
+input.amt{width:110px;text-align:right;font-size:13.5px;padding:4px 8px;border:1px solid #e3c93f;
+border-radius:7px;background:#fffef2;font-family:inherit;font-weight:600;font-variant-numeric:tabular-nums}
+input.amt.plain{border-color:#cfd8e3;background:#fff;font-weight:400}
+input.amt.bad{border-color:var(--red);background:var(--redbg)}
+.was2{font-size:11px;color:var(--gray)}
+/* ── итоговая лента ── */
+.fin{background:var(--blue);color:#fff;border-radius:10px;padding:11px 18px;display:flex;
+justify-content:space-between;align-items:center;font-size:13.5px;gap:12px;flex-wrap:wrap}
+.fin .big{font-size:17px;font-weight:700}
+.fin .dim{opacity:.85;font-size:12px}
+.foot{font-size:11.5px;color:var(--gray);padding:9px 4px 0;line-height:1.55}
+.foot b{color:#1f2937}
+/* ── прочее ── */
+.errbox{background:var(--redbg);color:#8c2f24;border:1px solid #f0c4bd;border-radius:10px;
+padding:16px 18px;margin-top:12px;font-size:13.5px;line-height:1.6}
+#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#1f2937;color:#fff;
+border-radius:9px;padding:9px 16px;font-size:12.5px;opacity:0;pointer-events:none;transition:opacity .25s;
+max-width:90vw;z-index:50}
+#toast.show{opacity:.97}
+#toast.err{background:var(--red)}
+@media (max-width:960px){
+ .cards{grid-template-columns:repeat(3,1fr)}
+ .tri{grid-template-columns:1fr}
+ .tools .st{text-align:left}
+}
+@media (max-width:560px){.cards{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hdr">
+    <div><span class="ttl">✏️ Правка портфеля</span><span class="chip">edit.html</span><span
+      class="chip" id="chip-state">загрузка…</span></div>
+    <div class="r" id="hdr-data">данные: …</div>
+  </div>
+
+  <div class="tools" id="tools" style="display:none">
+    <button class="btn pri" id="btn-save">💾 Сохранить черновик</button>
+    <button class="btn acc" id="btn-json">⬇ Скачать portfolio_data.json</button>
+    <button class="btn sm" id="btn-js" title="Для локального просмотра по file:// без запуска конвейера">⬇ .js</button>
+    <button class="btn" id="btn-reset">↺ Сбросить всё</button>
+    <a class="btn" href="index.html">🏠 Открыть index.html</a>
+    <span class="st" id="edit-status">изменений: <b>0</b></span>
+  </div>
+
+  <div class="note" style="display:none" id="note-bar">Правки применяются поверх <b>утренних</b> данных — цены,
+  цели аналитиков и история остатков не изменяются. До публикации главная страница показывает данные без правок.</div>
+
+  <div id="errbox"></div>
+  <div id="app" style="display:none">
+
+    <div class="cards" id="cards"></div>
+
+    <div class="sec">
+      <div class="sh">Акции <span class="cnt" id="hdr-stocks-cnt"></span>
+        <span class="diff" id="hdr-stocks-diff"></span></div>
+      <div class="tblscroll"><table id="tbl-stocks"><thead><tr>
+        <th class="l">№</th><th class="l">Тикер</th><th>Кол-во</th><th>Цена, ₽</th>
+        <th>Стоимость, ₽</th><th>Доля</th><th>Потенциал</th><th>Рек.</th><th></th>
+      </tr></thead><tbody id="body-stocks"></tbody></table></div>
+    </div>
+
+    <div class="sec">
+      <div class="sh">Фонды <span class="cnt" id="hdr-funds-cnt"></span>
+        <span class="diff" id="hdr-funds-diff"></span></div>
+      <div class="tblscroll"><table id="tbl-funds"><thead><tr>
+        <th class="l">№</th><th class="l">Фонд</th><th>Паи</th><th>Пай, ₽</th>
+        <th>Стоимость, ₽</th><th>Доля</th><th>1 год</th><th></th>
+      </tr></thead><tbody id="body-funds"></tbody></table></div>
+    </div>
+
+    <div class="tri">
+      <div class="tcard">
+        <div class="h">Кэш <span class="cnt" id="cash-cnt"></span></div>
+        <div class="row"><span class="nm" id="cash-name"></span>
+          <span><input class="amt" id="inp-cash"><span class="was2" id="cash-was"> ₽</span><span class="was2" id="cash-extra"></span></span></div>
+        <div class="eq" id="cash-eq"></div>
+      </div>
+      <div class="tcard">
+        <div class="h">Заблокировано <span class="cnt" id="bl-cnt"></span></div>
+        <div id="bl-rows"></div>
+        <div class="eq" id="bl-eq"></div>
+      </div>
+      <div class="tcard">
+        <div class="h">Семья <span class="cnt" id="fam-cnt"></span></div>
+        <div class="row"><span class="nm" id="fam-name"></span>
+          <span><input class="amt" id="inp-family"><span class="was2" id="fam-was"> ₽</span><span class="was2" id="fam-extra"></span></span></div>
+        <div class="eq" id="fam-eq"></div>
+      </div>
+    </div>
+
+    <div class="fin">
+      <span class="big" id="fin-total">…</span>
+      <span id="fin-blocked"></span>
+      <span id="fin-family"></span>
+      <span class="dim">цены и история остатков не изменяются</span>
+    </div>
+
+    <div class="foot"><b>Черновик</b> хранится в браузере (ключ pf_manual_edits_v1) и переживает перезагрузку;
+    сохраняются только изменения (дельта), поэтому после утреннего обновления цен правки ложатся на свежие данные.
+    <b>«Скачать JSON»</b> выгружает полный portfolio_data.json с применёнными правками — для коммита в репозиторий;
+    конвейер GitHub Actions пересоберёт остальные файлы. Кнопка <b>«⬇ .js»</b> — то же в виде portfolio_data.js
+    для локального просмотра без конвейера. Сброс возвращает данные к состоянию репозитория.</div>
+
+  </div>
+</div>
+<div id="toast"></div>
+<script id="embedded-data" type="application/json">null</script>
+<script>
+'use strict';
+/* =====================================================================
+   edit.html — правка всех позиций портфеля (акции, фонды, кэш,
+   заблокированные, семья) с автоматическим пересчётом всех сводных
+   показателей. Формулы пересчёта 1:1 повторяют auto_update.py.
+   Хранит ТОЛЬКО дельту правок в localStorage (ключ pf_manual_edits_v1),
+   поэтому после утреннего обновления цен черновик остаётся валидным.
+   ===================================================================== */
+const $ = id => document.getElementById(id);
+const LS_KEY = 'pf_manual_edits_v1';
+
+const r2 = x => Math.round((x + Number.EPSILON) * 100) / 100;   // round(…, 2)
+const r1 = x => Math.round((x + Number.EPSILON) * 10) / 10;     // round(…, 1)
+const nf = (x, d = 0) => new Intl.NumberFormat('ru-RU',
+  { minimumFractionDigits: d, maximumFractionDigits: d }).format(x);
+const nfS = (x, d = 2) => (x > 0 ? '+' : x < 0 ? '−' : '') + nf(Math.abs(x), d);
+const parseNum = s => {
+  s = String(s).trim().replace(/\s|\u00A0/g, '').replace(',', '.');
+  if (!s) return NaN;
+  const v = Number(s);
+  return isFinite(v) ? v : NaN;
+};
+const clone = x => JSON.parse(JSON.stringify(x));
+const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;')
+  .replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+let BASE = null;        // данные из репозитория (неизменяемые, кроме _rate у blocked)
+let BASE_SM = null;     // сводка, пересчитанная из BASE (база для дельт на карточках)
+let SRC = '';           // откуда загружены данные (для шапки)
+let M = null;           // текущее состояние: BASE + правки + пересчёт
+let EDITS = emptyEdits();
+const collapsed = { stocks: true, funds: true };  // свёрнуты ли строки «без изменений»
+
+function emptyEdits() {
+  return { v: 1, setQty: {}, setBlocked: {}, setCash: null, setFamily: null, added: [], removed: [] };
+}
+
+/* ---------- загрузка данных: portfolio_data.js → fetch → встроенная копия ---------- */
+async function loadData() {
+  if (window.PORTFOLIO_DATA) {
+    BASE = clone(window.PORTFOLIO_DATA); SRC = 'portfolio_data.js'; return;
+  }
+  try {
+    const r = await fetch('portfolio_data.json?cb=' + Date.now());
+    if (r.ok) { BASE = await r.json(); SRC = 'portfolio_data.json (fetch)'; return; }
+  } catch (e) { /* file:// или файла нет */ }
+  try {
+    const t = $('embedded-data').textContent;
+    if (t && t.trim() !== 'null') { BASE = JSON.parse(t); SRC = 'встроенная копия'; return; }
+  } catch (e) { /* нет встроенных данных */ }
+}
+
+/* ---------- пересчёт сводки: формулы 1:1 из auto_update.py (строки 105–124) ---------- */
+function recalcSummary(d) {
+  const sm = d.summary;
+  for (const s of d.stocks) if (!s._deleted) s.value = r2(s.qty * s.current_price);      // строка 61
+  for (const f of d.funds)  if (!f._deleted) f.value = r2(f.qty * f.current_nav);        // строка 103
+  sm.stocks_value = r2(d.stocks.reduce((a, s) => a + (s._deleted ? 0 : s.value), 0));    // 107
+  sm.funds_value  = r2(d.funds.reduce((a, f) => a + (f._deleted ? 0 : f.value), 0));     // 108
+  sm.cash_value   = d.cash.value;                                             // форма правит cash_value
+  sm.total_value  = r2(sm.stocks_value + sm.funds_value + sm.cash_value);     // 109
+  const tv = sm.total_value || 1;                                             // защита от 0
+  sm.shares_pct = {                                                           // 110–112
+    stocks: r2(sm.stocks_value / tv * 100),
+    funds:  r2(sm.funds_value  / tv * 100),
+    cash:   r2(sm.cash_value   / tv * 100) };
+  const num = d.stocks.filter(s => s.upside_pct != null && !s._deleted);      // 113–114
+  sm.weighted_upside_pct = num.length
+    ? r1(num.reduce((a, s) => a + s.value * s.upside_pct, 0)
+         / num.reduce((a, s) => a + s.value, 0)) : 0;
+  // t12 восстанавливается из дивдоходности (точность ограничена округлением до 0,1%)
+  sm.dividends_12m_gross = r2(d.stocks.reduce((a, s) =>                      // 115
+    a + (s._deleted ? 0 : (s.div_yield_12m_pct || 0) / 100 * s.current_price * s.qty), 0));
+  sm.dividends_12m_yield_pct = r2(sm.dividends_12m_gross / tv * 100);         // 116
+  const recs = { buy: 0, hold: 0, sell: 0, no_forecast: 0 };                  // счётчик рекомендаций
+  for (const s of d.stocks) {
+    if (s._deleted) continue;
+    const rec = (s.recommendation || '').toLowerCase();
+    if (rec.includes('покуп')) recs.buy++;
+    else if (rec.includes('держ')) recs.hold++;
+    else if (rec.includes('прод')) recs.sell++;
+    else recs.no_forecast++;
+  }
+  sm.recommendations = recs;
+  const ud = d.upcoming_dividends || [];
+  sm.upcoming_dividends_gross = r2(ud.reduce((a, u) => a + (u.gross || 0), 0));       // 117
+  sm.upcoming_dividends_net_13pct = r2(sm.upcoming_dividends_gross * 0.87);           // 118
+  d.blocked.forEach(b => { b.value_usd = r2(b.qty * b.price_usd);
+                           b.value_rub = r2(b.value_usd * (b._rate || 1)); });
+  sm.blocked_value_usd = r2(d.blocked.reduce((a, b) => a + b.value_usd, 0));
+  sm.blocked_value_rub = r2(d.blocked.reduce((a, b) => a + b.value_rub, 0));          // 119
+  sm.total_including_blocked = r2(sm.total_value + sm.blocked_value_rub);             // 120
+  const fam = d.family || {};
+  sm.family_value = fam.value || 0;                                                   // 123
+  sm.total_family = r2(sm.total_value + sm.family_value);                             // 124
+  return sm;
+}
+
+/* ---------- применение дельты к базовым данным ----------
+   Удалённые позиции остаются в массивах с флагом _deleted: строка видна
+   в таблице (мягкое удаление), но исключена из расчётов и выгрузки. */
+function merged() {
+  const d = clone(BASE);
+  d.stocks.forEach(s => { if (EDITS.removed.includes('stocks:' + s.ticker)) s._deleted = true; });
+  d.funds.forEach(f => { if (EDITS.removed.includes('funds:' + f.n)) f._deleted = true; });
+  d.blocked = d.blocked || [];
+  for (const a of EDITS.added) {
+    const it = clone(a.item);
+    if (EDITS.removed.includes('added:' + a._key)) it._deleted = true;
+    d[a.kind === 'stock' ? 'stocks' : 'funds'].push(it);
+  }
+  for (const [k, v] of Object.entries(EDITS.setQty)) {
+    const c = k.indexOf(':'), kind = k.slice(0, c), id = k.slice(c + 1);
+    const arr = kind === 'stocks' ? d.stocks : d.funds;
+    const it = arr.find(x => String(kind === 'stocks' ? x.ticker : x.n) === id);
+    if (it) it.qty = v;
+  }
+  for (const b of d.blocked) {
+    const bt = String(b.ticker).split(' ')[0];
+    if (EDITS.setBlocked[bt] != null) b.qty = EDITS.setBlocked[bt];
+  }
+  if (EDITS.setCash != null)   d.cash.value = EDITS.setCash;
+  if (EDITS.setFamily != null && d.family) d.family.value = EDITS.setFamily;
+  recalcSummary(d);
+  return d;
+}
+const cleanDownload = d => {
+  d.stocks = d.stocks.filter(s => !s._deleted);
+  d.funds  = d.funds.filter(f => !f._deleted);
+  (d.blocked || []).forEach(b => delete b._rate);
+  return d;
+};
+
+/* ---------- счётчик и список изменений ---------- */
+function editCount() {
+  return Object.keys(EDITS.setQty).length + Object.keys(EDITS.setBlocked).length
+    + (EDITS.setCash != null ? 1 : 0) + (EDITS.setFamily != null ? 1 : 0)
+    + EDITS.added.filter(a => !EDITS.removed.includes('added:' + a._key)).length
+    + EDITS.removed.filter(r => !r.startsWith('added:')).length;
+}
+function shortFundName(f) {
+  const m = String(f.name).match(/\(([A-ZА-Я]{2,6}(?:-RM)?)\)/);
+  return m ? m[1] : String(f.name).slice(0, 14);
+}
+function touchedNames() {
+  const out = [];
+  for (const k of Object.keys(EDITS.setQty)) {
+    const c = k.indexOf(':'), kind = k.slice(0, c), id = k.slice(c + 1);
+    if (kind === 'stocks') out.push(id);
+    else {
+      const it = (M ? M.funds : []).find(f => String(f.n) === id)
+        || (EDITS.added.find(a => a.kind === 'fund' && String(a.item.n) === id) || { item: {} }).item;
+      out.push(it && it.name ? shortFundName(it) : 'фонд');
+    }
+  }
+  for (const t of Object.keys(EDITS.setBlocked)) out.push(t);
+  if (EDITS.setCash != null) out.push('кэш');
+  if (EDITS.setFamily != null) out.push('сэйв жены');
+  for (const a of EDITS.added) {
+    if (EDITS.removed.includes('added:' + a._key)) continue;
+    out.push('+' + (a.kind === 'stock' ? a.item.ticker : shortFundName(a.item)));
+  }
+  for (const r of EDITS.removed) {
+    const c = r.indexOf(':'), kind = r.slice(0, c), id = r.slice(c + 1);
+    if (kind === 'added') {
+      const a = EDITS.added.find(x => 'added:' + x._key === r);
+      if (a) out.push('−' + (a.kind === 'stock' ? a.item.ticker : shortFundName(a.item)));
+      continue;
+    }
+    if (kind === 'stocks') out.push('−' + id);
+    else {
+      const it = BASE.funds.find(f => String(f.n) === id);
+      out.push('−' + (it ? shortFundName(it) : 'фонд'));
+    }
+  }
+  return out;
+}
+
+/* ---------- localStorage ---------- */
+let saveT = null;
+function save(flash) {
+  try { localStorage.setItem(LS_KEY, JSON.stringify(EDITS)); }
+  catch (e) { toast('Не удалось сохранить черновик в localStorage', true); return; }
+  if (flash) { const c = $('chip-state'), t = c.textContent;
+    c.textContent = 'сохранено ✓'; setTimeout(refreshChip, 900); }
+}
+const autosave = () => { clearTimeout(saveT); saveT = setTimeout(() => save(false), 400); };
+function loadDraft() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) return;
+    const e = JSON.parse(raw);
+    if (e && e.v === 1 && typeof e.setQty === 'object') {
+      EDITS = Object.assign(emptyEdits(), e);
+    }
+  } catch (err) { EDITS = emptyEdits(); }
+}
+
+/* ---------- мелкие помощники интерфейса ---------- */
+let toastT = null;
+function toast(msg, isErr) {
+  const t = $('toast');
+  t.textContent = msg; t.className = 'show' + (isErr ? ' err' : '');
+  clearTimeout(toastT); toastT = setTimeout(() => { t.className = ''; }, 3600);
+}
+function share(x, tot) { return tot ? nf(x / tot * 100, 2) + '%' : '—'; }
+function pctCell(v) {
+  if (v == null) return '<span style="color:var(--gray)">—</span>';
+  const cls = v > 0 ? 'up' : v < 0 ? 'dn' : '';
+  return `<span class="${cls}">${v > 0 ? '+' : ''}${nf(v, 1)}%</span>`;
+}
+function recCell(rec) {
+  if (!rec) return '<span style="color:var(--gray)">—</span>';
+  const r = rec.toLowerCase();
+  const cls = r.includes('покуп') ? 'b-buy' : r.includes('держ') ? 'b-hold' : '';
+  return `<span class="rec ${cls}">${esc(rec)}</span>`;
+}
+function diffTag(now, base) {
+  const dd = r2(now - base);
+  if (Math.abs(dd) < 0.005) return '';
+  const cls = dd > 0 ? 'up' : 'dn';
+  return `<span class="dtag ${cls}">${nfS(dd, Math.abs(dd) < 100 ? 2 : 0)}</span>`;
+}
+
+/* ---------- построение таблиц (полная перерисовка) ---------- */
+function isRemoved(key) { return EDITS.removed.includes(key); }
+function renderStocks() {
+  const rows = [];
+  let unch = 0;
+  for (const s of M.stocks) {
+    const key = 'stocks:' + s.ticker, base = BASE.stocks.find(x => x.ticker === s.ticker);
+    const addedTag = base ? '' : ' (новая)';
+    if (s._deleted) {
+      rows.push(`<tr class="del" data-key="${key}"><td class="l num">${s.n}</td>
+        <td class="l"><b>${esc(s.ticker)}</b> · ${esc(s.name)}${addedTag}</td>
+        <td class="num">${nf(s.qty, s.qty % 1 ? 1 : 0)}</td><td class="num">${nf(s.current_price, 2)}</td>
+        <td class="num">${nf(s.value, 2)}</td><td class="num">—</td>
+        <td class="num">${pctCell(s.upside_pct)}</td><td>${recCell(s.recommendation)}</td>
+        <td><button class="undo" data-undo="${isRemoved(key) ? key : 'added:' + s.ticker}">вернуть ↺</button></td></tr>`);
+      continue;
+    }
+    const edited = EDITS.setQty[key] != null;
+    const was = edited ? `<span class="was">было ${nf(base.qty, base.qty % 1 ? 1 : 0)}</span>` : '';
+    const del = base
+      ? `<button class="x" data-del="${key}" title="Удалить позицию">✕</button>`
+      : `<button class="x" data-del="added:${s.ticker}" title="Удалить позицию">✕</button>`;
+    rows.push(`<tr data-key="${key}" class="${edited ? 'edit' : 'unch'}">
+      <td class="l num">${s.n}</td>
+      <td class="l"><b>${esc(s.ticker)}</b> · ${esc(s.name)}${addedTag}</td>
+      <td><input class="qty" data-qty="${key}" value="${s.qty}">${was}</td>
+      <td class="num">${nf(s.current_price, 2)}</td>
+      <td class="num"><span class="c-val">${nf(s.value, 2)}</span><span class="c-dtag"></span></td>
+      <td class="num c-share"></td>
+      <td class="num c-up">${pctCell(s.upside_pct)}</td>
+      <td class="c-rec">${recCell(s.recommendation)}</td>
+      <td>${del}</td></tr>`);
+    if (!edited) unch++;
+  }
+  rows.push(`<tr class="more" data-more="stocks"><td colspan="9" id="exp-stocks"></td></tr>`);
+  rows.push(`<tr class="addrow"><td colspan="9">+ Добавить акцию:&nbsp;
+    тикер <input id="add-s-ticker" placeholder="SNGS" style="text-transform:uppercase">
+    &nbsp;кол-во <input id="add-s-qty" placeholder="100">
+    &nbsp;цена, ₽ <input id="add-s-price" placeholder="авто с MOEX">
+    &nbsp;<button class="btn sm" id="btn-add-stock">Добавить</button>
+    <span class="lbl"> если цену не найти — введите вручную</span></td></tr>`);
+  rows.push(`<tr class="tot"><td colspan="4" class="l" id="st-tot-l"></td>
+    <td class="num" id="st-tot-v"></td><td class="num" id="st-tot-share"></td>
+    <td colspan="3" class="l" id="st-tot-up"></td></tr>`);
+  $('body-stocks').innerHTML = rows.join('');
+  $('tbl-stocks').dataset.collapsed = collapsed.stocks ? '1' : '';
+  return unch;
+}
+function renderFunds() {
+  const rows = [];
+  let unch = 0;
+  for (const f of M.funds) {
+    const key = 'funds:' + f.n, base = BASE.funds.find(x => x.n === f.n);
+    const addedTag = base ? '' : ' (новый)';
+    if (f._deleted) {
+      rows.push(`<tr class="del" data-key="${key}"><td class="l num">${f.n}</td>
+        <td class="l"><b>${esc(f.name)}</b> · ${esc(f.manager || '')}${addedTag}</td>
+        <td class="num">${nf(f.qty, f.qty % 1 ? 1 : 0)}</td><td class="num">${nf(f.current_nav, 2)}</td>
+        <td class="num">${nf(f.value, 2)}</td><td class="num">—</td><td class="num">—</td>
+        <td><button class="undo" data-undo="${isRemoved(key) ? key : 'added:' + f.name}">вернуть ↺</button></td></tr>`);
+      continue;
+    }
+    const edited = EDITS.setQty[key] != null;
+    const was = edited ? `<span class="was">было ${nf(base.qty, base.qty % 1 ? 1 : 0)}</span>` : '';
+    const y1 = f.performance_pct && f.performance_pct.y1 != null ? f.performance_pct.y1 : null;
+    rows.push(`<tr data-key="${key}" class="${edited ? 'edit' : 'unch'}">
+      <td class="l num">${f.n}</td>
+      <td class="l"><b>${esc(f.name)}</b>${f.manager ? ' · ' + esc(f.manager) : ''}${addedTag}</td>
+      <td><input class="qty" data-qty="${key}" value="${f.qty}">${was}</td>
+      <td class="num">${nf(f.current_nav, 2)}</td>
+      <td class="num"><span class="c-val">${nf(f.value, 2)}</span><span class="c-dtag"></span></td>
+      <td class="num c-share"></td>
+      <td class="num c-up">${pctCell(y1)}</td>
+      <td><button class="x" data-del="${key}" title="Удалить позицию">✕</button></td></tr>`);
+    if (!edited) unch++;
+  }
+  rows.push(`<tr class="more" data-more="funds"><td colspan="8" id="exp-funds"></td></tr>`);
+  rows.push(`<tr class="addrow"><td colspan="8">+ Добавить фонд:&nbsp;
+    название/тикер <input id="add-f-name" placeholder="LQDT">
+    &nbsp;паи <input id="add-f-qty" placeholder="500">
+    &nbsp;цена пая, ₽ <input id="add-f-price" placeholder="авто (биржевые)">
+    &nbsp;<button class="btn sm" id="btn-add-fund">Добавить</button></td></tr>`);
+  rows.push(`<tr class="tot"><td colspan="4" class="l" id="fu-tot-l"></td>
+    <td class="num" id="fu-tot-v"></td><td class="num" id="fu-tot-share"></td>
+    <td colspan="2"></td></tr>`);
+  $('body-funds').innerHTML = rows.join('');
+  $('tbl-funds').dataset.collapsed = collapsed.funds ? '1' : '';
+  return unch;
+}
+function renderTri() {
+  $('cash-name').textContent = BASE.cash.name || 'Денежный остаток';
+  $('cash-cnt').textContent = '1 счёт';
+  $('inp-cash').value = M.cash.value;
+  $('cash-extra').innerHTML = EDITS.setCash != null ? '<br>было ' + nf(BASE.cash.value) : '';
+  $('bl-cnt').textContent = M.blocked.length + (M.blocked.length === 1 ? ' позиция' : ' позиции');
+  $('bl-rows').innerHTML = M.blocked.map(b => {
+    const bt = String(b.ticker).split(' ')[0];
+    const edited = EDITS.setBlocked[bt] != null;
+    const cls = b.ticker.match(/\(([^)]+)\)/);
+    const nm = cls ? cls[1] : bt;
+    return `<div class="row"><span class="nm">${esc(b.name)}</span>
+      <span><input class="amt plain" style="width:74px" data-qty="blocked:${esc(bt)}"
+        value="${b.qty}"><span class="was2"> шт × ${nf(b.price_usd, 2)} $<span class="was-extra" data-bl="${esc(bt)}"></span></span></span></div>`;
+  }).join('');
+  $('fam-name').textContent = BASE.family ? BASE.family.name : '—';
+  $('fam-cnt').textContent = '1 счёт';
+  $('inp-family').value = M.family ? M.family.value : 0;
+  $('fam-extra').innerHTML = EDITS.setFamily != null ? '<br>было ' + nf(BASE.family.value) : '';
+  M.blocked.forEach(b => {
+    const bt = String(b.ticker).split(' ')[0];
+    const base = BASE.blocked.find(x => String(x.ticker).split(' ')[0] === bt);
+    const ex = document.querySelector(`.was-extra[data-bl="${bt}"]`);
+    if (ex && base) ex.innerHTML = EDITS.setBlocked[bt] != null ? '<br>было ' + nf(base.qty) : '';
+  });
+}
+
+/* ---------- карточки, итоги, статусы (лёгкое обновление) ---------- */
+function renderCards() {
+  const s = M.summary, b = BASE_SM;
+  const dTot = s.total_value - b.total_value;
+  const dTotPct = b.total_value ? (s.total_value / b.total_value - 1) * 100 : 0;
+  const dd = (x, y, unit) => {
+    const dd2 = r2(x - y);
+    return Math.abs(dd2) < 0.005 ? '' :
+      `<span class="${dd2 > 0 ? 'up' : 'dn'}">${nfS(dd2, Math.abs(dd2) < 100 ? 2 : 0)}${unit || ' ₽'}</span>`;
+  };
+  const rNow = s.recommendations, rWas = b.recommendations;
+  const recD = rNow.buy !== rWas.buy ? ` <span class="dn">было 🟢 ${rWas.buy}</span> ·` : '';
+  $('cards').innerHTML = `
+    <div class="card"><div class="t">Портфель всего</div><div class="v">${nf(s.total_value)} ₽</div>
+      <div class="s">${dd(s.total_value, b.total_value)}${dTot ? ` (${nfS(dTotPct, 2)}%)` : ''} к базе</div></div>
+    <div class="card"><div class="t">Акции</div><div class="v">${nf(s.stocks_value)} ₽</div>
+      <div class="s">${dd(s.stocks_value, b.stocks_value)} · ${nf(s.shares_pct.stocks, 2)}% портфеля</div></div>
+    <div class="card"><div class="t">Фонды</div><div class="v">${nf(s.funds_value)} ₽</div>
+      <div class="s">${dd(s.funds_value, b.funds_value)} · ${nf(s.shares_pct.funds, 2)}% портфеля</div></div>
+    <div class="card"><div class="t">Кэш</div><div class="v">${nf(s.cash_value)} ₽</div>
+      <div class="s">${dd(s.cash_value, b.cash_value)} · ${nf(s.shares_pct.cash, 2)}% портфеля</div></div>
+    <div class="card"><div class="t">Дивиденды 12 мес</div><div class="v">≈${nf(s.dividends_12m_gross)} ₽</div>
+      <div class="s">${dd(s.dividends_12m_gross, b.dividends_12m_gross)} · ${nf(s.dividends_12m_yield_pct, 2)}% на портфель</div></div>
+    <div class="card"><div class="t">Рекомендации</div><div class="v">🟢 ${rNow.buy} · 🟡 ${rNow.hold}</div>
+      <div class="s">${recD} без прогноза: ${rNow.no_forecast}${rNow.sell ? ' · 🔴 ' + rNow.sell : ''}</div></div>`;
+}
+function refreshHeaders(unchS, unchF) {
+  const b = BASE_SM, s = M.summary;
+  const nS = M.stocks.filter(x => !x._deleted).length;
+  const nF = M.funds.filter(x => !x._deleted).length;
+  const ds = r2(s.stocks_value - b.stocks_value), df = r2(s.funds_value - b.funds_value);
+  $('hdr-stocks-cnt').textContent = `${nS} поз. · было ${BASE.stocks.length}`;
+  $('hdr-funds-cnt').textContent = `${nF} ${nF === 1 ? 'фонд' : nF < 5 ? 'фонда' : 'фондов'} · было ${BASE.funds.length}`;
+  $('hdr-stocks-diff').textContent = ds ? `Σ ${nfS(ds, 0)} ₽` : '';
+  $('hdr-stocks-diff').className = 'diff ' + (ds > 0 ? 'up' : ds < 0 ? 'dn' : '');
+  $('hdr-funds-diff').textContent = df ? `Σ ${nfS(df, 0)} ₽` : '';
+  $('hdr-funds-diff').className = 'diff ' + (df > 0 ? 'up' : df < 0 ? 'dn' : '');
+  const ms = document.querySelector('#body-stocks .more'),
+        mf = document.querySelector('#body-funds .more');
+  ms.style.display = unchS ? '' : 'none';
+  mf.style.display = unchF ? '' : 'none';
+  if (unchS) $('exp-stocks').textContent = collapsed.stocks
+    ? `… ещё ${unchS} ${unchS === 1 ? 'позиция' : 'позиций'} без изменений — развернуть ▾`
+    : `свернуть неизменённые позиции (${unchS}) ▴`;
+  if (unchF) $('exp-funds').textContent = collapsed.funds
+    ? `… ещё ${unchF} без изменений — развернуть ▾`
+    : `свернуть неизменённые фонды (${unchF}) ▴`;
+  $('st-tot-l').textContent = `ИТОГО АКЦИИ — ${nS} поз.`;
+  $('st-tot-v').textContent = nf(s.stocks_value, 2) + ' ₽';
+  $('st-tot-share').textContent = nf(s.shares_pct.stocks, 2) + '%';
+  $('st-tot-up').innerHTML = `срзв. потенциал: ${pctCell(s.weighted_upside_pct)} (было ${pctCell(b.weighted_upside_pct)})`;
+  $('fu-tot-l').textContent = 'ИТОГО ФОНДЫ';
+  $('fu-tot-v').textContent = nf(s.funds_value, 2) + ' ₽';
+  $('fu-tot-share').textContent = nf(s.shares_pct.funds, 2) + '%';
+  // три карточки — расчётные части
+  $('cash-eq').innerHTML = `входит в итог портфеля и доли · <b>${nf(s.shares_pct.cash, 2)}% портфеля</b>`;
+  const blRub = M.blocked.reduce((a, x) => a + x.value_rub, 0);
+  const rate = M.blocked.length ? M.blocked[0]._rate || 0 : 0;
+  $('bl-eq').innerHTML = M.blocked.length
+    ? `курс ЦБ <b>${nf(rate, 4)} ₽/$</b> → <b>${nf(r2(blRub), 2)} ₽</b> · вне итога портфеля,
+       входит в «итого с заблокированными»`
+    : 'заблокированных активов нет';
+  const famD = M.family ? r2(M.summary.total_family - BASE_SM.total_family) : 0;
+  $('fam-eq').innerHTML = `вне долей, потенциала и дивидендов · только <b>семейный итог</b>
+    (${nf(M.summary.total_family)} ₽${famD ? `, <span class="${famD > 0 ? 'up' : 'dn'}">${nfS(famD, 0)}</span>` : ''})`;
+  // итоговая лента
+  const dTot = s.total_value - b.total_value;
+  const dPct = b.total_value ? (s.total_value / b.total_value - 1) * 100 : 0;
+  $('fin-total').innerHTML = `Итого портфель: ${nf(s.total_value)} ₽` +
+    (dTot ? ` <span class="up" style="color:${dTot > 0 ? '#9fe0ae' : '#f3b0a5'}">${nfS(dTot, 0)} ₽ (${nfS(dPct, 2)}%)</span>` : '');
+  $('fin-blocked').textContent = `с заблокированными: ${nf(s.total_including_blocked)} ₽`;
+  $('fin-family').textContent = `семейный итог: ${nf(s.total_family)} ₽`;
+  // статус и счётчик правок
+  const n = editCount();
+  $('edit-status').innerHTML = n
+    ? `изменений: <b>${n}</b> · затронуто: <b>${esc(touchedNames().slice(0, 6).join(', '))}${touchedNames().length > 6 ? ' +ещё ' + (touchedNames().length - 6) : ''}</b>`
+    : 'изменений: <b>0</b>';
+  refreshChip();
+}
+function refreshChip() {
+  const c = $('chip-state'), n = editCount();
+  if (!n) { c.textContent = 'без правок'; c.className = 'chip'; }
+  else { c.textContent = 'черновик в localStorage ✓'; c.className = 'chip ok'; }
+}
+
+/* ---------- строковые ячейки при вводе (без перестроения таблицы) ---------- */
+function lightUpdate() {
+  M = merged();
+  const s = M.summary;
+  document.querySelectorAll('#body-stocks tr[data-key], #body-funds tr[data-key]').forEach(tr => {
+    const key = tr.dataset.key;
+    const c = key.indexOf(':'), kind = key.slice(0, c), id = key.slice(c + 1);
+    const arr = kind === 'stocks' ? M.stocks : M.funds;
+    const it = arr.find(x => String(kind === 'stocks' ? x.ticker : x.n) === id);
+    if (!it || it._deleted) return;
+    const base = kind === 'stocks'
+      ? BASE.stocks.find(x => x.ticker === id) : BASE.funds.find(x => String(x.n) === id);
+    const tdVal = tr.querySelector('.c-val');
+    if (tdVal) tdVal.textContent = nf(it.value, 2);
+    const tdTag = tr.querySelector('.c-dtag');
+    if (tdTag) tdTag.innerHTML = base ? diffTag(it.value, base.value)
+      : '<span class="dtag new">новая</span>';
+    const tdShare = tr.querySelector('.c-share');
+    if (tdShare) tdShare.textContent = share(it.value,
+      kind === 'stocks' ? s.stocks_value : s.funds_value);
+    tr.classList.toggle('edit', EDITS.setQty[key] != null);
+  });
+  renderCards();
+  refreshHeaders(unchCount('stocks'), unchCount('funds'));
+  autosave();
+}
+function unchCount(kind) {
+  if (kind === 'stocks') return M.stocks.filter(s => !s._deleted
+    && EDITS.setQty['stocks:' + s.ticker] == null).length;
+  return M.funds.filter(f => !f._deleted
+    && EDITS.setQty['funds:' + f.n] == null).length;
+}
+
+/* ---------- полная перерисовка ---------- */
+function refresh() {
+  M = merged();
+  const unchS = renderStocks(), unchF = renderFunds();
+  applyCollapse();
+  renderTri();
+  renderCards();
+  refreshHeaders(unchS, unchF);
+}
+function applyCollapse() {
+  const cs = $('tbl-stocks'), cf = $('tbl-funds');
+  cs.dataset.collapsed = collapsed.stocks ? '1' : '';
+  cf.dataset.collapsed = collapsed.funds ? '1' : '';
+}
+
+/* ---------- CSS-правило свёртки (однократно) ---------- */
+document.head.insertAdjacentHTML('beforeend',
+  '<style>table[data-collapsed="1"] tr.unch{display:none}</style>');
+
+/* ---------- обработчики ---------- */
+function bindStatic() {
+  // ввод количества
+  document.addEventListener('input', e => {
+    const k = e.target.dataset && e.target.dataset.qty;
+    if (!k) return;
+    const v = parseNum(e.target.value);
+    if (isNaN(v) || v < 0) { e.target.classList.add('bad'); return; }
+    e.target.classList.remove('bad');
+    if (k.startsWith('blocked:')) {
+      const t = k.slice(8);
+      const b = BASE.blocked.find(x => String(x.ticker).split(' ')[0] === t);
+      if (b && v === b.qty) delete EDITS.setBlocked[t]; else EDITS.setBlocked[t] = v;
+    } else {
+      const c = k.indexOf(':'), kind = k.slice(0, c), id = k.slice(c + 1);
+      const base = kind === 'stocks'
+        ? BASE.stocks.find(x => x.ticker === id) : BASE.funds.find(x => String(x.n) === id);
+      if (base && v === base.qty) delete EDITS.setQty[k]; else EDITS.setQty[k] = v;
+    }
+    lightUpdate();
+  });
+  // удалить / вернуть / развернуть
+  document.addEventListener('click', e => {
+    const del = e.target.dataset && e.target.dataset.del;
+    const undo = e.target.dataset && e.target.dataset.undo;
+    const trMore = e.target.closest ? e.target.closest('tr.more') : null;
+    if (del && !isRemoved(del)) {
+      if (del.startsWith('added:')) { EDITS.removed.push(del); }
+      else { EDITS.removed.push(del); delete EDITS.setQty[del]; }
+      refresh(); autosave(); toast('Позиция помечена к удалению — можно вернуть');
+    }
+    if (undo) {
+      EDITS.removed = EDITS.removed.filter(x => x !== undo);
+      refresh(); autosave(); toast('Позиция восстановлена');
+    }
+    if (trMore) {
+      collapsed[trMore.dataset.more] = !collapsed[trMore.dataset.more];
+      applyCollapse();
+      refreshHeaders(unchCount('stocks'), unchCount('funds'));
+    }
+  });
+  // кэш и семья
+  $('inp-cash').addEventListener('input', e => {
+    const v = parseNum(e.target.value);
+    if (isNaN(v) || v < 0) { e.target.classList.add('bad'); return; }
+    e.target.classList.remove('bad');
+    if (v === BASE.cash.value) EDITS.setCash = null; else EDITS.setCash = v;
+    lightUpdate();
+  });
+  $('inp-family').addEventListener('input', e => {
+    const v = parseNum(e.target.value);
+    if (isNaN(v) || v < 0) { e.target.classList.add('bad'); return; }
+    e.target.classList.remove('bad');
+    if (BASE.family && v === BASE.family.value) EDITS.setFamily = null; else EDITS.setFamily = v;
+    lightUpdate();
+  });
+  // панель инструментов
+  $('btn-save').onclick = () => { clearTimeout(saveT); save(true); };
+  $('btn-reset').onclick = () => {
+    if (!editCount()) { toast('Правок нет — сбрасывать нечего'); return; }
+    if (!confirm('Сбросить все правки? Черновик в браузере будет удалён, данные вернутся к состоянию репозитория.')) return;
+    clearTimeout(saveT);          // отложенный автосейв не должен воскресить черновик
+    EDITS = emptyEdits();
+    try { localStorage.removeItem(LS_KEY); } catch (e) {}
+    collapsed.stocks = false; collapsed.funds = false;  // без правок — всё развёрнуто
+    refresh(); toast('Все правки сброшены');
+  };
+  $('btn-json').onclick = () => download(false);
+  $('btn-js').onclick = () => download(true);
+  // Enter в полях добавления
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    const t = e.target, s = ['add-s-ticker', 'add-s-qty', 'add-s-price'], f = ['add-f-name', 'add-f-qty', 'add-f-price'];
+    if (s.includes(t.id)) { addPosition('stock'); }
+    else if (f.includes(t.id)) { addPosition('fund'); }
+  });
+  // добавление позиций — делегирование (кнопки пересоздаются при каждой перерисовке таблиц)
+  document.addEventListener('click', e => {
+    if (e.target.id === 'btn-add-stock') { addPosition('stock'); return; }
+    if (e.target.id === 'btn-add-fund')  { addPosition('fund'); return; }
+  });
+}
+
+/* ---------- цена с MOEX ISS (с запасным ручным вводом) ---------- */
+async function moexPrice(t) {
+  const boards = ['TQBR', 'TQTF'];
+  for (const b of boards) {
+    try {
+      const r = await fetch('https://iss.moex.com/iss/engines/stock/markets/shares/boards/' + b +
+        '/securities.json?securities=' + encodeURIComponent(t) + '&iss.meta=off');
+      if (!r.ok) continue;
+      const j = await r.json();
+      const sc = j.securities.columns, rows = j.securities.data || [];
+      const iS = sc.indexOf('SECID');
+      const row = rows.find(x => x[iS] === t);
+      if (!row) continue;
+      const mc = j.marketdata.columns;
+      const mrow = (j.marketdata.data || []).find(x => x[mc.indexOf('SECID')] === t);
+      let price = mrow ? mrow[mc.indexOf('LAST')] : null;
+      if (price == null) price = row[sc.indexOf('PREVPRICE')];
+      if (price == null) continue;
+      const name = row[sc.indexOf('SHORTNAME')] || row[sc.indexOf('NAME')] || t;
+      return { price: Number(price), name: String(name) };
+    } catch (e) { /* сеть/CORS недоступны — пробуем следующую доску */ }
+  }
+  return null;
+}
+function nextN(d, extraItems) {
+  let mx = 0;
+  const walk = arr => arr.forEach(x => { if (x && x.n > mx) mx = x.n; });
+  walk(d.stocks); walk(d.funds); walk(d.blocked || []); if (d.cash) mx = Math.max(mx, d.cash.n || 0);
+  walk(extraItems || []);
+  return mx + 1;
+}
+async function addPosition(kind) {
+  const pre = kind === 'stock' ? 'add-s-' : 'add-f-';
+  const nameIn = $(pre + (kind === 'stock' ? 'ticker' : 'name')).value.trim();
+  const qty = parseNum($(pre + 'qty').value);
+  let price = parseNum($(pre + 'price').value);
+  if (!nameIn) { toast('Укажите тикер' + (kind === 'fund' ? ' или название фонда' : ''), true); return; }
+  if (isNaN(qty) || qty <= 0) { toast('Укажите количество (паёв/штук)', true); return; }
+  const code = kind === 'stock' ? nameIn.toUpperCase() : nameIn;
+  // дубликаты
+  if (kind === 'stock' && M.stocks.find(s => s.ticker === code)) {
+    toast('Позиция ' + code + ' уже есть — меняйте количество в её строке', true); return;
+  }
+  if (kind === 'fund' && M.funds.find(f => f.name === nameIn)) {
+    toast('Такой фонд уже есть — меняйте количество паёв', true); return;
+  }
+  if (isNaN(price)) {
+    toast('Запрашиваю цену с MOEX ISS…');
+    const got = await moexPrice(kind === 'stock' ? code : (nameIn.match(/[A-Z]{3,6}/) || [''])[0]);
+    if (!got) { toast('Цену получить не удалось — введите её вручную', true); return; }
+    price = got.price;
+    if (kind === 'stock' && got.name) var niceName = got.name; else if (got.name) var niceName = nameIn;
+  }
+  const n = nextN(M, EDITS.added.map(a => a.item));
+  const today = new Date().toISOString().slice(0, 10);
+  if (kind === 'stock') {
+    const it = { n, ticker: code, name: niceName || code, qty, current_price: price,
+      value: r2(qty * price), recommendation: null, target_price: null, upside_pct: null,
+      range_min: null, range_max: null, dividend_next: null, dividend_date: '',
+      dividend_status: 'нет данных', div_yield_12m_pct: 0,
+      note: 'добавлено вручную ' + today + ' (edit.html)', prev_close: price,
+      day_change_pct: 0, prev_date: BASE.meta.date };
+    upsertAdded('stock', code, it);
+  } else {
+    const it = { n, name: nameIn, manager: '', type: '', qty, current_nav: price,
+      value: r2(qty * price), performance_pct: null,
+      forecast: 'Добавлено вручную ' + today + ' (edit.html). Прогнозов по фондам нет.',
+      nav_date: BASE.meta.date ? BASE.meta.date.split('-').reverse().join('.') : '' };
+    upsertAdded('fund', nameIn, it);
+  }
+  (kind === 'stock' ? ['ticker', 'qty', 'price'] : ['name', 'qty', 'price'])
+    .forEach(x => { const el = $(pre + x); if (el) el.value = ''; });
+  collapsed[kind === 'stock' ? 'stocks' : 'funds'] = false;  // показать новую строку
+  refresh(); autosave();
+  toast('Добавлено: ' + (kind === 'stock' ? code : nameIn) + ' — не забудьте скачать JSON для публикации');
+}
+function upsertAdded(kind, key, item) {
+  const ex = EDITS.added.find(a => a.kind === kind && a._key === key);
+  if (ex) {
+    ex.item = item;
+    EDITS.removed = EDITS.removed.filter(x => x !== 'added:' + key);
+    toast('Существующая черновая позиция обновлена');
+  } else EDITS.added.push({ kind, _key: key, item });
+}
+
+/* ---------- скачивание файлов ---------- */
+function download(asJs) {
+  const d = cleanDownload(merged());
+  let txt = JSON.stringify(d, null, 1);
+  let blob, fname;
+  if (asJs) {
+    txt = '// Сгенерировано из portfolio_data.json (edit.html)\nwindow.PORTFOLIO_DATA = '
+      + txt.replace(/<\//g, '<\\/') + ';\n';
+    blob = new Blob([txt], { type: 'text/javascript;charset=utf-8' });
+    fname = 'portfolio_data.js';
+  } else {
+    blob = new Blob([txt], { type: 'application/json;charset=utf-8' });
+    fname = 'portfolio_data.json';
+  }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = fname;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  toast('Файл ' + fname + ' скачан — закоммитьте его и запустите workflow обновления');
+}
+
+/* ---------- отладочный/тестовый доступ ---------- */
+window.PORTFOLIO_EDIT = {
+  getMerged: () => merged(),
+  getEdits: () => clone(EDITS),
+  recalcSummary, setQty: (k, v) => { EDITS.setQty[k] = v; refresh(); },
+  setCash: v => { EDITS.setCash = v; refresh(); },
+  setFamily: v => { EDITS.setFamily = v; refresh(); },
+  remove: k => { EDITS.removed.push(k); refresh(); },
+  reset: () => { EDITS = emptyEdits(); refresh(); }
+};
+
+/* ---------- запуск ---------- */
+(async function init() {
+  await loadData();
+  if (!BASE) {
+    $('errbox').className = 'errbox';
+    $('errbox').innerHTML = '<b>Не удалось загрузить данные портфеля.</b><br>Положите файл edit.html в одну папку с <b>portfolio_data.js</b> или <b>portfolio_data.json</b> (как index.html) и обновите страницу.';
+    $('chip-state').textContent = 'нет данных';
+    return;
+  }
+  BASE.blocked = BASE.blocked || [];
+  const macroRate = BASE.macro && BASE.macro.usd_rate_cbr;  // курс ЦБ из макро-блока
+  BASE.blocked.forEach(b => {
+    b._rate = macroRate || (b.value_rub && b.value_usd ? b.value_rub / b.value_usd : 1);
+  });
+  BASE_SM = clone(recalcSummary(clone(BASE)));
+  loadDraft();
+  M = merged();  // начальное состояние свёртки: без правок — всё развёрнуто
+  collapsed.stocks = editCount() > 0 && unchCount('stocks') > 6;
+  collapsed.funds  = editCount() > 0 && unchCount('funds') > 6;
+  $('hdr-data').textContent = 'данные: ' + SRC + ' · на ' +
+    (BASE.meta.date || '').split('-').reverse().join('.') + ', цены утренние';
+  $('tools').style.display = '';
+  $('note-bar').style.display = '';
+  $('app').style.display = '';
+  refresh();      // сначала строим DOM (кнопки в строках), затем вешаем обработчики
+  bindStatic();
+})();
+</script>
+</body></html>
