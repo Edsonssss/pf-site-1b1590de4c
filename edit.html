@@ -1057,6 +1057,8 @@ async function syncLoadFile(file) {
   } catch (e) { toast('Не удалось прочитать JSON: ' + e.message, true); }
 }
 async function syncLoadSite(silent) {
+  const RAW_URL = 'https://raw.githubusercontent.com/edsonssss/pf-site-1b1590de4c/main/tbank_portfolio.json';
+  let err = '';
   try {
     const r = await fetch('tbank_portfolio.json?cb=' + Date.now());
     if (!r.ok) throw new Error('HTTP ' + r.status);
@@ -1064,8 +1066,27 @@ async function syncLoadSite(silent) {
     if (!TBSYNC.data.positions) throw new Error('нет поля positions');
     syncRender();
     if (!silent) toast('Выгрузка Т-Банка загружена с сайта');
-  } catch (e) {
-    if (!silent) toast('tbank_portfolio.json рядом со страницей не найден — выберите файл', true);
+    return;
+  } catch (e) { err = e.message; }
+  try {
+    // запасной источник: raw.githubusercontent — файл виден сразу после коммита,
+    // без ожидания пересборки GitHub Pages; CORS у raw открытый
+    const r2 = await fetch(RAW_URL + '?cb=' + Date.now());
+    if (!r2.ok) throw new Error('HTTP ' + r2.status);
+    TBSYNC.data = await r2.json();
+    if (!TBSYNC.data.positions) throw new Error('нет поля positions');
+    syncRender();
+    toast('Выгрузка загружена с raw.githubusercontent — Pages ещё не переопубликовал файл');
+    return;
+  } catch (e2) {
+    $('tb-status').textContent = 'файл не найден';
+    $('tb-diff').textContent = '';
+    $('sync-out').innerHTML = '<div class="sync-line hint"><b>tbank_portfolio.json не найден.</b> ' +
+      'Рядом со страницей: ' + esc(err || 'нет ответа') + '; в репозитории (raw): ' + esc(e2.message) + '.<br>' +
+      'Проверьте: 1) workflow прошёл до шага «Commit tbank_portfolio.json» (или файл добавлен в репозиторий); ' +
+      '2) GitHub Pages успел переопубликоваться после коммита — это занимает пару минут, обновите страницу позже; ' +
+      '3) либо загрузите файл из артефактов сборки кнопкой «📁 Выбрать tbank_portfolio.json».</div>';
+    if (!silent) toast('tbank_portfolio.json не найден — выберите файл вручную', true);
   }
 }
 const tbTitle = p => '<b>' + esc(p.ticker || p.figi) + '</b>' + (p.name ? ' · ' + esc(p.name) : '');
@@ -1087,9 +1108,10 @@ function tbTotalsLine() {
 /* сопоставление состояний; site-часть всегда берётся из текущего M */
 function syncCompute() {
   const pos = (TBSYNC.data.positions || []);
-  const shares = pos.filter(p => (p.instrumentType === 'Share' || p.instrumentType === 'Bond') && !p.blocked);
+  const ttype = p => String(p.instrumentType || '').trim().toLowerCase();
+  const shares = pos.filter(p => (ttype(p) === 'share' || ttype(p) === 'bond') && !p.blocked);
   const blockedShares = pos.filter(p => p.blocked);
-  const etfs = pos.filter(p => p.instrumentType === 'Etf');
+  const etfs = pos.filter(p => ttype(p) === 'etf');
   const rows = [], okRows = [], seen = new Set();
   const up = t => String(t || '').toUpperCase();
   for (const p of shares) {
@@ -1135,7 +1157,7 @@ function syncAddPos(figi) {
   if (M.stocks.find(s => s.ticker.toUpperCase() === t)) { toast(t + ' уже есть на странице', true); return; }
   const price = p.price != null ? p.price : 0;
   const n = nextN(M, EDITS.added.map(a => a.item));
-  const bond = p.instrumentType === 'Bond';
+  const bond = String(p.instrumentType || '').toLowerCase() === 'bond';
   const it = { n, ticker: t, name: p.name || t, qty: p.qty, current_price: price,
     value: r2(p.qty * price), recommendation: null, target_price: null, upside_pct: null,
     range_min: null, range_max: null, dividend_next: null, dividend_date: '',
@@ -1180,6 +1202,35 @@ function syncApplyAllAdd() {
 
 function syncRender() {
   if (!TBSYNC.data) { syncBodyEmpty(); return; }
+  const pos = TBSYNC.data.positions || [];
+  $('tb-status').textContent = 'выгрузка применена';
+  if (!pos.length) {
+    // пустая выгрузка: не показываем «в Т-Банке нет» по всему портфелю — это почти
+    // наверняка другой (пустой) счёт в выгрузке
+    $('tb-status').textContent = 'выгрузка пустая';
+    $('tb-diff').textContent = '0 позиций в выгрузке';
+    $('tb-diff').className = 'diff dn';
+    $('sync-out').innerHTML = '<div class="sync-line">' + tbTotalsLine() + '</div>' +
+      '<div class="sync-line"><b>В выгрузке 0 позиций.</b> Скорее всего, выгрузка сделана с пустого счёта ' +
+      '(см. «счёт …» выше). Перезапустите выгрузку, указав нужный счёт: ' +
+      '<code>python3 fetch_tbank_portfolio.py --account &lt;id&gt;</code>. ' +
+      'Сверка остановлена: список «в Т-Банке нет» не показывается, чтобы не удалить весь портфель.</div>';
+    return;
+  }
+  if (pos.every(p => !p.ticker)) {
+    // все тикеры пустые — старый баг версии скрипта: API отдаёт тип инструмента
+    // в нижнем регистре, и FIGI→тикер не вызывался; сопоставление невозможно
+    $('tb-status').textContent = 'выгрузка без тикеров';
+    $('tb-diff').textContent = 'тикеры пустые — обновите скрипт';
+    $('tb-diff').className = 'diff dn';
+    $('sync-out').innerHTML = '<div class="sync-line">' + tbTotalsLine() + '</div>' +
+      '<div class="sync-line"><b>Во всех позициях выгрузки пустые тикеры.</b> ' +
+      'Это баг версии fetch_tbank_portfolio.py до 11.11.2026: API Т-Банка отдаёт тип инструмента ' +
+      'в нижнем регистре («share»), и скрипт не находил тикер по FIGI.<br>' +
+      'Обновите <b>scripts/fetch_tbank_portfolio.py</b> в репозитории свежей копией и перезапустите workflow — ' +
+      'в новой выгрузке тикеры будут, и сверка заработает. Список «в Т-Банке нет» не показывается.</div>';
+    return;
+  }
   const c = syncCompute();
   const nFix = c.rows.filter(r => r.type === 'fix').length;
   const nAdd = c.rows.filter(r => r.type === 'add').length;
@@ -1187,12 +1238,15 @@ function syncRender() {
   const nRet = c.rows.filter(r => r.type === 'ret').length;
   const nFund = c.fundRows.filter(fr => fr.diff).length;
   const nAll = c.rows.length + nFund;
-  $('tb-status').textContent = 'выгрузка применена';
   $('tb-diff').textContent = nAll ? 'расхождений: ' + nAll : 'совпадает ✓';
   $('tb-diff').className = 'diff ' + (nAll ? 'dn' : 'up');
 
   const h = [];
   h.push('<div class="sync-line">' + tbTotalsLine() + '</div>');
+  if (!c.okRows.length && !c.fundRows.length && c.rows.length > 3) {
+    h.push('<div class="sync-line"><b>Ни одна позиция не совпала.</b> Проверьте счёт выгрузки ' +
+      '(строка «счёт …» выше): возможно, это второй брокерский счёт или ИИС, а не тот, что на сайте.</div>');
+  }
   h.push('<table class="sync-tbl"><tbody>');
   const qtyS = v => nf(v, v % 1 ? 2 : 0) + ' шт';
   for (const r of c.rows) {
@@ -1203,7 +1257,7 @@ function syncRender() {
         '<td><button class="btn sm acc" data-tbfix="stocks:' + esc(r.t) + '|' + r.p.qty +
         '">✓ исправить на ' + nf(r.p.qty) + '</button></td></tr>');
     } else if (r.type === 'add') {
-      const bond = r.p.instrumentType === 'Bond';
+      const bond = String(r.p.instrumentType || '').toLowerCase() === 'bond';
       h.push('<tr><td class="l">' + tbTitle(r.p) + (bond ? ' · облигация' : '') + '</td>' +
         '<td class="l">на сайте: <b>нет</b></td>' +
         '<td class="l">в Т-Банке: <b>' + qtyS(r.p.qty) + '</b> × ' + tbPx(r.p.price) +
@@ -1260,7 +1314,7 @@ function syncRender() {
   if (c.blockedShares.length) h.push('<div class="sync-line">Заблокированные иностранные (на сайте — в разделе «Заблокировано», вне итога): ' +
     c.blockedShares.map(p => esc((p.ticker || p.figi) + ' ' + nf(p.qty) + ' шт × ' + tbPx(p.price, p.currency))).join(' · ') + '</div>');
 
-  h.push('<div class="sync-line hint">Облигации в выгрузке уже пересчитаны в ₽ (% номинала + НКД). ' +
+  h.push('<div class="sync-line hint">Облигации в выгрузке уже в рублях (цена API + НКД). ' +
     'Цены Т-Банка и сайта могут чуть отличаться — сверяются только количества.</div>');
   $('sync-out').innerHTML = h.join('');
 }
