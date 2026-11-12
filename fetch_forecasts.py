@@ -8,17 +8,19 @@
 (HTTP 429 Too Many Requests после нескольких страниц). Теперь данные берутся
 из официального API, троттлинг-лимиты там задокументированы:
 
-  InstrumentsService/FindInstrument — тикер -> UID инструмента, отдельный
-      маленький запрос на каждый тикер (~25 шт). Раньше карта тикеров
-      строилась одним запросом InstrumentsService/Shares, но его ответ
-      весит ~3 МБ, и на раннере GitHub Actions передача обрывалась на
-      середине (IncompleteRead) — из-за этого весь шаг оставлял прогнозы
-      прежними. FindInstrument отвечает по одному тикеру ~20 КБ.
+  InstrumentsService/GetAssets — карта тикеров ОДНИМ запросом: каждый актив
+      несёт assetUid и список своих инструментов (тикер, борд, uid).
+      Ключ консенсуса — именно assetUid (реестр активов отдельный от
+      инструментов), поэтому сопоставление по instrumentUid из FindInstrument
+      не совпадало. Если GetAssets не удался (большой ответ даже после
+      ретраев) — резервный путь FindInstrument по каждому тикеру (~20 КБ
+      на тикер; строить карту одним InstrumentsService/Shares ~3 МБ нельзя:
+      на раннере GitHub Actions передача обрывалась — IncompleteRead).
   InstrumentsService/GetConsensusForecasts — консенсус-прогнозы по всем
       инструментам (постранично, страницы по 200 записей):
-        assetUid                   — ключ соответствия с UID из FindInstrument
-                                     (поле uid записи — ID самой записи
-                                     прогноза, по нему НЕ сопоставлять)
+        assetUid                   — ключ соответствия: UID АКТИВА из
+                                     GetAssets (поле uid записи — ID самой
+                                     записи прогноза, по нему НЕ сопоставлять)
         bestTargetPrice            — средняя целевая цена
         bestTargetLow / High       — диапазон целей (min/max)
         totalBuy/Hold/SellRecommend — число аналитиков по каждой рекомендации
@@ -260,32 +262,90 @@ def is_isin(t):
     return re.match(r"^RU[0-9A-Z]{10}$", t) is not None
 
 
-def ticker_to_uid(stocks, token=None):
-    """Тикер -> UID инструмента через FindInstrument по каждому тикеру.
+def build_maps(stocks, token=None):
+    """Тикер -> (assetUid, instrumentUid) для сопоставления с консенсусом.
 
-    Раньше карта строилась одним запросом InstrumentsService/Shares, но его
-    ответ ~3 МБ и на GitHub Actions обрывался (IncompleteRead). Здесь ответ
-    на один тикер ~20 КБ; при сбое конкретный запрос повторяется в call().
-    Приоритет — основному борду TQBR, если тикер встречается в нескольких
-    секциях."""
-    t2u = {}
-    for s in stocks:
-        t = s["ticker"]
-        try:
-            r = call("InstrumentsService/FindInstrument",
-                     {"query": t}, token=token).get("instruments", [])
-        except Exception as e:
-            print(f"  {t}: поиск UID не удался — {e}")
-            continue
-        hits = [i for i in r if i.get("ticker") == t]
-        hit = next((i for i in hits if i.get("classCode") == "TQBR"),
-                   hits[0] if hits else None)
-        if hit and hit.get("uid"):
-            t2u[t] = (hit["uid"], hit.get("classCode"))
-        else:
-            print(f"  {t}: тикер не найден в API — консенсус недоступен")
-        time.sleep(0.4)
-    return t2u
+    Записи GetConsensusForecasts определяются полем assetUid — идентификатором
+    АКТИВА (реестр активов отдельный от инструментов), поэтому карта строится
+    запросом GetAssets: в ответе каждый актив несёт список своих инструментов
+    (тикер, class-code, uid). Один запрос вместо ~25 FindInstrument и, главное,
+    правильный ключ для консенсуса. GetAssetBy не подходит: он принимает только
+    uid актива и не ищет по тикеру.
+    Если GetAssets не удался (например, обрыв большого ответа даже после
+    ретраев) — резервный путь FindInstrument по каждому тикеру: даёт только
+    instrumentUid, совпадение по assetUid тогда невозможно — прогнозы останутся
+    прежними (пометка в лог).
+    Приоритет — инструмент в основном борде TQBR, если тикер встречается
+    в нескольких секциях."""
+    wanted = set(s["ticker"] for s in stocks)
+    t2i, t2a = {}, {}   # тикер -> (instrumentUid, classCode); тикер -> assetUid
+
+    def _absorb(assets):
+        for a in assets:
+            if not isinstance(a, dict) or not a.get("uid"):
+                continue
+            for inst in a.get("instruments") or []:
+                if not isinstance(inst, dict):
+                    continue
+                t = inst.get("ticker")
+                if t not in wanted or not inst.get("uid"):
+                    continue
+                tq = inst.get("classCode") == "TQBR"
+                cur = t2i.get(t)
+                if cur is None or (tq and cur[1] != "TQBR"):
+                    t2i[t] = (inst["uid"], inst.get("classCode"))
+                    t2a[t] = a["uid"]
+
+    how = "GetAssets"
+    try:
+        resp = call("InstrumentsService/GetAssets",
+                    {"instrumentType": "INSTRUMENT_TYPE_SHARE",
+                     "instrumentStatus": "INSTRUMENT_STATUS_BASE"},
+                    token=token)
+        _absorb(resp.get("assets") or [])
+        # на случай, если шлюз отдаёт активы постранично (новая версия
+        # контракта): идём по страницам, пока приходят данные
+        page = 1
+        while True:
+            pr = resp.get("page") or {}
+            total = pr.get("totalCount") if pr.get("totalCount") is not None else None
+            got = len(resp.get("assets") or [])
+            if total is None or got == 0 or got >= total or page > 30:
+                break
+            resp = call("InstrumentsService/GetAssets",
+                        {"instrumentType": "INSTRUMENT_TYPE_SHARE",
+                         "instrumentStatus": "INSTRUMENT_STATUS_BASE",
+                         "paging": {"limit": 1000, "pageNumber": page}},
+                        token=token)
+            _absorb(resp.get("assets") or [])
+            page += 1
+    except Exception as e:
+        print(f"GetAssets не удался ({e}) — строим карту через FindInstrument")
+        how = "FindInstrument (assetUid недоступен)"
+
+    missing = [s["ticker"] for s in stocks if s["ticker"] not in t2i]
+    if missing:
+        if how == "GetAssets":
+            print(f"в GetAssets не нашлось тикеров: {', '.join(missing)} — "
+                  f"уточняю через FindInstrument")
+            how = "GetAssets + FindInstrument"
+        for t in missing:
+            try:
+                r = call("InstrumentsService/FindInstrument",
+                         {"query": t}, token=token).get("instruments", [])
+            except Exception as e:
+                print(f"  {t}: поиск UID не удался — {e}")
+                continue
+            hits = [i for i in r if i.get("ticker") == t]
+            hit = next((i for i in hits if i.get("classCode") == "TQBR"),
+                       hits[0] if hits else None)
+            if hit and hit.get("uid"):
+                t2i[t] = (hit["uid"], hit.get("classCode"))
+            else:
+                print(f"  {t}: тикер не найден в API — консенсус недоступен")
+            time.sleep(0.4)
+    print(f"карта тикеров: {how} ({len(t2i)} из {len(stocks)})")
+    return t2i, t2a
 
 
 def _rec_newer(a, b):
@@ -302,8 +362,8 @@ def load_consensus(token=None):
     Сбой одной страницы не теряет уже собранные: если прочитать удалось хоть
     одну — работаем с частичными данными (пометка в лог); если ни одну —
     исключение уходит наверх (прогнозы остаются прежними).
-    Ключ записи — assetUid: это идентификатор ИНСТРУМЕНТА, совпадающий с uid
-    из FindInstrument. Поле uid записи — идентификатор самой записи прогноза,
+    Ключ записи — assetUid: это идентификатор АКТИВА, совпадающий с uid актива
+    из GetAssets. Поле uid записи — идентификатор самой записи прогноза,
     по нему сопоставление не работает (даёт «ни один UID не совпал»).
     Резервные имена ключа и массива оставлены defensively — схема метода в
     доках портала не отдаётся. Повторные assetUid схлопываются по свежести.
@@ -367,7 +427,7 @@ def main(argv=None):
     targets = [s for s in d["stocks"] if s["ticker"] not in SKIP and not is_isin(s["ticker"])]
 
     try:
-        t2u = ticker_to_uid(targets)
+        t2i, t2a = build_maps(targets)
         items, raw_first = load_consensus()
     except Exception as e:
         print(f"ВНИМАНИЕ: консенсус не загружен ({e}) — прогнозы оставлены прежними; "
@@ -377,8 +437,9 @@ def main(argv=None):
     updated, moved, empty = [], [], []
     for s in targets:
         t = s["ticker"]
-        pair = t2u.get(t)
-        item = items.get(pair[0]) if pair and pair[0] else None
+        iu = (t2i.get(t) or (None,))[0]           # uid инструмента
+        au = t2a.get(t)                            # uid актива (ключ консенсуса)
+        item = (items.get(au) or items.get(iu)) if (au or iu) else None
         target = dec(item.get("bestTargetPrice")) if item else None
         if not item or target is None:
             empty.append(t)
@@ -423,11 +484,15 @@ def main(argv=None):
             + today.strftime("%d.%m.%Y") + " (автообновление GitHub Actions)")
         json.dump(d, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     if not updated and items:
-        k0, it0 = next(iter(items.items()))
-        uid0 = (next(iter(t2u.values()))[0] if t2u else "нет")
+        it0 = next(iter(items.values()))
+        au0 = next(iter(t2a.values()), None) if t2a else None
+        iu0 = (next(iter(t2i.values()))[0] if t2i else None)
         print("ДИАГНОСТИКА: записи консенсуса есть, но ни один UID не совпал —")
-        print("  пример UID из FindInstrument:", str(uid0))
-        print("  пример ключа записи консенсуса:", str(k0))
+        print("  пример assetUid тикера (ключ консенсуса должен быть таким):",
+              str(au0))
+        print("  пример instrumentUid тикера:", str(iu0))
+        print("  первые ключи записей консенсуса:",
+              ", ".join(str(k) for k in list(items.keys())[:5]))
         print("  поля записи:", ", ".join(sorted(it0.keys())))
         print("  пример записи:", json.dumps(it0, ensure_ascii=False)[:400])
     elif not updated and not items and raw_first is not None:
