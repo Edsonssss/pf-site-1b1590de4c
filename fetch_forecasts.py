@@ -16,7 +16,9 @@
       прежними. FindInstrument отвечает по одному тикеру ~20 КБ.
   InstrumentsService/GetConsensusForecasts — консенсус-прогнозы по всем
       инструментам (постранично, страницы по 200 записей):
-        instrumentUid              — ключ соответствия с UID из FindInstrument
+        assetUid                   — ключ соответствия с UID из FindInstrument
+                                     (поле uid записи — ID самой записи
+                                     прогноза, по нему НЕ сопоставлять)
         bestTargetPrice            — средняя целевая цена
         bestTargetLow / High       — диапазон целей (min/max)
         totalBuy/Hold/SellRecommend — число аналитиков по каждой рекомендации
@@ -286,14 +288,25 @@ def ticker_to_uid(stocks, token=None):
     return t2u
 
 
+def _rec_newer(a, b):
+    """На один assetUid может приходить несколько записей консенсуса —
+    оставляем более свежую (по createdAt, резервно prognosisDate;
+    ISO-строки сравниваются лексикографически)."""
+    ka = (a.get("createdAt") or a.get("prognosisDate") or "")
+    kb = (b.get("createdAt") or b.get("prognosisDate") or "")
+    return ka > kb
+
+
 def load_consensus(token=None):
     """UID -> запись консенсуса (постранично). Останов: пустая страница или всё собрано.
     Сбой одной страницы не теряет уже собранные: если прочитать удалось хоть
     одну — работаем с частичными данными (пометка в лог); если ни одну —
     исключение уходит наверх (прогнозы остаются прежними).
-    Ключ записи берём defensively (instrumentUid/uid), имя массива тоже
-    (items/instruments/...) — схема метода в доках портала не отдаётся, а
-    вернуть её дословно может первый сырой ответ (второй элемент результата).
+    Ключ записи — assetUid: это идентификатор ИНСТРУМЕНТА, совпадающий с uid
+    из FindInstrument. Поле uid записи — идентификатор самой записи прогноза,
+    по нему сопоставление не работает (даёт «ни один UID не совпал»).
+    Резервные имена ключа и массива оставлены defensively — схема метода в
+    доках портала не отдаётся. Повторные assetUid схлопываются по свежести.
     Возвращает (items, raw_first)."""
     items, page, ok, pages, seen = {}, 0, 0, 0, 0
     total = None
@@ -316,10 +329,15 @@ def load_consensus(token=None):
         for it in chunk:
             if not isinstance(it, dict):
                 continue
-            key = (it.get("instrumentUid") or it.get("uid")
-                   or it.get("instrumentUID") or it.get("instrument_id"))
+            # assetUid — идентификатор инструмента (совпадает с uid из
+            # FindInstrument); uid записи — ID самой записи прогноза.
+            key = (it.get("assetUid") or it.get("instrumentUid")
+                   or it.get("instrumentUID") or it.get("instrument_id")
+                   or it.get("uid"))
             got_key += 1 if key else 0
-            items[key] = it
+            prev = items.get(key)
+            if prev is None or _rec_newer(it, prev):
+                items[key] = it
         seen += sum(1 for it in chunk if isinstance(it, dict))
         pr = resp.get("page") or {}
         total = pr.get("totalCount") if pr.get("totalCount") is not None else total
@@ -365,6 +383,14 @@ def main(argv=None):
         if not item or target is None:
             empty.append(t)
             print(f"  {t}: консенсуса в API нет — оставляем прежнее")
+            continue
+        cur = (item.get("currency") or "rub").lower()
+        if cur not in ("rub", "rur"):
+            # цели консенсуса в валюте (например, usd по иностранным бумагам) —
+            # переносить их в рублёвый портфель нельзя
+            empty.append(t)
+            print(f"  {t}: консенсус есть, но цели в {cur.upper()} — "
+                  f"не переносим в рублёвый портфель")
             continue
         old = s.get("target_price")
         s["recommendation"] = REC_LABEL.get(item.get("consensus") or "")
