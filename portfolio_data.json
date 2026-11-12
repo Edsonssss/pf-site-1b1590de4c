@@ -4,7 +4,7 @@
   "date": "2026-11-12",
   "currency": "RUB",
   "sources": {
-   "forecasts": "tbank.ru/invest — сводный прогноз на 11.11.2026 (автообновление GitHub Actions)",
+   "forecasts": "T-Invest API (консенсус-прогнозы аналитиков) — на 12.11.2026 (автообновление GitHub Actions)",
    "dividends": "tbank.ru/invest/stocks/<тикер>/dividends/ + smart-lab.ru/dividends (08.10.2026)",
    "strategy": "Т-Инвестиции, стратегия по рынку акций от 01.08.2026",
    "funds": "investfunds.ru — стоимости паёв на 07.10.2026",
@@ -13,7 +13,7 @@
    "prices": "MOEX ISS: текущие цены — 12.11.2026 (интрадей), цены закрытия — 11.11.2026; автообновление GitHub Actions"
   },
   "disclaimer": "Материал носит информационный характер и не является индивидуальной инвестиционной рекомендацией. Прогнозные дивиденды не гарантированы.",
-  "forecasts_date": "2026-11-11"
+  "forecasts_date": "2026-11-12"
  },
  "summary": {
   "total_value": 1506452.88,
@@ -25,10 +25,10 @@
    "funds": 49.72,
    "cash": 1.99
   },
-  "weighted_upside_pct": 26.4,
+  "weighted_upside_pct": 27.8,
   "recommendations": {
-   "buy": 14,
-   "hold": 10,
+   "buy": 15,
+   "hold": 9,
    "sell": 0,
    "no_forecast": 3
   },
@@ -74,8 +74,8 @@
    "recommendation": "Покупать",
    "target_price": 383.8,
    "upside_pct": 28.48,
-   "range_min": 320,
-   "range_max": 430,
+   "range_min": 320.0,
+   "range_max": 430.0,
    "dividend_next": "≈38–42 (оценка)",
    "dividend_date": "ожидается июль 2027",
    "dividend_status": "прогноз по истории",
@@ -84,7 +84,8 @@
    "prev_close": 298.73,
    "day_change_pct": 0.0,
    "prev_date": "2026-11-11",
-   "n_forecasts": 14
+   "n_forecasts": 14,
+   "prognosis_date": "2026-11-06"
   },
   {
    "n": 2,
@@ -94,10 +95,10 @@
    "current_price": 3442.5,
    "value": 41310.0,
    "recommendation": "Покупать",
-   "target_price": 5476.34,
+   "target_price": 5476.35,
    "upside_pct": 59.08,
-   "range_min": 4680,
-   "range_max": 6856,
+   "range_min": 4680.0,
+   "range_max": 6856.0,
    "dividend_next": "≈110+ (оценка)",
    "dividend_date": "ожидается апрель 2027",
    "dividend_status": "прогноз по истории",
@@ -106,7 +107,8 @@
    "prev_close": 3442.5,
    "day_change_pct": 0.0,
    "prev_date": "2026-11-11",
-   "n_forecasts": 12
+   "n_forecasts": 12,
+   "prognosis_date": "2026-11-06"
   },
   {
    "n": 3,
@@ -116,10 +118,10 @@
    "current_price": 281.62,
    "value": 45059.2,
    "recommendation": "Покупать",
-   "target_price": 411.93,
-   "upside_pct": 46.27,
-   "range_min": 320,
-   "range_max": 500,
+   "target_price": 407.32,
+   "upside_pct": 44.63,
+   "range_min": 336.2,
+   "range_max": 500.0,
    "dividend_next": null,
    "dividend_date": "выплачен 12.10.2026 (4,7 ₽)",
    "dividend_status": "выплачен",
@@ -127,7 +129,9 @@
    "note": "",
    "prev_close": 281.62,
    "day_change_pct": 0.0,
-   "prev_date": "2026-11-11"
+   "prev_date": "2026-11-11",
+   "n_forecasts": 13,
+   "prognosis_date": "2026-11-06"
   },
   {
    "n": 4,
@@ -137,10 +141,10 @@
    "current_price": 2364,
    "value": 47280,
    "recommendation": "Покупать",
-   "target_price": 2952.85,
+   "target_price": 2952.86,
    "upside_pct": 24.91,
-   "range_min": 2300,
-   "range_max": 3603,
+   "range_min": 2300.0,
+   "range_max": 3603.0,
    "dividend_next": "не объявлен",
    "dividend_date": "ожидается январь 2027",
    "dividend_status": "прогноз сроков",
@@ -149,7 +153,8 @@
    "prev_close": 2364,
    "day_change_pct": 0.0,
    "prev_date": "2026-11-11",
-   "n_forecasts": 14
+   "n_forecasts": 14,
+   "prognosis_date": "2026-11-06"
   },
   {
    "n": 5,
@@ -159,9 +164,9 @@
    "current_price": 116.77,
    "value": 31527.9,
    "recommendation": "Держать",
-   "target_price": 140.49,
-   "upside_pct": 20.31,
-   "range_min": 110,
+   "target_price": 142.58,
+   "upside_pct": 22.1,
+   "range_min": 110.0,
    "range_max": 183.4,
    "dividend_next": null,
    "dividend_date": "—",
@@ -170,7 +175,9 @@
    "note": "",
    "prev_close": 116.77,
    "day_change_pct": 0.0,
-   "prev_date": "2026-11-11"
+   "prev_date": "2026-11-11",
+   "n_forecasts": 12,
+   "prognosis_date": "2026-11-06"
   },
   {
    "n": 6,
@@ -180,10 +187,10 @@
    "current_price": 6029,
    "value": 24116,
    "recommendation": "Покупать",
-   "target_price": 6221.5,
-   "upside_pct": 3.19,
-   "range_min": 5500,
-   "range_max": 7100,
+   "target_price": 6502.69,
+   "upside_pct": 7.86,
+   "range_min": 5600.0,
+   "range_max": 7700.0,
    "dividend_next": "не объявлен (2026: 397+278 ₽)",
    "dividend_date": "ожидается дек. 2026 — янв. 2027",
    "dividend_status": "прогноз сроков",
@@ -191,7 +198,9 @@
    "note": "",
    "prev_close": 6029,
    "day_change_pct": 0.0,
-   "prev_date": "2026-11-11"
+   "prev_date": "2026-11-11",
+   "n_forecasts": 13,
+   "prognosis_date": "2026-11-06"
   },
   {
    "n": 7,
@@ -203,8 +212,8 @@
    "recommendation": "Держать",
    "target_price": 197.57,
    "upside_pct": 19.79,
-   "range_min": 165,
-   "range_max": 250,
+   "range_min": 165.0,
+   "range_max": 250.0,
    "dividend_next": "≈20 (оценка)",
    "dividend_date": "ожидается июль 2027",
    "dividend_status": "прогноз по истории",
@@ -212,7 +221,9 @@
    "note": "",
    "prev_close": 164.93,
    "day_change_pct": 0.0,
-   "prev_date": "2026-11-11"
+   "prev_date": "2026-11-11",
+   "n_forecasts": 14,
+   "prognosis_date": "2026-11-06"
   },
   {
    "n": 8,
@@ -222,10 +233,10 @@
    "current_price": 1049.8,
    "value": 30444.2,
    "recommendation": "Покупать",
-   "target_price": 1500,
-   "upside_pct": 42.88,
-   "range_min": 1300,
-   "range_max": 1700,
+   "target_price": 1496.91,
+   "upside_pct": 42.59,
+   "range_min": 1300.0,
+   "range_max": 1700.0,
    "dividend_next": "≈200+ (оценка)",
    "dividend_date": "ожидается июль 2027",
    "dividend_status": "прогноз по истории",
@@ -233,7 +244,9 @@
    "note": "",
    "prev_close": 1049.8,
    "day_change_pct": 0.0,
-   "prev_date": "2026-11-11"
+   "prev_date": "2026-11-11",
+   "n_forecasts": 11,
+   "prognosis_date": "2026-11-06"
   },
   {
    "n": 9,
@@ -243,10 +256,10 @@
    "current_price": 3828.5,
    "value": 22971.0,
    "recommendation": "Покупать",
-   "target_price": 5458.75,
-   "upside_pct": 42.58,
-   "range_min": 4700,
-   "range_max": 6800,
+   "target_price": 5704.55,
+   "upside_pct": 49.0,
+   "range_min": 4640.0,
+   "range_max": 8540.0,
    "dividend_next": "не объявлен (2026: 70 ₽)",
    "dividend_date": "ожидается в 2027",
    "dividend_status": "прогноз сроков",
@@ -254,7 +267,9 @@
    "note": "",
    "prev_close": 3828.5,
    "day_change_pct": 0.0,
-   "prev_date": "2026-11-11"
+   "prev_date": "2026-11-11",
+   "n_forecasts": 11,
+   "prognosis_date": "2026-11-06"
   },
   {
    "n": 10,
@@ -264,10 +279,10 @@
    "current_price": 122.22,
    "value": 21999.6,
    "recommendation": "Покупать",
-   "target_price": 156,
-   "upside_pct": 27.64,
-   "range_min": 121,
-   "range_max": 195,
+   "target_price": 159.62,
+   "upside_pct": 30.6,
+   "range_min": 123.0,
+   "range_max": 201.0,
    "dividend_next": null,
    "dividend_date": "выплачен 12.10.2026 (1,85 ₽)",
    "dividend_status": "выплачен",
@@ -275,7 +290,9 @@
    "note": "",
    "prev_close": 122.22,
    "day_change_pct": 0.0,
-   "prev_date": "2026-11-11"
+   "prev_date": "2026-11-11",
+   "n_forecasts": 12,
+   "prognosis_date": "2026-11-09"
   },
   {
    "n": 11,
@@ -285,10 +302,10 @@
    "current_price": 1.762,
    "value": 21144.0,
    "recommendation": "Покупать",
-   "target_price": 2.06,
-   "upside_pct": 16.91,
+   "target_price": 2.3,
+   "upside_pct": 30.53,
    "range_min": 2.07,
-   "range_max": 2.07,
+   "range_max": 2.52,
    "dividend_next": "≈0,19 (оценка)",
    "dividend_date": "ожидается июль 2027",
    "dividend_status": "прогноз по истории",
@@ -296,7 +313,9 @@
    "note": "",
    "prev_close": 1.762,
    "day_change_pct": 0.0,
-   "prev_date": "2026-11-11"
+   "prev_date": "2026-11-11",
+   "n_forecasts": 2,
+   "prognosis_date": "2026-11-05"
   },
   {
    "n": 12,
@@ -306,10 +325,10 @@
    "current_price": 531.2,
    "value": 18592.0,
    "recommendation": "Держать",
-   "target_price": 563.15,
-   "upside_pct": 6.01,
-   "range_min": 484,
-   "range_max": 660,
+   "target_price": 583.1,
+   "upside_pct": 9.77,
+   "range_min": 520.0,
+   "range_max": 680.0,
    "dividend_next": null,
    "dividend_date": "отсечка 13.10.2026 (42,51 ₽), выплата в конце октября",
    "dividend_status": "зафиксирован",
@@ -317,7 +336,9 @@
    "note": "",
    "prev_close": 531.2,
    "day_change_pct": 0.0,
-   "prev_date": "2026-11-11"
+   "prev_date": "2026-11-11",
+   "n_forecasts": 10,
+   "prognosis_date": "2026-11-06"
   },
   {
    "n": 13,
@@ -327,10 +348,10 @@
    "current_price": 5210,
    "value": 20840,
    "recommendation": "Держать",
-   "target_price": 6186.37,
-   "upside_pct": 18.74,
-   "range_min": 3600,
-   "range_max": 8000,
+   "target_price": 6221.22,
+   "upside_pct": 19.41,
+   "range_min": 4300.0,
+   "range_max": 7990.0,
    "dividend_next": "не объявлен",
    "dividend_date": "пауза после октября 2025 (273 ₽)",
    "dividend_status": "не объявлен",
@@ -338,7 +359,9 @@
    "note": "",
    "prev_close": 5210,
    "day_change_pct": 0.0,
-   "prev_date": "2026-11-11"
+   "prev_date": "2026-11-11",
+   "n_forecasts": 9,
+   "prognosis_date": "2026-11-06"
   },
   {
    "n": 14,
@@ -348,10 +371,10 @@
    "current_price": 795,
    "value": 31005,
    "recommendation": "Держать",
-   "target_price": 933,
-   "upside_pct": 17.36,
-   "range_min": 760,
-   "range_max": 1227,
+   "target_price": 933.4,
+   "upside_pct": 17.41,
+   "range_min": 760.0,
+   "range_max": 1227.0,
    "dividend_next": "≈70 (оценка)",
    "dividend_date": "ожидается июль 2027",
    "dividend_status": "прогноз по истории",
@@ -359,7 +382,9 @@
    "note": "",
    "prev_close": 795,
    "day_change_pct": 0.0,
-   "prev_date": "2026-11-11"
+   "prev_date": "2026-11-11",
+   "n_forecasts": 5,
+   "prognosis_date": "2026-11-09"
   },
   {
    "n": 15,
@@ -369,10 +394,10 @@
    "current_price": 178.75,
    "value": 21450.0,
    "recommendation": "Покупать",
-   "target_price": 242.55,
-   "upside_pct": 35.69,
-   "range_min": 160,
-   "range_max": 300,
+   "target_price": 243.93,
+   "upside_pct": 36.46,
+   "range_min": 160.0,
+   "range_max": 300.0,
    "dividend_next": "≈35 (оценка)",
    "dividend_date": "ожидается июль 2027",
    "dividend_status": "прогноз по истории",
@@ -380,7 +405,9 @@
    "note": "",
    "prev_close": 178.75,
    "day_change_pct": 0.0,
-   "prev_date": "2026-11-11"
+   "prev_date": "2026-11-11",
+   "n_forecasts": 12,
+   "prognosis_date": "2026-11-06"
   },
   {
    "n": 16,
@@ -390,10 +417,10 @@
    "current_price": 75.74,
    "value": 23782.36,
    "recommendation": "Покупать",
-   "target_price": 80,
+   "target_price": 80.0,
    "upside_pct": 5.62,
-   "range_min": 80,
-   "range_max": 80,
+   "range_min": 80.0,
+   "range_max": 80.0,
    "dividend_next": null,
    "dividend_date": "—",
    "dividend_status": "дивидендов нет",
@@ -401,7 +428,9 @@
    "note": "",
    "prev_close": 75.74,
    "day_change_pct": 0.0,
-   "prev_date": "2026-11-11"
+   "prev_date": "2026-11-11",
+   "n_forecasts": 2,
+   "prognosis_date": "2026-11-06"
   },
   {
    "n": 17,
@@ -411,8 +440,8 @@
    "current_price": 0.6526,
    "value": 19578.0,
    "recommendation": "Покупать",
-   "target_price": 0.7,
-   "upside_pct": 7.26,
+   "target_price": 0.702,
+   "upside_pct": 7.57,
    "range_min": 0.702,
    "range_max": 0.702,
    "dividend_next": "≈0,06 (оценка)",
@@ -422,7 +451,9 @@
    "note": "",
    "prev_close": 0.6526,
    "day_change_pct": 0.0,
-   "prev_date": "2026-11-11"
+   "prev_date": "2026-11-11",
+   "n_forecasts": 1,
+   "prognosis_date": "2026-11-09"
   },
   {
    "n": 18,
@@ -432,10 +463,10 @@
    "current_price": 76.6,
    "value": 30640.0,
    "recommendation": "Держать",
-   "target_price": 88.28,
-   "upside_pct": 15.25,
-   "range_min": 70,
-   "range_max": 109,
+   "target_price": 92.28,
+   "upside_pct": 20.47,
+   "range_min": 70.0,
+   "range_max": 132.0,
    "dividend_next": null,
    "dividend_date": "—",
    "dividend_status": "без выплат с мая 2024",
@@ -443,7 +474,9 @@
    "note": "",
    "prev_close": 76.6,
    "day_change_pct": 0.0,
-   "prev_date": "2026-11-11"
+   "prev_date": "2026-11-11",
+   "n_forecasts": 12,
+   "prognosis_date": "2026-11-06"
   },
   {
    "n": 19,
@@ -473,11 +506,11 @@
    "qty": 19,
    "current_price": 1111.2,
    "value": 21112.8,
-   "recommendation": "Держать",
-   "target_price": 1341.8,
-   "upside_pct": 20.75,
-   "range_min": 1000,
-   "range_max": 1660,
+   "recommendation": "Покупать",
+   "target_price": 1408.89,
+   "upside_pct": 26.79,
+   "range_min": 1000.0,
+   "range_max": 1700.0,
    "dividend_next": "≈30–40 (оценка)",
    "dividend_date": "ожидается декабрь 2026",
    "dividend_status": "прогноз по истории",
@@ -485,7 +518,9 @@
    "note": "",
    "prev_close": 1111.2,
    "day_change_pct": 0.0,
-   "prev_date": "2026-11-11"
+   "prev_date": "2026-11-11",
+   "n_forecasts": 9,
+   "prognosis_date": "2026-11-09"
   },
   {
    "n": 21,
@@ -495,10 +530,10 @@
    "current_price": 38.75,
    "value": 20925.0,
    "recommendation": "Держать",
-   "target_price": 42.92,
-   "upside_pct": 10.76,
-   "range_min": 29,
-   "range_max": 65,
+   "target_price": 40.93,
+   "upside_pct": 5.63,
+   "range_min": 29.0,
+   "range_max": 52.0,
    "dividend_next": "≈5 (оценка)",
    "dividend_date": "ожидается июль 2027",
    "dividend_status": "прогноз по истории",
@@ -506,7 +541,9 @@
    "note": "",
    "prev_close": 38.75,
    "day_change_pct": 0.0,
-   "prev_date": "2026-11-11"
+   "prev_date": "2026-11-11",
+   "n_forecasts": 9,
+   "prognosis_date": "2026-11-06"
   },
   {
    "n": 22,
@@ -516,10 +553,10 @@
    "current_price": 58.14,
    "value": 26918.82,
    "recommendation": "Покупать",
-   "target_price": 89.55,
-   "upside_pct": 54.02,
-   "range_min": 65,
-   "range_max": 125,
+   "target_price": 89.0,
+   "upside_pct": 53.08,
+   "range_min": 65.0,
+   "range_max": 125.0,
    "dividend_next": "не объявлен (2026: 9,71 ₽)",
    "dividend_date": "ожидается июль 2027",
    "dividend_status": "прогноз сроков",
@@ -527,7 +564,9 @@
    "note": "",
    "prev_close": 58.14,
    "day_change_pct": 0.0,
-   "prev_date": "2026-11-11"
+   "prev_date": "2026-11-11",
+   "n_forecasts": 9,
+   "prognosis_date": "2026-11-06"
   },
   {
    "n": 23,
@@ -560,8 +599,8 @@
    "recommendation": "Держать",
    "target_price": 42.5,
    "upside_pct": -20.86,
-   "range_min": 25,
-   "range_max": 60,
+   "range_min": 25.0,
+   "range_max": 60.0,
    "dividend_next": null,
    "dividend_date": "—",
    "dividend_status": "без выплат с 2021",
@@ -569,7 +608,9 @@
    "note": "",
    "prev_close": 53.7,
    "day_change_pct": 0.0,
-   "prev_date": "2026-11-11"
+   "prev_date": "2026-11-11",
+   "n_forecasts": 2,
+   "prognosis_date": "2026-11-02"
   },
   {
    "n": 25,
@@ -579,10 +620,10 @@
    "current_price": 42.15,
    "value": 14331.0,
    "recommendation": "Держать",
-   "target_price": 50,
-   "upside_pct": 18.62,
-   "range_min": 35,
-   "range_max": 80,
+   "target_price": 52.2,
+   "upside_pct": 23.84,
+   "range_min": 39.0,
+   "range_max": 85.0,
    "dividend_next": null,
    "dividend_date": "—",
    "dividend_status": "без выплат с 2021",
@@ -590,7 +631,9 @@
    "note": "",
    "prev_close": 42.15,
    "day_change_pct": 0.0,
-   "prev_date": "2026-11-11"
+   "prev_date": "2026-11-11",
+   "n_forecasts": 5,
+   "prognosis_date": "2026-11-05"
   },
   {
    "n": 32,
@@ -600,10 +643,10 @@
    "current_price": 1133.9,
    "value": 20410.2,
    "recommendation": "Покупать",
-   "target_price": 1437.8,
-   "upside_pct": 26.8,
-   "range_min": 1100,
-   "range_max": 1650,
+   "target_price": 1435.64,
+   "upside_pct": 26.61,
+   "range_min": 1100.0,
+   "range_max": 1650.0,
    "dividend_next": "≈45–50 (оценка)",
    "dividend_date": "ожидается апрель 2027",
    "dividend_status": "прогноз по истории",
@@ -611,7 +654,9 @@
    "note": "Куплено 28.10.2026 (10 шт). Сводный прогноз Т-Банка от 28.10.2026: Покупать, цель 1 437,8 ₽, диапазон 1 100–1 650. Дивиденды 2 раза в год (апрель/октябрь): последние отсечки 12.10.2026 (35,5 ₽) и 13.04.2026 (47,23 ₽) — обе до покупки. Доходность за 12 мес ≈ 6,8% (82,73 ₽/акция).",
    "prev_close": 1133.9,
    "day_change_pct": 0.0,
-   "prev_date": "2026-11-11"
+   "prev_date": "2026-11-11",
+   "n_forecasts": 11,
+   "prognosis_date": "2026-11-06"
   },
   {
    "n": 33,
