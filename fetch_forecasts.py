@@ -6,18 +6,21 @@
 Предыдущая версия выкачивала страницы tbank.ru/invest/stocks/<тикер>/ и выта-
 скивала консенсус из HTML — Т-Банк начал ограничивать такие запросы
 (HTTP 429 Too Many Requests после нескольких страниц). Теперь данные берутся
-из официального API, троттлинг-лимиты там задокументированы и нам достаточно
-2–5 запросов на всё обновление:
+из официального API, троттлинг-лимиты там задокументированы:
 
+  InstrumentsService/FindInstrument — тикер -> UID инструмента, отдельный
+      маленький запрос на каждый тикер (~25 шт). Раньше карта тикеров
+      строилась одним запросом InstrumentsService/Shares, но его ответ
+      весит ~3 МБ, и на раннере GitHub Actions передача обрывалась на
+      середине (IncompleteRead) — из-за этого весь шаг оставлял прогнозы
+      прежними. FindInstrument отвечает по одному тикеру ~20 КБ.
   InstrumentsService/GetConsensusForecasts — консенсус-прогнозы по всем
-      инструментам сразу (постранично, ~1–2 запроса):
+      инструментам (постранично, страницы по 200 записей):
         bestTargetPrice            — средняя целевая цена
         bestTargetLow / High       — диапазон целей (min/max)
         totalBuy/Hold/SellRecommend — число аналитиков по каждой рекомендации
         consensus                  — RECOMMENDATION_BUY / HOLD / SELL
         prognosisDate              — дата прогноза
-  InstrumentsService/Shares — сопоставление тикер -> UID (1 запрос);
-      для недостающих тикеров — резервный InstrumentsService/FindInstrument.
 
 Обновляет в portfolio_data.json по каждой акции: recommendation (русские
 метки: Покупать/Держать/Продавать), target_price, range_min, range_max,
@@ -40,6 +43,7 @@ Windows (PowerShell): $env:TB_TOKEN="t.xxxxx"
 """
 import argparse
 import datetime
+import http.client
 import json
 import os
 import re
@@ -228,7 +232,10 @@ def call(method, payload, tries=3, token=None):
                 time.sleep(5 * attempt)
                 continue
             sys.exit(f"Ошибка API {method}: HTTP {e.code}: {body}")
-        except (urllib.error.URLError, TimeoutError, OSError):
+        except (urllib.error.URLError, TimeoutError, OSError,
+                http.client.HTTPException):
+            # http.client.HTTPException покрывает IncompleteRead: ответ может
+            # оборваться на середине (в т.ч. постраничный консенсус) — повтор.
             if attempt < tries:
                 time.sleep(5 * attempt)
                 continue
@@ -251,45 +258,57 @@ def is_isin(t):
 
 
 def ticker_to_uid(stocks, token=None):
-    """Тикер -> UID инструмента: одним Shares, недостающие — через FindInstrument."""
+    """Тикер -> UID инструмента через FindInstrument по каждому тикеру.
+
+    Раньше карта строилась одним запросом InstrumentsService/Shares, но его
+    ответ ~3 МБ и на GitHub Actions обрывался (IncompleteRead). Здесь ответ
+    на один тикер ~20 КБ; при сбое конкретный запрос повторяется в call().
+    Приоритет — основному борду TQBR, если тикер встречается в нескольких
+    секциях."""
     t2u = {}
-    shares = call("InstrumentsService/Shares",
-                  {"instrumentStatus": "INSTRUMENT_STATUS_BASE"}, token=token).get("instruments", [])
-    for it in shares:
-        t = it.get("ticker")
-        if not t:
-            continue
-        cur = t2u.get(t)
-        # приоритет основному борду TQBR, если тикер встречается в нескольких секциях
-        if cur is None or (it.get("classCode") == "TQBR" and cur[1] != "TQBR"):
-            t2u[t] = (it.get("uid"), it.get("classCode"))
-    need = [s["ticker"] for s in stocks if s["ticker"] not in t2u]
-    for t in need:
+    for s in stocks:
+        t = s["ticker"]
         try:
-            r = call("InstrumentsService/FindInstrument", {"query": t}, token=token).get("instruments", [])
+            r = call("InstrumentsService/FindInstrument",
+                     {"query": t}, token=token).get("instruments", [])
         except Exception as e:
             print(f"  {t}: поиск UID не удался — {e}")
             continue
         hits = [i for i in r if i.get("ticker") == t]
-        hit = next((i for i in hits if i.get("classCode") == "TQBR"), hits[0] if hits else None)
+        hit = next((i for i in hits if i.get("classCode") == "TQBR"),
+                   hits[0] if hits else None)
         if hit and hit.get("uid"):
             t2u[t] = (hit["uid"], hit.get("classCode"))
+        else:
+            print(f"  {t}: тикер не найден в API — консенсус недоступен")
+        time.sleep(0.4)
     return t2u
 
 
 def load_consensus(token=None):
-    """UID -> запись консенсуса (постранично). Останов: пустая страница или всё собрано."""
-    items, page = {}, 0
+    """UID -> запись консенсуса (постранично). Останов: пустая страница или всё собрано.
+    Сбой одной страницы не теряет уже собранные: если прочитать удалось хоть
+    одну — работаем с частичными данными (пометка в лог); если ни одну —
+    исключение уходит наверх (прогнозы остаются прежними)."""
+    items, page, ok = {}, 0, 0
     total = None
     while True:
-        resp = call("InstrumentsService/GetConsensusForecasts",
-                    {"paging": {"limit": 200, "pageNumber": page}}, token=token)
+        try:
+            resp = call("InstrumentsService/GetConsensusForecasts",
+                        {"paging": {"limit": 200, "pageNumber": page}}, token=token)
+        except Exception as e:
+            if ok == 0:
+                raise
+            print(f"ВНИМАНИЕ: страница консенсуса №{page} не прочитана ({e}) — "
+                  f"работаем с частичными данными ({len(items)} записей)")
+            break
         chunk = resp.get("items") or []
         for it in chunk:
             items[it.get("uid")] = it
         pr = resp.get("page") or {}
         total = pr.get("totalCount") if pr.get("totalCount") is not None else total
         page += 1
+        ok += 1
         if not chunk or (total is not None and len(items) >= total) or page > 60:
             break
         time.sleep(0.2)
