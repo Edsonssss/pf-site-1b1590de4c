@@ -81,9 +81,9 @@
    "dividend_status": "прогноз по истории",
    "div_yield_12m_pct": 12.6,
    "note": "",
-   "prev_close": 293.1,
-   "day_change_pct": 1.92,
-   "prev_date": "2026-11-10",
+   "prev_close": 298.73,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11",
    "n_forecasts": 14
   },
   {
@@ -103,9 +103,9 @@
    "dividend_status": "прогноз по истории",
    "div_yield_12m_pct": 6.4,
    "note": "",
-   "prev_close": 3397.5,
-   "day_change_pct": 1.32,
-   "prev_date": "2026-11-10",
+   "prev_close": 3442.5,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11",
    "n_forecasts": 12
   },
   {
@@ -125,9 +125,9 @@
    "dividend_status": "выплачен",
    "div_yield_12m_pct": 6.2,
    "note": "",
-   "prev_close": 274.88,
-   "day_change_pct": 2.45,
-   "prev_date": "2026-11-10"
+   "prev_close": 281.62,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 4,
@@ -146,9 +146,9 @@
    "dividend_status": "прогноз сроков",
    "div_yield_12m_pct": 25.9,
    "note": "",
-   "prev_close": 2329,
-   "day_change_pct": 1.5,
-   "prev_date": "2026-11-10",
+   "prev_close": 2364,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11",
    "n_forecasts": 14
   },
   {
@@ -168,9 +168,9 @@
    "dividend_status": "без выплат с 2022",
    "div_yield_12m_pct": 0.0,
    "note": "",
-   "prev_close": 112.64,
-   "day_change_pct": 3.67,
-   "prev_date": "2026-11-10"
+   "prev_close": 116.77,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 6,
@@ -189,9 +189,9 @@
    "dividend_status": "прогноз сроков",
    "div_yield_12m_pct": 11.2,
    "note": "",
-   "prev_close": 5924.5,
-   "day_change_pct": 1.76,
-   "prev_date": "2026-11-10"
+   "prev_close": 6029,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 7,
@@ -210,9 +210,9 @@
    "dividend_status": "прогноз по истории",
    "div_yield_12m_pct": 11.9,
    "note": "",
-   "prev_close": 159.56,
-   "day_change_pct": 3.37,
-   "prev_date": "2026-11-10"
+   "prev_close": 164.93,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 8,
@@ -231,9 +231,9 @@
    "dividend_status": "прогноз по истории",
    "div_yield_12m_pct": 19.4,
    "note": "",
-   "prev_close": 1038.4,
-   "day_change_pct": 1.1,
-   "prev_date": "2026-11-10"
+   "prev_close": 1049.8,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 9,
@@ -252,9 +252,9 @@
    "dividend_status": "прогноз сроков",
    "div_yield_12m_pct": 5.6,
    "note": "",
-   "prev_close": 3743.5,
-   "day_change_pct": 2.27,
-   "prev_date": "2026-11-10"
+   "prev_close": 3828.5,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 10,
@@ -273,9 +273,9 @@
    "dividend_status": "выплачен",
    "div_yield_12m_pct": 1.5,
    "note": "",
-   "prev_close": 119.38,
-   "day_change_pct": 2.38,
-   "prev_date": "2026-11-10"
+   "prev_close": 122.22,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 11,
@@ -294,9 +294,9 @@
    "dividend_status": "прогноз по истории",
    "div_yield_12m_pct": 10.6,
    "note": "",
-   "prev_close": 1.743,
-   "day_change_pct": 1.09,
-   "prev_date": "2026-11-10"
+   "prev_close": 1.762,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 12,
@@ -315,9 +315,9 @@
    "dividend_status": "зафиксирован",
    "div_yield_12m_pct": 13.3,
    "note": "",
-   "prev_close": 521.85,
-   "day_change_pct": 1.79,
-   "prev_date": "2026-11-10"
+   "prev_close": 531.2,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 13,
@@ -336,9 +336,9 @@
    "dividend_status": "не объявлен",
    "div_yield_12m_pct": 0.0,
    "note": "",
-   "prev_close": 5151,
-   "day_change_pct": 1.15,
-   "prev_date": "2026-11-10"
+   "prev_close": 5210,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 14,
@@ -357,9 +357,9 @@
    "dividend_status": "прогноз по истории",
    "div_yield_12m_pct": 8.7,
    "note": "",
-   "prev_close": 789.5,
-   "day_change_pct": 0.7,
-   "prev_date": "2026-11-10"
+   "prev_close": 795,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 15,
@@ -378,9 +378,9 @@
    "dividend_status": "прогноз по истории",
    "div_yield_12m_pct": 19.6,
    "note": "",
-   "prev_close": 177.9,
-   "day_change_pct": 0.48,
-   "prev_date": "2026-11-10"
+   "prev_close": 178.75,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 16,
@@ -399,9 +399,9 @@
    "dividend_status": "дивидендов нет",
    "div_yield_12m_pct": 0.0,
    "note": "",
-   "prev_close": 75.98,
-   "day_change_pct": -0.32,
-   "prev_date": "2026-11-10"
+   "prev_close": 75.74,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 17,
@@ -420,9 +420,9 @@
    "dividend_status": "прогноз по истории",
    "div_yield_12m_pct": 9.4,
    "note": "",
-   "prev_close": 0.6506,
-   "day_change_pct": 0.31,
-   "prev_date": "2026-11-10"
+   "prev_close": 0.6526,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 18,
@@ -441,9 +441,9 @@
    "dividend_status": "без выплат с мая 2024",
    "div_yield_12m_pct": 0.0,
    "note": "",
-   "prev_close": 75.8,
-   "day_change_pct": 1.06,
-   "prev_date": "2026-11-10"
+   "prev_close": 76.6,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 19,
@@ -462,9 +462,9 @@
    "dividend_status": "без выплат с 2021",
    "div_yield_12m_pct": 0.0,
    "note": "У Т-Банка и Интерфакса сводного прогноза нет. БКС (12.10.2026): Негативный, цель 0,05 ₽ до 12.10.2027 (−9,2% к текущей). Дивидендов не платит с 2021 г.",
-   "prev_close": 0.068,
-   "day_change_pct": 3.29,
-   "prev_date": "2026-11-10"
+   "prev_close": 0.07024,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 20,
@@ -483,9 +483,9 @@
    "dividend_status": "прогноз по истории",
    "div_yield_12m_pct": 11.0,
    "note": "",
-   "prev_close": 1107.6,
-   "day_change_pct": 0.33,
-   "prev_date": "2026-11-10"
+   "prev_close": 1111.2,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 21,
@@ -504,9 +504,9 @@
    "dividend_status": "прогноз по истории",
    "div_yield_12m_pct": 13.7,
    "note": "",
-   "prev_close": 37.55,
-   "day_change_pct": 3.2,
-   "prev_date": "2026-11-10"
+   "prev_close": 38.75,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 22,
@@ -525,9 +525,9 @@
    "dividend_status": "прогноз сроков",
    "div_yield_12m_pct": 16.7,
    "note": "",
-   "prev_close": 57.95,
-   "day_change_pct": 0.33,
-   "prev_date": "2026-11-10"
+   "prev_close": 58.14,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 23,
@@ -546,9 +546,9 @@
    "dividend_status": "прогноз по истории",
    "div_yield_12m_pct": 12.3,
    "note": "У Т-Банка и Интерфакса сводного прогноза нет (3-й эшелон). Инвестидеи БКС (авг. 2026): цели 319–380 ₽ — рынок уже выше (~435 ₽ на 14.10). Дивидендная история: за 2025 г. 32 ₽ (~7,4%).",
-   "prev_close": 472,
-   "day_change_pct": 0.17,
-   "prev_date": "2026-11-10"
+   "prev_close": 472.8,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 24,
@@ -567,9 +567,9 @@
    "dividend_status": "без выплат с 2021",
    "div_yield_12m_pct": 0.0,
    "note": "",
-   "prev_close": 52.8,
-   "day_change_pct": 1.7,
-   "prev_date": "2026-11-10"
+   "prev_close": 53.7,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 25,
@@ -588,9 +588,9 @@
    "dividend_status": "без выплат с 2021",
    "div_yield_12m_pct": 0.0,
    "note": "",
-   "prev_close": 41.9,
-   "day_change_pct": 0.6,
-   "prev_date": "2026-11-10"
+   "prev_close": 42.15,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 32,
@@ -609,9 +609,9 @@
    "dividend_status": "прогноз по истории",
    "div_yield_12m_pct": 0.0,
    "note": "Куплено 28.10.2026 (10 шт). Сводный прогноз Т-Банка от 28.10.2026: Покупать, цель 1 437,8 ₽, диапазон 1 100–1 650. Дивиденды 2 раза в год (апрель/октябрь): последние отсечки 12.10.2026 (35,5 ₽) и 13.04.2026 (47,23 ₽) — обе до покупки. Доходность за 12 мес ≈ 6,8% (82,73 ₽/акция).",
-   "prev_close": 1104.5,
-   "day_change_pct": 2.66,
-   "prev_date": "2026-11-10"
+   "prev_close": 1133.9,
+   "day_change_pct": 0.0,
+   "prev_date": "2026-11-11"
   },
   {
    "n": 33,
