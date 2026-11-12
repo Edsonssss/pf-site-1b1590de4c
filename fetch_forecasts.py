@@ -16,6 +16,7 @@
       прежними. FindInstrument отвечает по одному тикеру ~20 КБ.
   InstrumentsService/GetConsensusForecasts — консенсус-прогнозы по всем
       инструментам (постранично, страницы по 200 записей):
+        instrumentUid              — ключ соответствия с UID из FindInstrument
         bestTargetPrice            — средняя целевая цена
         bestTargetLow / High       — диапазон целей (min/max)
         totalBuy/Hold/SellRecommend — число аналитиков по каждой рекомендации
@@ -289,9 +290,14 @@ def load_consensus(token=None):
     """UID -> запись консенсуса (постранично). Останов: пустая страница или всё собрано.
     Сбой одной страницы не теряет уже собранные: если прочитать удалось хоть
     одну — работаем с частичными данными (пометка в лог); если ни одну —
-    исключение уходит наверх (прогнозы остаются прежними)."""
-    items, page, ok = {}, 0, 0
+    исключение уходит наверх (прогнозы остаются прежними).
+    Ключ записи берём defensively (instrumentUid/uid), имя массива тоже
+    (items/instruments/...) — схема метода в доках портала не отдаётся, а
+    вернуть её дословно может первый сырой ответ (второй элемент результата).
+    Возвращает (items, raw_first)."""
+    items, page, ok, pages, seen = {}, 0, 0, 0, 0
     total = None
+    raw_first = None
     while True:
         try:
             resp = call("InstrumentsService/GetConsensusForecasts",
@@ -302,17 +308,33 @@ def load_consensus(token=None):
             print(f"ВНИМАНИЕ: страница консенсуса №{page} не прочитана ({e}) — "
                   f"работаем с частичными данными ({len(items)} записей)")
             break
-        chunk = resp.get("items") or []
+        if raw_first is None:
+            raw_first = resp
+        chunk = (resp.get("items") or resp.get("instruments")
+                 or resp.get("consensusForecasts") or resp.get("forecasts") or [])
+        got_key = 0
         for it in chunk:
-            items[it.get("uid")] = it
+            if not isinstance(it, dict):
+                continue
+            key = (it.get("instrumentUid") or it.get("uid")
+                   or it.get("instrumentUID") or it.get("instrument_id"))
+            got_key += 1 if key else 0
+            items[key] = it
+        seen += sum(1 for it in chunk if isinstance(it, dict))
         pr = resp.get("page") or {}
         total = pr.get("totalCount") if pr.get("totalCount") is not None else total
         page += 1
         ok += 1
-        if not chunk or (total is not None and len(items) >= total) or page > 60:
+        pages = ok
+        if not chunk or (total is not None and seen >= total) or page > 60:
+            break
+        if got_key == 0:
+            # записи пришли, но ни в одной нет опознанного поля UID —
+            # дальнейшие страницы бесполезны, смотрим ДИАГНОСТИКУ в main()
             break
         time.sleep(0.2)
-    return items
+    print(f"консенсус: {seen} записей за {pages} страниц(ы)")
+    return items, raw_first
 
 
 def main(argv=None):
@@ -328,7 +350,7 @@ def main(argv=None):
 
     try:
         t2u = ticker_to_uid(targets)
-        items = load_consensus()
+        items, raw_first = load_consensus()
     except Exception as e:
         print(f"ВНИМАНИЕ: консенсус не загружен ({e}) — прогнозы оставлены прежними; "
               f"дневное обновление продолжается")
@@ -338,7 +360,7 @@ def main(argv=None):
     for s in targets:
         t = s["ticker"]
         pair = t2u.get(t)
-        item = items.get(pair[0]) if pair else None
+        item = items.get(pair[0]) if pair and pair[0] else None
         target = dec(item.get("bestTargetPrice")) if item else None
         if not item or target is None:
             empty.append(t)
@@ -374,6 +396,18 @@ def main(argv=None):
             "T-Invest API (консенсус-прогнозы аналитиков) — на "
             + today.strftime("%d.%m.%Y") + " (автообновление GitHub Actions)")
         json.dump(d, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    if not updated and items:
+        k0, it0 = next(iter(items.items()))
+        uid0 = (next(iter(t2u.values()))[0] if t2u else "нет")
+        print("ДИАГНОСТИКА: записи консенсуса есть, но ни один UID не совпал —")
+        print("  пример UID из FindInstrument:", str(uid0))
+        print("  пример ключа записи консенсуса:", str(k0))
+        print("  поля записи:", ", ".join(sorted(it0.keys())))
+        print("  пример записи:", json.dumps(it0, ensure_ascii=False)[:400])
+    elif not updated and not items and raw_first is not None:
+        print("ДИАГНОСТИКА: 0 записей — имя массива/paging может отличаться; "
+              "сырой ответ первой страницы:")
+        print(" ", json.dumps(raw_first, ensure_ascii=False)[:600])
     print("обновлено прогнозов:", len(updated), "| цели изменились:", len(moved),
           "| без консенсуса:", ", ".join(empty) or "нет")
     for x in moved:
