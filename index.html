@@ -179,18 +179,26 @@ function cutDivDate(v){var s=String(v==null?'':v).trim();
 function render(){if(DATA&&DATA.stocks)DATA.stocks.forEach(function(s){s.name=String(s.name||'').replace(/\s*\(докуплено\)\s*$/,'');if(s.dividend_date)s.dividend_date=cutDivDate(s.dividend_date);});var pt=$('page-title');if(pt&&DATA.meta&&DATA.meta.date){pt.textContent='📊 Инвест портфель — на '+DATA.meta.date.split('-').reverse().join('.');}renderCards();renderStocks();renderFunds();renderBlocked();renderDiv();renderMacro();loadHistory();}
 /* ===== динамика остатков (history.json) ===== */
 let HIST=[],HIST_FULL=false,histFetched=false,histRange=30,histNoteOpen=false,histHide={save_wife:true,total:true,total_family:true};
+/* «Тинькоф — акции» включает ИИС: значения секции ИИС прибавляются
+   к акциям в useHist, отдельной серии ИИС на графике больше нет */
 const HSERS=[
- {k:'stocks',t:'Тинькоф — акции',c:'#2563eb'},
+ {k:'stocks',t:'Тинькоф — акции + ИИС',c:'#2563eb'},
  {k:'funds',t:'IH+БКС — фонды',c:'#16a34a'},
  {k:'cash',t:'Счета (кэш)',c:'#f59e0b'},
- {k:'iis',t:'ИИС (Т-Банк)',c:'#0891b2'},
  {k:'save_wife',t:'Сэйв жены',c:'#a855f7'},
  {k:'total',t:'Итого портфель',c:'#111827',w:2.6},
  {k:'total_family',t:'Семейный итог',c:'#dc2626',w:2.6,dash:'6 3'}
 ];
 function useHist(days,full){
   if(!days||!days.length)return;
-  HIST=days.slice().sort((a,b)=>a.date<b.date?-1:(a.date>b.date?1:0));
+  /* складываем ИИС в «Тинькоф — акции» (с 17.11.2026); копия —
+     источник не мутируем (встроенные данные переиспользуются) */
+  HIST=days.slice().sort((a,b)=>a.date<b.date?-1:(a.date>b.date?1:0)).map(function(d){
+    if(d.iis==null)return d;
+    var o={},k;for(k in d)o[k]=d[k];
+    o.stocks=(d.stocks||0)+d.iis;o.iis=null;
+    return o;
+  });
   HIST_FULL=full||HIST_FULL;
   renderHistory();
 }
@@ -328,7 +336,7 @@ function renderHistory(){
   ov.addEventListener('touchend',()=>setTimeout(hhide,1800));
   var note=$('hist-note');
   if(note){
-    var full='Помесячные точки на 1-е число (03.2023–09.2026) — данные пользователя: «Сэйв жены», «Тинькоф — акции», «IH+БКС — фонды»; кэш в эти месяцы не указан. С 14.10.2026 — ежедневный учёт: записи добавляются в 23:45 МСК (GitHub Actions) и при ручных обновлениях. Ось X — календарная: расстояние пропорционально времени, закрашенная зона справа — период ежедневных записей. «Итого портфель» = акции + фонды + счета; «Семейный итог» = портфель + сэйв жены. Заблокированные активы — вне графика (справочно в таблице ниже).'+(HIST_FULL?'':' Офлайн-режим: показаны последние 90 записей, полная история — в history.json.');
+    var full='Помесячные точки на 1-е число (03.2023–09.2026) — данные пользователя: «Сэйв жены», «Тинькоф — акции», «IH+БКС — фонды»; кэш в эти месяцы не указан. С 14.10.2026 — ежедневный учёт: записи добавляются в 23:45 МСК (GitHub Actions) и при ручных обновлениях. Ось X — календарная: расстояние пропорционально времени, закрашенная зона справа — период ежедневных записей. «Тинькоф — акции + ИИС» = акции основного счёта + позиции секции ИИС за день (с 17.11.2026; TMON счёта ИИС входит в «IH+БКС — фонды»). «Итого портфель» = акции + фонды + счета (ИИС — внутри «акций»); «Семейный итог» = портфель + сэйв жены. Заблокированные активы — вне графика (справочно в таблице ниже).'+(HIST_FULL?'':' Офлайн-режим: показаны последние 90 записей, полная история — в history.json.');
     if(histNoteOpen){
       note.innerHTML=esc(full)+' <span style="color:#3b4a8c;white-space:nowrap">свернуть ▴</span>';
     }else{
