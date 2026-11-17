@@ -40,6 +40,7 @@ import base64
 import hashlib
 import json
 import os
+import re
 import ssl
 import sys
 import time
@@ -589,7 +590,9 @@ if iis_id and iis_id != acc:
         if v2:
             totals2[key] = {"value": v2, "currency": c2}
             print(f"  {label:12} {v2:>14,.2f} {c2 or ''}")
-    out2 = args.out.replace(".json", "_iis.json")
+    # имя фикс. tbank_iis.json: его ждут workflow (git add + артефакт) и
+    # правка позиций (TBSYNC.data2); файл кладётся рядом с --out
+    out2 = os.path.join(os.path.dirname(args.out) or ".", "tbank_iis.json")
     with open(out2, "w", encoding="utf-8") as f:
         json.dump({"account": iis_id, "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
                    "totals": totals2, "positions": rows2}, f, ensure_ascii=False, indent=1)
@@ -597,17 +600,30 @@ if iis_id and iis_id != acc:
     spath = args.site or ("portfolio_data.json" if os.path.exists("portfolio_data.json") else "")
     if spath and os.path.exists(spath):
         sdata2 = json.load(open(spath, encoding="utf-8"))
+        # тикеры фондов сайта (напр. TMON) живут в разделе «Фонды» сайта —
+        # их сверка идёт с фондами, в секцию ИИС они не попадают; тикеры
+        # из API у фондов с '@' ('TMON@' → 'TMON')
+        fund_tick = set()
+        for f in sdata2.get("funds", []):
+            m = re.search(r"\(([A-Z0-9]{2,8}(?:-RM)?)\)", str(f.get("name", "")))
+            if m:
+                fund_tick.add(m.group(1).upper())
         imap = {}
         for s0 in (sdata2.get("iis") or {}).get("positions", []):
             for key in (s0.get("ticker"), s0.get("isin")):
                 if key:
-                    imap[str(key).upper()] = s0
-        print("Сверка ИИС с сайтом (по тикеру/ISIN, все типы кроме валюты):")
+                    imap[str(key).upper().rstrip("@")] = s0
+        print("Сверка ИИС с сайтом (по тикеру/ISIN, кроме валюты; фонды сайта пропускаются):")
         found2, seen2 = False, set()
         for r in rows2:
             if r["instrumentType"] == "Currency":
                 continue
-            keys = {str(r.get("ticker") or "").upper(), str(r.get("isin") or "").upper()} - {""}
+            if str(r.get("ticker") or "").upper().rstrip("@") in fund_tick:
+                print(f"  {str(r.get('ticker') or r['figi']).upper().rstrip('@'):14}: "
+                      f"{r['qty']:g} шт — фонд, сверяется с разделом «Фонды» сайта")
+                continue
+            keys = {str(r.get("ticker") or "").upper().rstrip("@"),
+                    str(r.get("isin") or "").upper()} - {""}
             s0 = next((imap[k] for k in keys if k in imap), None)
             if s0 and s0.get("ticker"):
                 seen2.add(s0["ticker"])

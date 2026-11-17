@@ -61,7 +61,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tbank_portfolio
-          path: tbank_portfolio.json
+          path: |
+            tbank_portfolio.json
+            tbank_iis.json
 
       - name: Commit tbank_portfolio.json
         run: |
