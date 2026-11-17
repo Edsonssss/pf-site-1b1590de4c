@@ -550,10 +550,24 @@ if not iis_id:
             iis_how = "единственный оставшийся счёт с позициями (по исключению)"
             pf2_saved = p2
     if not iis_id:
-        print("\nИИС не определён. Счета в GetAccounts:")
+        print(f"\nИИС не определён (счетов в GetAccounts: {len(accounts)}):")
         for a in accounts:
             print(f"  {a['id']}  type={a.get('type')!r}  name={a.get('name', '')!r}")
-        print("  → укажите id ИИС: --iis <id> или секрет TB_IIS_ACCOUNT")
+        if len(accounts) == 1:
+            # T-Invest API: «метод возвращает только те счета, к которым у вас
+            # есть доступ… если вы вызываете метод с токеном для одного счета,
+            # возвращаются данные только по счету, к которому выдан доступ
+            # токеном» (developer.tinkoff.ru, сервис Accounts). Живой случай
+            # 17.11.2026: токен видит только счёт «Основной».
+            print("  Токен видит только один счёт — выпущен для одного счёта.")
+            print("  → выпустите токен заново с доступом ко ВСЕМ счетам "
+                  "(не «для одного счёта») и обновите секрет TB_TOKEN;")
+            print("  → либо укажите id ИИС: --iis <id> или секрет TB_IIS_ACCOUNT")
+        else:
+            print("  → укажите id ИИС: --iis <id> или секрет TB_IIS_ACCOUNT")
+        if site_tickers:
+            print(f"  Позиции ИИС сайта ({', '.join(sorted(site_tickers))}) "
+                  "остались несверёнными — tbank_iis.json не создан.")
 
 if iis_id and iis_id != acc:
     print(f"\n=== ИИС: счёт {iis_id} ({iis_how}) ===")
