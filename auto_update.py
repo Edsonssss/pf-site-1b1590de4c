@@ -106,10 +106,13 @@ for f in d['funds']:
 sm = d['summary']
 sm['stocks_value'] = round(sum(s['value'] for s in d['stocks']), 2)
 sm['funds_value'] = round(sum(f['value'] for f in d['funds']), 2)
-sm['total_value'] = round(sm['stocks_value'] + sm['funds_value'] + sm['cash_value'], 2)
+# ИИС — полноценный счёт: входит в total_value, доли и семейный итог
+sm['iis_value'] = round(sum(p.get('value') or 0 for p in (d.get('iis') or {}).get('positions') or []), 2)
+sm['total_value'] = round(sm['stocks_value'] + sm['funds_value'] + sm['cash_value'] + sm['iis_value'], 2)
 sm['shares_pct'] = {'stocks': round(sm['stocks_value'] / sm['total_value'] * 100, 2),
                     'funds': round(sm['funds_value'] / sm['total_value'] * 100, 2),
-                    'cash': round(sm['cash_value'] / sm['total_value'] * 100, 2)}
+                    'cash': round(sm['cash_value'] / sm['total_value'] * 100, 2),
+                    'iis': round(sm['iis_value'] / sm['total_value'] * 100, 2)}
 num = [s for s in d['stocks'] if s.get('upside_pct') is not None]
 sm['weighted_upside_pct'] = round(sum(s['value'] * s['upside_pct'] for s in num) / sum(s['value'] for s in num), 1)
 sm['dividends_12m_gross'] = round(sum(t12.get(s['ticker'], 0) * s['qty'] for s in d['stocks']), 2)
@@ -136,7 +139,7 @@ except Exception:
     hist = {'title': 'Учёт ежедневных остатков — акции, фонды, счета, сэйв жены', 'currency': 'RUB', 'days': []}
 rec = {'date': str(today), 'stocks': sm['stocks_value'], 'funds': sm['funds_value'],
        'cash': sm['cash_value'], 'save_wife': sm.get('family_value', 0),
-       'blocked_rub': sm.get('blocked_value_rub', 0), 'total': sm['total_value'],
+       'blocked_rub': sm.get('blocked_value_rub', 0), 'iis': sm.get('iis_value', 0), 'total': sm['total_value'],
        'total_incl_blocked': sm.get('total_including_blocked', sm['total_value']),
        'total_family': sm.get('total_family', sm['total_value']),
        'source': 'автообновление GitHub Actions' if os.environ.get('GITHUB_ACTIONS') else 'автообновление'}

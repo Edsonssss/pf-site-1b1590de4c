@@ -425,6 +425,11 @@ def main(argv=None):
     d = json.load(open(path, encoding="utf-8"))
     today = datetime.date.today()
     targets = [s for s in d["stocks"] if s["ticker"] not in SKIP and not is_isin(s["ticker"])]
+    # ИИС — второй счёт: акции на нём тоже получают консенсус
+    # (облигации — тикер вида ISIN — консенсуса не имеют и пропускаются)
+    iis_pos = (d.get("iis") or {}).get("positions") or []
+    targets += [p for p in iis_pos if p.get("ticker") and p["ticker"] not in SKIP
+                and not is_isin(p["ticker"])]
 
     try:
         t2i, t2a = build_maps(targets)
@@ -475,7 +480,7 @@ def main(argv=None):
 
     if updated:
         recs = {"buy": 0, "hold": 0, "sell": 0, "no_forecast": 0}
-        for s in d["stocks"]:
+        for s in d["stocks"] + iis_pos:
             recs[BUCKET.get(s.get("recommendation"), "no_forecast")] += 1
         d["summary"]["recommendations"] = recs
         d["meta"]["forecasts_date"] = str(today)

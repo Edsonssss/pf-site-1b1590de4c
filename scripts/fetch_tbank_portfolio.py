@@ -248,6 +248,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument("--account", help="id счёта (иначе — счёт с ненулевым портфелем)")
 ap.add_argument("--out", default="tbank_portfolio.json")
 ap.add_argument("--site", default="", help="путь к portfolio_data.json сайта для сверки")
+ap.add_argument("--iis", help="id счёта ИИС (иначе первый счёт типа ACCOUNT_TYPE_TINKOFF_IIS)")
 args = ap.parse_args()
 
 
@@ -308,17 +309,6 @@ if ey is not None:
 # приводим к каноническому виду Share/Bond/Etf/Currency (как на странице).
 TYPE_MAP = {"share": "Share", "bond": "Bond", "etf": "Etf", "currency": "Currency",
             "future": "Future", "option": "Option", "sp": "Sp"}
-by_type = {}
-for p in pf["positions"]:
-    qty = dec(p.get("quantity")) or 0
-    if qty == 0:
-        continue  # нулевые позиции не нужны
-    raw_type = (p.get("instrumentType") or "?").strip()
-    itype = TYPE_MAP.get(raw_type.lower(), raw_type)
-    p["instrumentType"] = itype          # нормализуем и в самой позиции
-    by_type.setdefault(itype, []).append(p)
-
-
 LOOKUP_FAILS = []      # сообщения об ошибках справочника инструментов
 LOOKUP_ATTEMPTS = 0    # сколько запросов к справочнику сделано
 
@@ -346,61 +336,79 @@ def instrument_by(method, figi):
         return {}
 
 
-rows = []
-for itype, positions in sorted(by_type.items()):
-    for p in positions:
-        figi = p["figi"]
-        qty = dec(p.get("quantity"))
-        cur_price, cur_ccy = money(p.get("currentPrice"))
-        avg_price, avg_ccy = money(p.get("averagePositionPriceFifo") or p.get("averagePositionPrice"))
-        nkd, _ = money(p.get("currentNkd"))
+def build_rows(pf):
+    """Строки позиций счёта: FIGI → тикер/номинал, цена с НКД.
 
-        inst, nominal = {}, None
-        if itype == "Share":
-            inst = instrument_by("ShareBy", figi)
-        elif itype == "Bond":
-            inst = instrument_by("BondBy", figi)
-            nominal, _ = money(inst.get("nominal"))
-        elif itype == "Etf":
-            inst = instrument_by("EtfBy", figi)
-        elif itype == "Currency":
-            inst = instrument_by("CurrencyBy", figi)
+    Общая для основного счёта и ИИС (вторая выгрузка tbank_iis.json)."""
+    by_type = {}
+    for p in pf["positions"]:
+        qty = dec(p.get("quantity")) or 0
+        if qty == 0:
+            continue  # нулевые позиции не нужны
+        raw_type = (p.get("instrumentType") or "?").strip()
+        itype = TYPE_MAP.get(raw_type.lower(), raw_type)
+        p["instrumentType"] = itype          # нормализуем и в самой позиции
+        by_type.setdefault(itype, []).append(p)
 
-        # Цена облигации в GetPortfolio приходит В РУБЛЯХ за бумагу, без НКД
-        # (проверено на живых данных: totalAmountBonds = Σ qty×(цена + НКД);
-        # пример: цена 997,00 ₽ + НКД 14,58 = 1011,58 ₽ × 30 шт = 30 347,40 = totalAmountBonds).
-        # В старых версиях API цена была в % от номинала — обрабатываем и этот формат:
-        # если цена меньше 10% номинала, считаем её процентной записью.
-        price_note = ""
-        if itype == "Bond" and cur_price is not None:
-            if nominal and abs(cur_price) < nominal / 10:
-                price_note = f"{cur_price:g}% ном. {nominal:g}"
-                cur_price = cur_price / 100 * nominal + (nkd or 0)
-            else:
-                price_note = (f"{cur_price:g} ₽" +
-                              (f" + НКД {nkd:g}" if nkd else ""))
-                cur_price = cur_price + (nkd or 0)  # цена сайта — с НКД, как в приложении Т-Банка
 
-        rows.append({
-            "figi": figi,
-            "ticker": inst.get("ticker") or "",
-            "isin": inst.get("isin") or "",
-            "name": inst.get("name") or inst.get("shortName") or "",
-            "instrumentType": itype,
-            "currency": cur_ccy or avg_ccy or inst.get("currency"),
-            "qty": qty,
-            "price": round(cur_price, 4) if cur_price is not None else None,
-            "price_raw_pct_nominal": price_note or None,
-            "nominal": nominal,
-            "nkd": round(nkd, 2) if nkd else None,
-            "avg_price": round(avg_price, 4) if avg_price is not None else None,
-            "value": round(qty * cur_price, 2) if cur_price is not None else None,
-            "expected_yield": round(dec(p.get("expectedYield")), 2) if dec(p.get("expectedYield")) is not None else None,
-            "blocked": p.get("blocked", False),
-        })
-        time.sleep(0.15)  # щадящий темп: ~8 запросов/мин при 30 позициях, лимит 100/мин
+    rows = []
+    for itype, positions in sorted(by_type.items()):
+        for p in positions:
+            figi = p["figi"]
+            qty = dec(p.get("quantity"))
+            cur_price, cur_ccy = money(p.get("currentPrice"))
+            avg_price, avg_ccy = money(p.get("averagePositionPriceFifo") or p.get("averagePositionPrice"))
+            nkd, _ = money(p.get("currentNkd"))
 
-rows.sort(key=lambda r: (r["instrumentType"], -(r["value"] or 0)))
+            inst, nominal = {}, None
+            if itype == "Share":
+                inst = instrument_by("ShareBy", figi)
+            elif itype == "Bond":
+                inst = instrument_by("BondBy", figi)
+                nominal, _ = money(inst.get("nominal"))
+            elif itype == "Etf":
+                inst = instrument_by("EtfBy", figi)
+            elif itype == "Currency":
+                inst = instrument_by("CurrencyBy", figi)
+
+            # Цена облигации в GetPortfolio приходит В РУБЛЯХ за бумагу, без НКД
+            # (проверено на живых данных: totalAmountBonds = Σ qty×(цена + НКД);
+            # пример: цена 997,00 ₽ + НКД 14,58 = 1011,58 ₽ × 30 шт = 30 347,40 = totalAmountBonds).
+            # В старых версиях API цена была в % от номинала — обрабатываем и этот формат:
+            # если цена меньше 10% номинала, считаем её процентной записью.
+            price_note = ""
+            if itype == "Bond" and cur_price is not None:
+                if nominal and abs(cur_price) < nominal / 10:
+                    price_note = f"{cur_price:g}% ном. {nominal:g}"
+                    cur_price = cur_price / 100 * nominal + (nkd or 0)
+                else:
+                    price_note = (f"{cur_price:g} ₽" +
+                                  (f" + НКД {nkd:g}" if nkd else ""))
+                    cur_price = cur_price + (nkd or 0)  # цена сайта — с НКД, как в приложении Т-Банка
+
+            rows.append({
+                "figi": figi,
+                "ticker": inst.get("ticker") or "",
+                "isin": inst.get("isin") or "",
+                "name": inst.get("name") or inst.get("shortName") or "",
+                "instrumentType": itype,
+                "currency": cur_ccy or avg_ccy or inst.get("currency"),
+                "qty": qty,
+                "price": round(cur_price, 4) if cur_price is not None else None,
+                "price_raw_pct_nominal": price_note or None,
+                "nominal": nominal,
+                "nkd": round(nkd, 2) if nkd else None,
+                "avg_price": round(avg_price, 4) if avg_price is not None else None,
+                "value": round(qty * cur_price, 2) if cur_price is not None else None,
+                "expected_yield": round(dec(p.get("expectedYield")), 2) if dec(p.get("expectedYield")) is not None else None,
+                "blocked": p.get("blocked", False),
+            })
+            time.sleep(0.15)  # щадящий темп: ~8 запросов/мин при 30 позициях, лимит 100/мин
+
+    rows.sort(key=lambda r: (r["instrumentType"], -(r["value"] or 0)))
+    return rows
+
+rows = build_rows(pf)
 
 # ------------------------------------------- справочник инструментов: итоги
 if LOOKUP_FAILS:
@@ -455,3 +463,68 @@ if site and os.path.exists(site):
             found_any = True
     if not found_any:
         print("  Расхождений нет ✓")
+
+
+# --------------------------------------------------- 6. ИИС: второй счёт Т-Банка
+# ИИС = полноценный второй счёт: выгружается так же, как основной,
+# сохраняется в tbank_iis.json и сверяется с iis.positions на сайте.
+iis_id = args.iis or os.environ.get("TB_IIS_ACCOUNT")
+if not iis_id:
+    iis_accs = [a for a in accounts if a.get("type") == "ACCOUNT_TYPE_TINKOFF_IIS"]
+    iis_id = iis_accs[0]["id"] if iis_accs else ""
+if iis_id and iis_id != acc:
+    print(f"\n=== ИИС: счёт {iis_id} ===")
+    pf2 = call("OperationsService/GetPortfolio", {"accountId": iis_id})
+    rows2 = build_rows(pf2)
+    for r in rows2:
+        px = f"{r['price']:,.4f}".rstrip("0").rstrip(".") if r["price"] is not None else "?"
+        val = f"{r['value']:,.2f}" if r["value"] is not None else "?"
+        print(f"  {r['ticker'] or r['figi']:14} {r['instrumentType']:8} {r['qty']:>10,.0f} "
+              f"{px:>12} {val:>14}  {r['name'][:36]}")
+    totals2 = {}
+    for key, label in [("totalAmountShares", "Акции"), ("totalAmountBonds", "Облигации"),
+                       ("totalAmountEtf", "Фонды"), ("totalAmountCurrencies", "Валюта"),
+                       ("totalAmountPortfolio", "ВЕСЬ портфель")]:
+        v2, c2 = money(pf2.get(key))
+        if v2:
+            totals2[key] = {"value": v2, "currency": c2}
+            print(f"  {label:12} {v2:>14,.2f} {c2 or ''}")
+    out2 = args.out.replace(".json", "_iis.json")
+    with open(out2, "w", encoding="utf-8") as f:
+        json.dump({"account": iis_id, "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+                   "totals": totals2, "positions": rows2}, f, ensure_ascii=False, indent=1)
+    print(f"\nСохранено: {out2} ({len(rows2)} позиций)")
+    spath = args.site or ("portfolio_data.json" if os.path.exists("portfolio_data.json") else "")
+    if spath and os.path.exists(spath):
+        sdata2 = json.load(open(spath, encoding="utf-8"))
+        imap = {}
+        for s0 in (sdata2.get("iis") or {}).get("positions", []):
+            for key in (s0.get("ticker"), s0.get("isin")):
+                if key:
+                    imap[str(key).upper()] = s0
+        print("Сверка ИИС с сайтом (по тикеру/ISIN, все типы кроме валюты):")
+        found2, seen2 = False, set()
+        for r in rows2:
+            if r["instrumentType"] == "Currency":
+                continue
+            keys = {str(r.get("ticker") or "").upper(), str(r.get("isin") or "").upper()} - {""}
+            s0 = next((imap[k] for k in keys if k in imap), None)
+            if s0 and s0.get("ticker"):
+                seen2.add(s0["ticker"])
+            if not s0:
+                print(f"  {r['ticker'] or r['figi']:14}: есть в ИИС Т-Банка ({r['qty']:g} шт), на сайте НЕТ")
+                found2 = True
+            elif abs((s0.get("qty") or 0) - (r["qty"] or 0)) > 1e-9:
+                print(f"  {r['ticker'] or r['figi']:14}: сайт {s0.get('qty', 0):g} шт -> ИИС Т-Банк {r['qty']:g} шт "
+                      f"(разница {r['qty'] - s0.get('qty', 0):+g})")
+                found2 = True
+        for s0 in (sdata2.get("iis") or {}).get("positions", []):
+            if s0.get("ticker") not in seen2:
+                print(f"  {s0['ticker']:14}: на сайте ИИС ({s0.get('qty', 0):g} шт), в Т-Банке НЕТ")
+                found2 = True
+        if not found2:
+            print("  Расхождений нет ✓")
+elif iis_id and iis_id == acc:
+    print("\nИИС: счёт совпадает с основным — вторая выгрузка пропущена")
+else:
+    print("\nИИС: счёт типа ИИС не найден в GetAccounts — вторая выгрузка пропущена")

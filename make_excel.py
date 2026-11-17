@@ -155,6 +155,67 @@ if d.get('blocked'):
     c3 = ws.cell(row=rw, column=10, value=f"ликвидная часть: {tot:,.0f} ₽ + заблокировано {sum_['blocked_value_rub']:,.0f} ₽".replace(',', ' ')); c3.font = Font(bold=True, size=9); c3.fill = grand_fill; c3.alignment = Alignment(horizontal='left')
     for col in range(1, NC + 1): ws.cell(row=rw, column=col).border = border; ws.cell(row=rw, column=col).fill = grand_fill
 
+# ---------- лист «ИИС» (второй счёт Т-Банка): та же схема, что и у акций ----------
+iis_sec = d.get('iis') or {}
+iis_pos = iis_sec.get('positions') or []
+if iis_pos:
+    def total_row_sh(sh_, rw_, label, val, share, extra=None, fill=tot_fill):
+        sh_.merge_cells(start_row=rw_, start_column=1, end_row=rw_, end_column=8)
+        c = sh_.cell(row=rw_, column=1, value=label); c.font = Font(bold=True, size=10); c.fill = fill; c.alignment = Alignment(horizontal='right')
+        c2 = sh_.cell(row=rw_, column=9, value=val); c2.number_format = '#,##0'; c2.font = Font(bold=True, size=10); c2.fill = fill
+        c3 = sh_.cell(row=rw_, column=10, value=share); c3.number_format = '0.00%'; c3.font = Font(bold=True, size=10); c3.fill = fill
+        for col in range(11, NC + 1): sh_.cell(row=rw_, column=col).fill = fill
+        if extra:
+            ce = sh_.cell(row=rw_, column=11, value=extra); ce.font = Font(bold=True, size=9); ce.fill = fill; ce.alignment = Alignment(horizontal='left')
+        for col in range(1, NC + 1): sh_.cell(row=rw_, column=col).border = border
+        return rw_ + 1
+
+    wsi = wb.create_sheet('ИИС (второй счёт)')
+    iis_val = sum_['iis_value']
+    wsi.merge_cells(start_row=1, start_column=1, end_row=1, end_column=NC)
+    c = wsi.cell(row=1, column=1, value=f'ИИС (Т-Банк) — второй счёт — на {DATE} (схема как у акций: цены и купоны — MOEX ISS, прогнозы — Т-Банк)')
+    c.font = Font(bold=True, size=13, color='1F3864'); c.alignment = Alignment(horizontal='center')
+    wsi.merge_cells(start_row=2, start_column=1, end_row=2, end_column=NC)
+    c = wsi.cell(row=2, column=1, value='Доля — внутри ИИС. Стоимость ИИС входит в «Портфель всего», доли и «Семейный итог». Купоны облигаций показаны в колонках дивидендов; цена облигации = % номинала + НКД.')
+    c.font = Font(italic=True, size=9, color='808080'); c.alignment = Alignment(horizontal='center', wrap_text=True)
+    wsi.row_dimensions[2].height = 26
+    for i, (hh, w) in enumerate(zip(HDR, W), 1):
+        cell = wsi.cell(row=3, column=i, value=hh); cell.fill = hdr_fill; cell.font = hdr_font
+        cell.alignment = Alignment(horizontal='center', vertical='center', wrap_text=True); cell.border = border
+        wsi.column_dimensions[get_column_letter(i)].width = w
+    wsi.row_dimensions[3].height = 48; wsi.freeze_panes = 'A4'
+    riw = 4
+    for p0 in iis_pos:
+        y12 = (p0['div_yield_12m_pct'] / 100) if p0.get('div_yield_12m_pct') else None
+        rng = f"{p0['range_min']:g} — {p0['range_max']:g}" if p0.get('range_min') is not None else None
+        vals = [p0.get('n', 1), 'ИИС', p0['ticker'], p0['name'], p0.get('qty'), p0.get('current_price'),
+                p0.get('prev_close'), (p0['day_change_pct'] / 100 if p0.get('day_change_pct') is not None else None),
+                p0.get('value'), (p0['value'] / iis_val if iis_val and p0.get('value') is not None else None),
+                p0.get('recommendation') or 'нет прогноза', p0.get('target_price'),
+                (p0['upside_pct'] / 100 if p0.get('upside_pct') is not None else None),
+                rng, p0.get('dividend_next'), p0.get('dividend_date') or '—', y12, p0.get('dividend_status') or '—', p0.get('note')]
+        for i, v in enumerate(vals, 1):
+            cell = wsi.cell(row=riw, column=i, value=v); cell.border = border; cell.font = Font(size=10)
+            if i == 1: cell.alignment = Alignment(horizontal='center')
+            if i == 5: cell.number_format = '#,##0.###'
+            if i in (6, 7, 12): cell.number_format = price_fmt(v if isinstance(v, (int, float)) else None)
+            if i == 8 and isinstance(v, float): cell.number_format = '+0.00%;-0.00%'; cell.font = pos_font if v >= 0 else negf
+            if i == 9: cell.number_format = '#,##0'
+            if i == 10: cell.number_format = '0.00%'
+            if i == 13 and isinstance(v, float): cell.number_format = '+0.0%;-0.0%'; cell.font = pos_font if v >= 0 else negf
+            if i == 11:
+                cell.alignment = Alignment(horizontal='center')
+                if v == 'Покупать': cell.fill = buy_fill; cell.font = buy_font
+                elif v == 'Держать': cell.fill = hold_fill; cell.font = hold_font
+                elif v == 'нет прогноза': cell.fill = none_fill; cell.font = none_font
+            if i == 15 and isinstance(v, (int, float)): cell.number_format = '#,##0.00'; cell.fill = div_fill; cell.font = div_font
+            if i == 17 and isinstance(v, float): cell.number_format = '0.0%'
+            if i in (14, 16, 18, 19): cell.alignment = Alignment(wrap_text=True, vertical='top')
+            if i == 19: cell.font = Font(size=9)
+        riw += 1
+    riw = total_row_sh(wsi, riw, f"ИТОГО ИИС ({len(iis_pos)} позиций)", iis_val, iis_val / tot,
+                       extra=f"доля ИИС в портфеле: {sum_['shares_pct'].get('iis', 0)}%")
+
 ws2 = wb.create_sheet('Сводка и макропрогнозы')
 ws2.column_dimensions['A'].width = 4; ws2.column_dimensions['B'].width = 118
 def sec(rw_, t_):
