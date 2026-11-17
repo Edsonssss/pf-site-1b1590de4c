@@ -363,6 +363,7 @@ function merged() {
   for (const a of EDITS.added) {
     const it = clone(a.item);
     if (EDITS.removed.includes('added:' + a._key)) it._deleted = true;
+    if (a.kind === 'iis') continue;   // ИИС добавляется ниже (в d.iis.positions)
     d[a.kind === 'stock' ? 'stocks' : 'funds'].push(it);
   }
   for (const [k, v] of Object.entries(EDITS.setQty)) {
@@ -1008,6 +1009,11 @@ function bindStatic() {
     if (d.tbdel) { syncDelPos(d.tbdel); return; }
     if (d.tbret) { syncRetPos(d.tbret); return; }
     if (d.tbiadd) { syncAddIisPos(d.tbiadd); return; }
+    if (d.tbfadd) {
+      const s = d.tbfadd, iis = s.endsWith('|iis');
+      syncAddFundPos(iis ? s.slice(0, -4) : s, iis);
+      return;
+    }
     if (d.tbidel) { syncDelIisPos(d.tbidel); return; }
     if (d.tbiret) { syncRetIisPos(d.tbiret); return; }
   });
@@ -1255,6 +1261,19 @@ function tbTotalsLine() {
   return 'выгрузка: ' + (d || '?') + ' · счёт ' + esc(TBSYNC.data.account || '') +
     (parts.length ? ' · ' + parts.join(' · ') : '');
 }
+/* Итого по Т-Банку: осн. счёт + ИИС (totalAmountPortfolio обеих выгрузок) */
+function tbGrandTotalLine() {
+  const m = ((TBSYNC.data || {}).totals || {}).totalAmountPortfolio || {};
+  const i = (((TBSYNC.data2 || {}).totals || {}).totalAmountPortfolio) || {};
+  if (m.value == null) return '';
+  const tot = (m.value || 0) + (i.value || 0);
+  return 'Итого по Т-Банку: <b>' + nf(tot, 0) + ' ₽</b>' +
+    (TBSYNC.data2 ? ' (осн. счёт ' + nf(m.value, 0) + ' + ИИС ' + nf(i.value, 0) + ')' : '');
+}
+/* тикер из выгрузки Т-Банка: фонды приходят с '@' ('TMON@' → 'TMON') */
+function tbTick(c) {
+  return String(c || '').toUpperCase().replace(/@+$/, '');
+}
 
 /* сопоставление состояний; site-часть всегда берётся из текущего M */
 function syncCompute() {
@@ -1263,6 +1282,8 @@ function syncCompute() {
   const shares = pos.filter(p => (p.instrumentType === 'Share' || p.instrumentType === 'Bond') && !p.blocked);
   const blockedShares = pos.filter(p => p.blocked);
   const etfs = pos.filter(p => p.instrumentType === 'Etf');
+  const etfsI = (TBSYNC.data2 ? (TBSYNC.data2.positions || []) : [])
+    .filter(p => p.instrumentType === 'Etf' && !p.blocked);
   const rows = [], okRows = [], seen = new Set();
   const up = t => String(t || '').toUpperCase();
   // секция ИИС сайта: бумага из выгрузки ОСНОВНОГО счёта, совпавшая с
@@ -1291,15 +1312,22 @@ function syncCompute() {
     const base = BASE.stocks.find(x => x.ticker === s.ticker);
     rows.push({ type: 'del', t: s.ticker, site: s, draft: !base });
   }
-  // фонды: сопоставление по тикеру в скобках названия
-  const fundRows = [], seenE = new Set();
+  // фонды: сопоставление по тикеру в скобках названия (тикер нормализуем —
+  // API отдаёт фонды с '@': 'TMON@'); фонд с «· ИИС» в названии — второй
+  // счёт (TBSYNC.data2), остальные — основной (TBSYNC.data)
+  const fundRows = [], seenE = new Set(), seenEI = new Set();
   for (const f of M.funds) {
     if (f._deleted) continue;
     const m = String(f.name).match(/\(([A-Z0-9]{2,8}(?:-RM)?)\)/);
-    const p = m ? etfs.find(x => up(x.ticker) === up(m[1])) : null;
-    if (p) { seenE.add(p.ticker); fundRows.push({ f, p, diff: Math.abs((f.qty || 0) - (p.qty || 0)) > 1e-9 }); }
+    const iisFund = /·\s*ИИС/.test(String(f.name));
+    const p = m ? (iisFund ? etfsI : etfs).find(x => tbTick(x.ticker) === tbTick(m[1])) : null;
+    if (p) {
+      (iisFund ? seenEI : seenE).add(tbTick(p.ticker));
+      fundRows.push({ f, p, iis: iisFund, diff: Math.abs((f.qty || 0) - (p.qty || 0)) > 1e-9 });
+    }
   }
-  const fundLeft = etfs.filter(p => !seenE.has(p.ticker));
+  const fundLeft = etfs.filter(p => !seenE.has(tbTick(p.ticker))).map(p => ({ p, iis: false }))
+    .concat(etfsI.filter(p => !seenEI.has(tbTick(p.ticker))).map(p => ({ p, iis: true })));
   const fundNoCode = M.funds.filter(f => !f._deleted &&
     !fundRows.some(fr => fr.f.n === f.n));
   return { rows, okRows, fundRows, fundLeft, fundNoCode, blockedShares };
@@ -1367,25 +1395,30 @@ function syncApplyAllAdd() {
 /* ---------- сверка ИИС (tbank_iis.json): облигации сопоставляются по ISIN ---------- */
 function syncComputeIIS() {
   if (!TBSYNC.data2) return null;
-  const up = t => String(t || '').toUpperCase();
   const pos = (TBSYNC.data2.positions || []).filter(p => p.instrumentType !== 'Currency' && !p.blocked);
-  const rows = [], okRows = [], seen = new Set();
+  // тикеры, живущие в разделе «Фонды» сайта (напр. TMON) — сверяются там,
+  // в ИИС-сверке не участвуют
+  const fundTick = (M.funds || []).filter(f => !f._deleted)
+    .map(f => (String(f.name).match(/\(([A-Z0-9]{2,8}(?:-RM)?)\)/) || [])[1])
+    .filter(Boolean).map(tbTick);
+  const rows = [], okRows = [], seen = new Set(), fundSkip = [];
   for (const p of pos) {
+    if (fundTick.includes(tbTick(p.ticker))) { fundSkip.push(p); continue; }
     const site = (M.iis ? M.iis.positions : []).find(s =>
-      up(s.ticker) === up(p.ticker) || up(s.ticker) === up(p.isin) || up(s.isin) === up(p.isin));
-    const t = (site ? site.ticker : (p.ticker || p.isin || p.figi)).toUpperCase();
-    seen.add(t);
+      tbTick(s.ticker) === tbTick(p.ticker) || tbTick(s.ticker) === tbTick(p.isin) || tbTick(s.isin) === tbTick(p.isin));
+    const t = (site ? site.ticker : (tbTick(p.ticker) || p.isin || p.figi));
+    seen.add(tbTick(t));
     if (!site) { rows.push({ type: 'add', p, t }); continue; }
     if (site._deleted) { rows.push({ type: 'ret', p, t }); continue; }
     if (Math.abs((site.qty || 0) - (p.qty || 0)) > 1e-9) { rows.push({ type: 'fix', p, t, site }); continue; }
     okRows.push({ p, site });
   }
   for (const s of (M.iis ? M.iis.positions : [])) {
-    if (s._deleted || seen.has(up(s.ticker))) continue;
+    if (s._deleted || seen.has(tbTick(s.ticker))) continue;
     const base = BASE.iis.positions.find(x => x.ticker === s.ticker);
     rows.push({ type: 'del', t: s.ticker, site: s, draft: !base });
   }
-  return { rows, okRows };
+  return { rows, okRows, fundSkip };
 }
 function syncAddIisPos(t) {
   const up = x => String(x || '').toUpperCase();
@@ -1438,6 +1471,29 @@ function syncApplyIisAdd() {
   const adds = (syncComputeIIS() || { rows: [] }).rows.filter(r => r.type === 'add');
   adds.forEach(r => syncAddIisPos(r.t));
 }
+/* Фонд из выгрузки Т-Банка (осн. счёт или ИИС): черновик в разделе «Фонды».
+   Для ИИС-варианта название наследуется от осн. фонда с тем же тикером. */
+function syncAddFundPos(code, iis) {
+  const src = iis ? TBSYNC.data2 : TBSYNC.data;
+  if (!src) return;
+  const p = (src.positions || []).find(x =>
+    tbTick(x.ticker) === tbTick(code) || tbTick(x.isin) === tbTick(code));
+  if (!p) return;
+  const twin = (M.funds || []).find(f => !f._deleted &&
+    ((String(f.name).match(/\(([A-Z0-9]{2,8}(?:-RM)?)\)/) || [])[1] || '') === tbTick(code) &&
+    !/·\s*ИИС/.test(String(f.name)));
+  const name = (twin ? twin.name.replace(/ · (осн|ИИС)$/, '')
+    : String(p.name || '').trim() + ' (' + tbTick(code) + ')') + (iis ? ' · ИИС' : ' · осн');
+  const n = nextN(M, EDITS.added.map(a => a.item));
+  const it = { n, name, manager: twin ? twin.manager : '', type: twin ? twin.type : 'БПИФ',
+    qty: p.qty, current_nav: p.price, value: r2((p.qty || 0) * (p.price || 0)),
+    performance_pct: twin ? twin.performance_pct : null, forecast: null,
+    nav_date: String(src.generated_at || '').slice(0, 10) };
+  upsertAdded('fund', tbTick(code) + (iis ? ':iis' : ':osn'), it);
+  refresh(); autosave();
+  toast('Добавлено в фонды из выгрузки Т-Банка' + (iis ? ' (ИИС)' : '') +
+    ': ' + tbTick(code) + ' ' + nf(p.qty) + ' шт');
+}
 
 function syncRender() {
   if (!TBSYNC.data && !TBSYNC.data2) { syncBodyEmpty(); return; }
@@ -1456,6 +1512,7 @@ function syncRender() {
 
   const h = [];
   if (TBSYNC.data) h.push('<div class="sync-line">' + tbTotalsLine() + '</div>');
+  if (TBSYNC.data2) h.push('<div class="sync-line">' + tbGrandTotalLine() + '</div>');
   h.push('<table class="sync-tbl"><tbody>');
   const qtyS = v => nf(v, v % 1 ? 2 : 0) + ' шт';
   for (const r of c.rows) {
@@ -1512,13 +1569,16 @@ function syncRender() {
   if (c.fundRows.length || c.fundLeft.length || c.fundNoCode.length) {
     h.push('<div class="sync-line"><b>Фонды:</b> ');
     const fr = c.fundRows.map(fr => fr.diff
-      ? esc(shortFundName(fr.f)) + ': сайт ' + nf(fr.f.qty) + ' → Т-Банк ' + nf(fr.p.qty) +
+      ? esc(shortFundName(fr.f)) + (fr.iis ? ' · ИИС' : '') + ': сайт ' + nf(fr.f.qty) + ' → Т-Банк' +
+        (fr.iis ? ' (ИИС)' : '') + ' ' + nf(fr.p.qty) +
         ' <button class="btn sm acc" data-tbfix="funds:' + fr.f.n + '|' + fr.p.qty + '">✓ исправить</button>'
-      : esc(shortFundName(fr.f)) + ' ' + nf(fr.f.qty) + ' паёв ✓').join(' · ');
+      : esc(shortFundName(fr.f)) + (fr.iis ? ' · ИИС' : '') + ' ' + nf(fr.f.qty) + ' паёв ✓').join(' · ');
     h.push(fr || 'совпадений по тикерам не найдено');
     if (c.fundLeft.length) h.push('<br><span class="hint">в Т-Банке есть фонды, которых нет на сайте: ' +
-      c.fundLeft.map(p => esc((p.ticker || p.figi) + ' ' + nf(p.qty) + ' шт × ' + tbPx(p.price))).join(' · ') + '</span>');
-    if (c.fundNoCode.length) h.push('<br><span class="hint">на сайте без тикера (не сверяются автоматически): ' +
+      c.fundLeft.map(fl => esc((tbTick(fl.p.ticker) || fl.p.figi) + ' ' + nf(fl.p.qty) + ' шт × ' + tbPx(fl.p.price) +
+        ' <button class="btn sm" data-tbfadd="' + esc(tbTick(fl.p.ticker)) + (fl.iis ? '|iis' : '') +
+        '">+ добавить в фонды' + (fl.iis ? ' (ИИС)' : '') + '</button>')).join(' · ') + '</span>');
+    if (c.fundNoCode.length) h.push('<br><span class="hint">на сайте не сверяются (нет кода в названии или нет выгрузки соотв. счёта): ' +
       c.fundNoCode.map(f => esc(shortFundName(f))).join(' · ') + '</span>');
     h.push('</div>');
   }
@@ -1529,7 +1589,10 @@ function syncRender() {
     const nAddI = ci.rows.filter(r => r.type === 'add').length;
     h.push('<div class="sync-line"><b>ИИС (второй счёт, tbank_iis.json от ' +
       esc(String(TBSYNC.data2.generated_at || '').slice(0, 16)) + '):</b> ' +
-      (ci.rows.length ? 'расхождений: ' + ci.rows.length : '<span class="sync-ok">совпадает ✓</span>') + '</div>');
+      (ci.rows.length ? 'расхождений: ' + ci.rows.length : '<span class="sync-ok">совпадает ✓</span>') +
+      (ci.fundSkip && ci.fundSkip.length ? ' · <span class="hint">фонды из ИИС (' +
+        ci.fundSkip.map(p => esc(tbTick(p.ticker)) + ' ' + nf(p.qty) + ' шт').join(', ') +
+        ') сверяются в блоке «Фонды»</span>' : '') + '</div>');
     if (ci.rows.length) {
       h.push('<table class="sync-tbl"><tbody>');
       for (const r of ci.rows) {

@@ -78,7 +78,8 @@ for u in list(d['upcoming_dividends']):
 FUND_URL = {'ОПИФ «Флагманский»': 'https://investfunds.ru/funds/10353/',
             'ОПИФ «Рублевые перспективы»': 'https://investfunds.ru/funds/11073/',
             'БПИФ «БКС Денежный рынок» (BCSD)': 'https://investfunds.ru/funds/10831/',
-            'БПИФ «Т-Капитал Денежный рынок» (TMON)': 'https://investfunds.ru/funds/8628/'}
+            'БПИФ «Т-Капитал Денежный рынок» (TMON) · осн': 'https://investfunds.ru/funds/8628/',
+            'БПИФ «Т-Капитал Денежный рынок» (TMON) · ИИС': 'https://investfunds.ru/funds/8628/'}
 def fund_nav(u):
     t = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', re.sub(r'<script[\s\S]*?</script>', '', get(u))))
     m = re.search(r'и СЧА (\d\d\.\d\d\.\d{4})\s+Пай\s+([\d.]+(?:\s\d[\d.]*)?)\s+СЧА', t)
