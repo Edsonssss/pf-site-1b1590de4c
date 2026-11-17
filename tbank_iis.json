@@ -1,0 +1,75 @@
+{
+ "account": "2136583875",
+ "generated_at": "2026-11-17 14:36:59",
+ "totals": {
+  "totalAmountBonds": {
+   "value": 30017.4,
+   "currency": "rub"
+  },
+  "totalAmountEtf": {
+   "value": 503.94,
+   "currency": "rub"
+  },
+  "totalAmountCurrencies": {
+   "value": 0.1,
+   "currency": "rub"
+  },
+  "totalAmountPortfolio": {
+   "value": 30521.44,
+   "currency": "rub"
+  }
+ },
+ "positions": [
+  {
+   "figi": "TCS00A10C5L7",
+   "ticker": "RU000A10C5L7",
+   "isin": "RU000A10C5L7",
+   "name": "Селигдар 001Р-04",
+   "instrumentType": "Bond",
+   "currency": "rub",
+   "qty": 30.0,
+   "price": 1000.58,
+   "price_raw_pct_nominal": "998.5 ₽ + НКД 2.08",
+   "nominal": 1000.0,
+   "nkd": 2.08,
+   "avg_price": 1001.0,
+   "value": 30017.4,
+   "expected_yield": -75.3,
+   "blocked": false
+  },
+  {
+   "figi": "RUB000UTSTOM",
+   "ticker": "RUB000UTSTOM",
+   "isin": "",
+   "name": "Российский рубль",
+   "instrumentType": "Currency",
+   "currency": "rub",
+   "qty": 0.1,
+   "price": 1.0,
+   "price_raw_pct_nominal": null,
+   "nominal": null,
+   "nkd": null,
+   "avg_price": 1.0,
+   "value": 0.1,
+   "expected_yield": 0.0,
+   "blocked": false
+  },
+  {
+   "figi": "TCS70A106DL2",
+   "ticker": "TMON@",
+   "isin": "RU000A106DL2",
+   "name": "Денежный рынок",
+   "instrumentType": "Etf",
+   "currency": "rub",
+   "qty": 3.0,
+   "price": 167.98,
+   "price_raw_pct_nominal": null,
+   "nominal": null,
+   "nkd": null,
+   "avg_price": 167.98,
+   "value": 503.94,
+   "expected_yield": 0.0,
+   "blocked": false
+  }
+ ]
+}
