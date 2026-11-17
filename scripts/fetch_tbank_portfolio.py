@@ -242,13 +242,22 @@ def money(m):
 accounts = call("UsersService/GetAccounts", {})["accounts"]
 print("Счета:")
 for a in accounts:
-    print(f"  {a['id']}  {a.get('type')}  {a.get('name', '')}  access={a.get('accessLevel')}")
+    print(f"  {a['id']}  type={a.get('type')!r}  name={a.get('name', '')!r}  "
+          f"access={a.get('accessLevel')}")
+
+def is_iis(a):
+    """Счёт ИИС: по типу (ACCOUNT_TYPE_TINKOFF_IIS и любые вариации записи)
+    или по имени («ИИС»). Явный --iis / секрет TB_IIS_ACCOUNT перекрывает."""
+    return ("IIS" in str(a.get("type") or "").upper()
+            or "ИИС" in str(a.get("name") or "").upper()
+            or "IIS" in str(a.get("name") or "").upper())
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--account", help="id счёта (иначе — счёт с ненулевым портфелем)")
 ap.add_argument("--out", default="tbank_portfolio.json")
 ap.add_argument("--site", default="", help="путь к portfolio_data.json сайта для сверки")
-ap.add_argument("--iis", help="id счёта ИИС (иначе первый счёт типа ACCOUNT_TYPE_TINKOFF_IIS)")
+ap.add_argument("--iis", help="id счёта ИИС (иначе: по type/имени счёта "
+                              "или по бумагам из секции iis сайта)")
 args = ap.parse_args()
 
 
@@ -266,8 +275,10 @@ else:
     # пустой ИИС или второй брокерский, выгрузка выходила пустой
     # (positions: []), и сверка на странице не находила ни одной совпавшей
     # позиции. Сперва счёта с полным доступом, потом остальные.
-    broker_types = ("ACCOUNT_TYPE_TINKOFF", "ACCOUNT_TYPE_TINKOFF_IIS")
-    candidates = [a for a in accounts if a.get("type") in broker_types] or list(accounts)
+    # ИИС не должен становиться «основным» счётом: исключаем его из кандидатов
+    # (в т.ч. если API вернул для ИИС нестандартный type — см. is_iis).
+    non_iis = [a for a in accounts if not is_iis(a)]
+    candidates = non_iis or list(accounts)
     candidates.sort(key=lambda a: 0 if a.get("accessLevel") == "ACCOUNT_ACCESS_LEVEL_FULL_ACCESS"
                     else 1)
     print(f"\nСчёт не указан — ищу счёт с позициями среди {len(candidates)} "
@@ -468,13 +479,88 @@ if site and os.path.exists(site):
 # --------------------------------------------------- 6. ИИС: второй счёт Т-Банка
 # ИИС = полноценный второй счёт: выгружается так же, как основной,
 # сохраняется в tbank_iis.json и сверяется с iis.positions на сайте.
+# Определение счёта ИИС (по убыванию надёжности):
+#   1) --iis <id> или секрет TB_IIS_ACCOUNT;
+#   2) type содержит IIS (ACCOUNT_TYPE_TINKOFF_IIS и любые вариации записи);
+#   3) имя счёта содержит «ИИС»/IIS;
+#   4) резерв: у настоящего ИИС в портфеле есть бумаги из секции iis сайта
+#      (живой случай 17.11.2026: GetAccounts не вернул ни одного счёта с
+#      type=ACCOUNT_TYPE_TINKOFF_IIS — проверка по type ничего не находила,
+#      выгрузка ИИС пропускалась, и облигация исчезала из сверки).
+
+def site_iis_tickers():
+    """тикеры/ISIN секции iis сайта (для резервного определения ИИС)"""
+    spath = args.site or ("portfolio_data.json" if os.path.exists("portfolio_data.json") else "")
+    try:
+        sd = json.load(open(spath, encoding="utf-8")) if spath and os.path.exists(spath) else {}
+    except Exception:
+        sd = {}
+    out = set()
+    for s0 in (sd.get("iis") or {}).get("positions", []):
+        for key in (s0.get("ticker"), s0.get("isin")):
+            if key:
+                out.add(str(key).upper())
+    return out
+
 iis_id = args.iis or os.environ.get("TB_IIS_ACCOUNT")
+iis_how = "указан явно (--iis / секрет TB_IIS_ACCOUNT)" if iis_id else ""
 if not iis_id:
-    iis_accs = [a for a in accounts if a.get("type") == "ACCOUNT_TYPE_TINKOFF_IIS"]
-    iis_id = iis_accs[0]["id"] if iis_accs else ""
+    by_type = [a for a in accounts if "IIS" in str(a.get("type") or "").upper()]
+    if by_type:
+        iis_id, iis_how = by_type[0]["id"], f"type={by_type[0].get('type')}"
+if not iis_id:
+    by_name = [a for a in accounts if is_iis(a)]
+    if by_name and by_name[0]["id"] != acc:
+        iis_id, iis_how = by_name[0]["id"], f"name={by_name[0].get('name')!r}"
+pf2_saved = None
+if not iis_id:
+    site_tickers = site_iis_tickers()
+    rest = [a for a in accounts if a["id"] != acc]
+    if site_tickers and rest:
+        print(f"\nИИС по type/имени не определён — проверяю остальные счёта на бумаги "
+              f"из секции iis сайта ({', '.join(sorted(site_tickers))}):")
+        for a in rest:
+            try:
+                p2 = portfolio_of(a["id"])
+            except SystemExit as e:
+                print(f"  {a['id']}: портфель не получен ({str(e)[:120]})")
+                continue
+            have = set()
+            for r in build_rows(p2):
+                have |= {str(r.get("ticker") or "").upper(),
+                         str(r.get("isin") or "").upper()}
+            have.discard("")
+            hit = have & site_tickers
+            print(f"  {a['id']} ({a.get('name', '')}): позиций "
+                  f"{len(p2.get('positions') or [])}, совпадения с iis сайта: "
+                  f"{', '.join(sorted(hit)) or 'нет'}")
+            if hit:
+                iis_id, iis_how, pf2_saved = a["id"], "по бумагам из секции iis сайта", p2
+                break
+            time.sleep(0.3)
+    elif len(rest) == 1:
+        a = rest[0]
+        try:
+            p2 = portfolio_of(a["id"])
+        except SystemExit as e:
+            p2 = {}
+            print(f"  портфель единственного оставшегося счёта не получен ({str(e)[:120]})")
+        if p2.get("positions"):
+            iis_id = a["id"]
+            iis_how = "единственный оставшийся счёт с позициями (по исключению)"
+            pf2_saved = p2
+    if not iis_id:
+        print("\nИИС не определён. Счета в GetAccounts:")
+        for a in accounts:
+            print(f"  {a['id']}  type={a.get('type')!r}  name={a.get('name', '')!r}")
+        print("  → укажите id ИИС: --iis <id> или секрет TB_IIS_ACCOUNT")
+
 if iis_id and iis_id != acc:
-    print(f"\n=== ИИС: счёт {iis_id} ===")
-    pf2 = call("OperationsService/GetPortfolio", {"accountId": iis_id})
+    print(f"\n=== ИИС: счёт {iis_id} ({iis_how}) ===")
+    if pf2_saved is not None:
+        pf2 = pf2_saved
+    else:
+        pf2 = call("OperationsService/GetPortfolio", {"accountId": iis_id})
     rows2 = build_rows(pf2)
     for r in rows2:
         px = f"{r['price']:,.4f}".rstrip("0").rstrip(".") if r["price"] is not None else "?"
@@ -526,5 +612,4 @@ if iis_id and iis_id != acc:
             print("  Расхождений нет ✓")
 elif iis_id and iis_id == acc:
     print("\nИИС: счёт совпадает с основным — вторая выгрузка пропущена")
-else:
-    print("\nИИС: счёт типа ИИС не найден в GetAccounts — вторая выгрузка пропущена")
+# else: «ИИС не определён» уже напечатан в блоке определения (со списком счетов)

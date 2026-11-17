@@ -51,8 +51,10 @@ jobs:
           #                             # счёт; иначе скрипт сам переберёт
           #                             # брокерские и возьмёт счёт с позициями
         run: |
-          # скрипт сам найдёт второй счёт (ИИС, ACCOUNT_TYPE_TINKOFF_IIS) и
-          # сохранит его в tbank_iis.json; точечно: --iis <id> или секрет TB_IIS_ACCOUNT
+          # скрипт сам найдёт второй счёт: по типу ACCOUNT_TYPE_TINKOFF_IIS,
+          # по имени «ИИС» или резервно — по бумагам из секции iis сайта
+          # (GetAccounts может вернуть ИИС без специального типа);
+          # точечно: --iis <id> или секрет TB_IIS_ACCOUNT. Результат: tbank_iis.json
           python scripts/fetch_tbank_portfolio.py --out tbank_portfolio.json
 
       - name: Загрузить артефакт (журнал выгрузки)

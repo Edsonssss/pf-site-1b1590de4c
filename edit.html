@@ -1265,11 +1265,23 @@ function syncCompute() {
   const etfs = pos.filter(p => p.instrumentType === 'Etf');
   const rows = [], okRows = [], seen = new Set();
   const up = t => String(t || '').toUpperCase();
+  // секция ИИС сайта: бумага из выгрузки ОСНОВНОГО счёта, совпавшая с
+  // iis.positions (по тикеру/ISIN), — не «добавить в черновик», а пометка
+  // «на ИИС» (тип iisok); расхождением не считается
+  const iisMap = {};
+  for (const s of (M.iis ? M.iis.positions : [])) {
+    if (s.ticker) iisMap[up(s.ticker)] = s;
+    if (s.isin) iisMap[up(s.isin)] = s;
+  }
   for (const p of shares) {
     const t = up(p.ticker || p.figi);
     seen.add(t);
     const site = M.stocks.find(s => up(s.ticker) === t);
-    if (!site) { rows.push({ type: 'add', p, t }); continue; }
+    if (!site) {
+      const i0 = iisMap[t];
+      if (i0) { rows.push({ type: 'iisok', p, t, site: i0 }); continue; }
+      rows.push({ type: 'add', p, t }); continue;
+    }
     if (site._deleted) { rows.push({ type: 'ret', p, t }); continue; }
     if (Math.abs((site.qty || 0) - (p.qty || 0)) > 1e-9) { rows.push({ type: 'fix', p, t, site }); continue; }
     okRows.push({ p, site });
@@ -1437,7 +1449,7 @@ function syncRender() {
   const nRet = c.rows.filter(r => r.type === 'ret').length;
   const nFund = c.fundRows.filter(fr => fr.diff).length;
   const ci0 = syncComputeIIS();
-  const nAll = c.rows.length + nFund + (ci0 ? ci0.rows.length : 0);
+  const nAll = c.rows.filter(r => r.type !== 'iisok').length + nFund + (ci0 ? ci0.rows.length : 0);
   $('tb-status').textContent = 'выгрузка применена' + (TBSYNC.data2 ? ' · ИИС тоже' : ' (ИИС-файла нет)');
   $('tb-diff').textContent = nAll ? 'расхождений: ' + nAll : 'совпадает ✓';
   $('tb-diff').className = 'diff ' + (nAll ? 'dn' : 'up');
@@ -1460,6 +1472,13 @@ function syncRender() {
         '<td class="l">в Т-Банке: <b>' + qtyS(r.p.qty) + '</b> × ' + tbPx(r.p.price) +
         (r.p.price === 0 ? ' <span class="hint">(возможно, делистинг)</span>' : '') + '</td>' +
         '<td><button class="btn sm" data-tbadd="' + esc(r.p.figi) + '">+ добавить в черновик</button></td></tr>');
+    } else if (r.type === 'iisok') {
+      const dq = Math.abs((r.site.qty || 0) - (r.p.qty || 0)) > 1e-9;
+      h.push('<tr><td class="l">' + tbTitle(r.p) +
+        (r.p.instrumentType === 'Bond' ? ' · облигация' : '') + '</td>' +
+        '<td class="l">на сайте: секция ИИС — <b>' + qtyS(r.site.qty || 0) + '</b></td>' +
+        '<td class="l">в Т-Банке (осн. счёт): <b>' + qtyS(r.p.qty) + '</b> × ' + tbPx(r.p.price) + '</td>' +
+        '<td class="hint">' + (dq ? 'количество ≠ секции ИИС' : 'совпадает с секцией ИИС ✓ — это позиция ИИС, в осн. счёт не добавлять') + '</td></tr>');
     } else if (r.type === 'del') {
       h.push('<tr><td class="l"><b>' + esc(r.t) + '</b> · ' + esc(r.site.name) + '</td>' +
         '<td class="l">на сайте: <b>' + qtyS(r.site.qty) + '</b>' + (r.draft ? ' (черновик)' : '') + '</td>' +
