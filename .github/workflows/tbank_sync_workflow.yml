@@ -18,7 +18,8 @@
 # см. README_edit.md, раздел «Если workflow падает».
 #
 # Скрипт положите в репозиторий: scripts/fetch_tbank_portfolio.py
-# Результат коммитится в корень репозитория как tbank_portfolio.json —
+# Результат коммитится в корень репозитория как tbank_portfolio.json (основной
+# счёт) и tbank_iis.json (ИИС) —
 # на странице правок кнопка «⇄ Сверка с Т-Банком → ⤓ Взять с сайта»
 # подхватит его автоматически. Если коммитить не хотите — удалите
 # последний шаг, файл останется в артефактах сборки.
@@ -50,6 +51,8 @@ jobs:
           #                             # счёт; иначе скрипт сам переберёт
           #                             # брокерские и возьмёт счёт с позициями
         run: |
+          # скрипт сам найдёт второй счёт (ИИС, ACCOUNT_TYPE_TINKOFF_IIS) и
+          # сохранит его в tbank_iis.json; точечно: --iis <id> или секрет TB_IIS_ACCOUNT
           python scripts/fetch_tbank_portfolio.py --out tbank_portfolio.json
 
       - name: Загрузить артефакт (журнал выгрузки)
@@ -63,5 +66,6 @@ jobs:
           git config user.name  "tbank-sync-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add tbank_portfolio.json
+          [ ! -f tbank_iis.json ] || git add tbank_iis.json
           git diff --cached --quiet || git commit -m "tbank portfolio snapshot $(date -u +%F)"
           git push
