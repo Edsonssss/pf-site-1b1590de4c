@@ -1,21 +1,21 @@
 {
  "account": "2136583875",
- "generated_at": "2026-11-20 14:07:50",
+ "generated_at": "2026-11-21 13:33:42",
  "totals": {
   "totalAmountBonds": {
-   "value": 29576.4,
+   "value": 39928.4,
    "currency": "rub"
   },
   "totalAmountEtf": {
-   "value": 504.54,
+   "value": 504.72,
    "currency": "rub"
   },
   "totalAmountCurrencies": {
-   "value": 0.1,
+   "value": 30.19,
    "currency": "rub"
   },
   "totalAmountPortfolio": {
-   "value": 30081.04,
+   "value": 40463.31,
    "currency": "rub"
   }
  },
@@ -27,14 +27,14 @@
    "name": "Селигдар 001Р-04",
    "instrumentType": "Bond",
    "currency": "rub",
-   "qty": 30.0,
-   "price": 985.88,
-   "price_raw_pct_nominal": "981.2 ₽ + НКД 4.68",
+   "qty": 40.0,
+   "price": 998.21,
+   "price_raw_pct_nominal": "993 ₽ + НКД 5.21",
    "nominal": 1000.0,
-   "nkd": 4.68,
-   "avg_price": 1001.0,
-   "value": 29576.4,
-   "expected_yield": -594.3,
+   "nkd": 5.21,
+   "avg_price": 998.6,
+   "value": 39928.4,
+   "expected_yield": -223.3,
    "blocked": false
   },
   {
@@ -44,13 +44,13 @@
    "name": "Российский рубль",
    "instrumentType": "Currency",
    "currency": "rub",
-   "qty": 0.1,
+   "qty": 30.19,
    "price": 1.0,
    "price_raw_pct_nominal": null,
    "nominal": null,
    "nkd": null,
    "avg_price": 1.0,
-   "value": 0.1,
+   "value": 30.19,
    "expected_yield": 0.0,
    "blocked": false
   },
@@ -62,13 +62,13 @@
    "instrumentType": "Etf",
    "currency": "rub",
    "qty": 3.0,
-   "price": 168.18,
+   "price": 168.24,
    "price_raw_pct_nominal": null,
    "nominal": null,
    "nkd": null,
    "avg_price": 167.98,
-   "value": 504.54,
-   "expected_yield": 0.6,
+   "value": 504.72,
+   "expected_yield": 0.78,
    "blocked": false
   }
  ]
