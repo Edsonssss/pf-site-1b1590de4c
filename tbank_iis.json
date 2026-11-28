@@ -1,13 +1,13 @@
 {
  "account": "2136583875",
- "generated_at": "2026-11-27 15:14:13",
+ "generated_at": "2026-11-28 14:19:05",
  "totals": {
   "totalAmountBonds": {
-   "value": 40305.2,
+   "value": 40354.0,
    "currency": "rub"
   },
   "totalAmountEtf": {
-   "value": 505.8,
+   "value": 506.19,
    "currency": "rub"
   },
   "totalAmountCurrencies": {
@@ -15,7 +15,7 @@
    "currency": "rub"
   },
   "totalAmountPortfolio": {
-   "value": 40841.19,
+   "value": 40890.38,
    "currency": "rub"
   }
  },
@@ -28,13 +28,13 @@
    "instrumentType": "Bond",
    "currency": "rub",
    "qty": 40.0,
-   "price": 1007.63,
-   "price_raw_pct_nominal": "999.3 ₽ + НКД 8.33",
+   "price": 1008.85,
+   "price_raw_pct_nominal": "1000 ₽ + НКД 8.85",
    "nominal": 1000.0,
-   "nkd": 8.33,
+   "nkd": 8.85,
    "avg_price": 998.6,
-   "value": 40305.2,
-   "expected_yield": 28.7,
+   "value": 40354.0,
+   "expected_yield": 56.7,
    "blocked": false
   },
   {
@@ -62,13 +62,13 @@
    "instrumentType": "Etf",
    "currency": "rub",
    "qty": 3.0,
-   "price": 168.6,
+   "price": 168.73,
    "price_raw_pct_nominal": null,
    "nominal": null,
    "nkd": null,
    "avg_price": 167.98,
-   "value": 505.8,
-   "expected_yield": 1.86,
+   "value": 506.19,
+   "expected_yield": 2.25,
    "blocked": false
   }
  ]
